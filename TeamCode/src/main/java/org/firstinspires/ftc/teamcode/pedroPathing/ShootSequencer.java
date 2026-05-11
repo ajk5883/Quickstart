@@ -13,11 +13,28 @@ public class ShootSequencer {
     private Shooter shooter;
     private BallSpinnerController spinner;
 
+    // Configurable timing/velocity parameters (can be changed by caller)
+    private int Default_spinupTimeoutMs = 3000;
+    private double Default_shooterTargetVelocity = 3000.0;
+    private double Default_shooterVelocityThreshold = 50.0;
+    private int Default_hoodposition_Angle = 0;
+
+    private int Target_Hoodposition_Angle = 0;
+    
+    private int spinupTimeoutMs;
+    private double shooterTargetVelocity;
+    private double shooterVelocityThreshold;
+
+
     public ShootSequencer() {
         gate = new GateController();
         hood = new HoodController();
         shooter = new Shooter();
         spinner = new BallSpinnerController();
+    }
+
+    public void Set_Hoodposition_Angle(int angle) {
+        Target_Hoodposition_Angle = angle;
     }
 
     /**
@@ -32,6 +49,20 @@ public class ShootSequencer {
         hood.init(hardwareMap, hoodServoName, hoodMinPos, hoodMaxPos);
         gate.init(hardwareMap, gateServoName, gateOpenPos, gateClosedPos);
         spinner.init(hardwareMap, spinnerMotorName);
+
+        setSpinupTimeoutMs(Default_spinupTimeoutMs);
+        setShooterTargetVelocity(Default_shooterTargetVelocity);
+        setShooterVelocityThreshold(Default_shooterVelocityThreshold); 
+        
+        
+
+        // Ensure everything starts in a safe default state
+        gate.closeGate();
+        spinner.turnOff();
+        shooter.stopShooter();
+        hood.setAngle(Default_hoodposition_Angle);
+
+
     }
 
     // Accessors
@@ -56,23 +87,18 @@ public class ShootSequencer {
     private ShootState shootState = ShootState.IDLE;
     private ShootMode shootMode = ShootMode.NONE;
     private boolean shootingSequenceActive = false;
-    private boolean shootingRequested = false;
     private boolean intakeActive = false;
-    private boolean keepSpinnerRunningAfterShoot = false;
+    private boolean stopRequested = false;
+    private boolean keepShooterRunningAfterShoot = false;
     private long shootStateStartMs = 0;
     private long shootingDurationMs = 0;
 
-    // Configurable timing/velocity parameters (can be changed by caller)
-    private int spinupTimeoutMs = 3000;
-    private double shooterTargetVelocity = 3000.0;
-    private double shooterVelocityThreshold = 50.0;
+
 
     /**
      * Call repeatedly from your OpMode loop to advance the sequencer's state machine.
      */
-    public void loop() {
-        updateBallSpinnerMotor();
-
+    public void loop(boolean bshooterActiveRequested) {
         if (!shootingSequenceActive) {
             return;
         }
@@ -81,12 +107,18 @@ public class ShootSequencer {
 
         switch (shootState) {
             case IDLE:
-                shootState = ShootState.SPINUP;
-                shootStateStartMs = now;
+                // Idle state does nothing; active sequences always start at SPINUP.
                 break;
 
             case SPINUP:
+                if (stopRequested) {
+                    shootState = ShootState.STOPPING;
+                    break;
+                }
+
+                hood.setAngle(Target_Hoodposition_Angle);
                 shooter.startShooter(shooterTargetVelocity);
+                
                 if (shooter.isVelocityWithinThreshold() || now - shootStateStartMs >= spinupTimeoutMs) {
                     gate.openGate();
                     shootState = ShootState.SHOOTING;
@@ -96,27 +128,33 @@ public class ShootSequencer {
 
             case SHOOTING:
                 gate.openGate();
-                if (shootMode == ShootMode.TIMED) {
+                spinner.turnOn();
+                
+                if (stopRequested) {
+                    shootState = ShootState.STOPPING;
+                } else if (shootMode == ShootMode.TIMED) {
                     if (now - shootStateStartMs >= shootingDurationMs) {
                         shootState = ShootState.STOPPING;
-                        shootStateStartMs = now;
                     }
                 } else if (shootMode == ShootMode.ACTIVE_FLAG) {
-                    if (!shootingRequested) {
+                    if (!bshooterActiveRequested) {
                         shootState = ShootState.STOPPING;
-                        shootStateStartMs = now;
                     }
                 }
                 break;
 
             case STOPPING:
                 gate.closeGate();
-                if (!keepSpinnerRunningAfterShoot) {
+                if (!intakeActive) {
                     spinner.turnOff();
                 }
-                shooter.stopShooter();
-                shootingSequenceActive = false;
-                shooterActive = false;
+                stopRequested = false; // reset stop request for next time
+
+                if (!keepShooterRunningAfterShoot) {
+                    shooter.stopShooter();
+                }
+                
+                shootingSequenceActive = false;                
                 shootMode = ShootMode.NONE;
                 shootState = ShootState.IDLE;
                 break;
@@ -133,50 +171,54 @@ public class ShootSequencer {
         this.shooterVelocityThreshold = velocityThreshold;
         this.shooter.setVelocityThreshold(velocityThreshold);
         this.shootingSequenceActive = true;
-        this.shootingRequested = true;
         this.shootState = ShootState.SPINUP;
+        this.stopRequested = false;
         this.shootStateStartMs = System.currentTimeMillis();
+        
+        this.gate.closeGate();
+        if (!this.intakeActive) {
+            this.spinner.turnOff();
+        }
     }
 
     /**
      * Start a shooting sequence that stays active while `shooterActive` remains true.
      * Intended for teleop use with a button press.
      */
-    public void startShootingSequence(boolean shooterActive, double targetVelocity, double velocityThreshold) {
+    public void startShootingSequence(double targetVelocity, double velocityThreshold) {
         this.shootMode = ShootMode.ACTIVE_FLAG;
         this.shooterTargetVelocity = targetVelocity;
         this.shooterVelocityThreshold = velocityThreshold;
         this.shooter.setVelocityThreshold(velocityThreshold);
         this.shootingSequenceActive = true;
-        this.shootingRequested = shooterActive;
         this.shootState = ShootState.SPINUP;
+        this.stopRequested = false;
         this.shootStateStartMs = System.currentTimeMillis();
-    }
-
-    /**
-     * Update the active flag for teleop shooting sequences.
-     */
-    public void setShooterActive(boolean shooterActive) {
-        this.shootingRequested = shooterActive;
-        if (!shooterActive && shootMode == ShootMode.ACTIVE_FLAG && shootingSequenceActive) {
-            shootState = ShootState.STOPPING;
-            shootStateStartMs = System.currentTimeMillis();
+        
+        this.gate.closeGate();
+        if (!this.intakeActive) {
+            this.spinner.turnOff();
         }
     }
+
 
     /**
      * Stop any active shooting sequence and ensure all subsystems are closed/stopped.
      */
     public void stopShootingSequence() {
-        this.shootingSequenceActive = false;
-        this.shootingRequested = false;
-        this.shootMode = ShootMode.NONE;
-        this.shootState = ShootState.IDLE;
-        gate.closeGate();
-        if (!keepSpinnerRunningAfterShoot) {
-            spinner.turnOff();
+        this.stopRequested = true;
+        
+        if (!shootingSequenceActive) {
+            // If the loop isn't active to process the state machine, force shutdown now
+            gate.closeGate();
+            if (!intakeActive) {
+                spinner.turnOff();
+            }
+            if (!keepShooterRunningAfterShoot) {
+                shooter.stopShooter();
+            }
+            this.stopRequested = false;
         }
-        shooter.stopShooter();
     }
 
     /**
@@ -185,28 +227,22 @@ public class ShootSequencer {
      */
     public void startIntake() {
         intakeActive = true;
-        updateBallSpinnerMotor();
+        spinner.turnOn();
     }
 
     public void stopIntake() {
         intakeActive = false;
-        updateBallSpinnerMotor();
+        if(shootState != ShootState.SHOOTING) {
+            spinner.turnOff();
+        }        
     }
 
     /**
      * Controls whether the feeder/spinner should continue running after the shooting phase ends.
      */
-    public void setKeepSpinnerRunningAfterShoot(boolean keepSpinnerRunningAfterShoot) {
-        this.keepSpinnerRunningAfterShoot = keepSpinnerRunningAfterShoot;
-        updateBallSpinnerMotor();
-    }
+    public void setShooterRunningAfterShoot(boolean keep) {
+        this.keepShooterRunningAfterShoot = keep;
 
-    private void updateBallSpinnerMotor() {
-        if (intakeActive || shootingSequenceActive) {
-            spinner.turnOn();
-        } else if (!keepSpinnerRunningAfterShoot) {
-            spinner.turnOff();
-        }
     }
 
     // Optional setters for tuning

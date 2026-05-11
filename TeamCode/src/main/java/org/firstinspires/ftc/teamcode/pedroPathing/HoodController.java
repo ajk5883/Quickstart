@@ -8,12 +8,10 @@ public class HoodController {
     private static final double MAX_DEGREES = 180.0;
 
     private Servo hoodServo;
-    private double hoodMinPosition;
-    private double hoodMaxPosition;
+    private double hoodMinPosition=0.0;
+    private double hoodMaxPosition=1.0;
 
-    public void init(HardwareMap hardwareMap, String servoName, double hoodMinPosition, double hoodMaxPosition) {
-        this.hoodMinPosition = hoodMinPosition;
-        this.hoodMaxPosition = hoodMaxPosition;
+    public void init(HardwareMap hardwareMap, String servoName) {
         hoodServo = hardwareMap.get(Servo.class, servoName);
         hoodServo.setPosition(hoodMinPosition);
     }
