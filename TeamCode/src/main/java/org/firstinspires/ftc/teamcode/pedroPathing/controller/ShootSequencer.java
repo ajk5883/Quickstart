@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,6 +12,7 @@ public class ShootSequencer {
     private HoodController hood;
     private Shooter shooter;
     private BallSpinnerController spinner;
+    private IntakeController intake;
 
     // Configurable timing/velocity parameters (can be changed by caller)
     private int Default_spinupTimeoutMs = 3000;
@@ -31,6 +32,7 @@ public class ShootSequencer {
         hood = new HoodController();
         shooter = new Shooter();
         spinner = new BallSpinnerController();
+        intake = new IntakeController();
     }
 
     public void Set_Hoodposition_Angle(int angle) {
@@ -40,16 +42,12 @@ public class ShootSequencer {
     /**
      * Initialize all sub-controllers with device names and parameters.
      */
-    public void init(HardwareMap hardwareMap,
-                     String shooterMotor1Name, String shooterMotor2Name,
-                     String hoodServoName, double hoodMinPos, double hoodMaxPos,
-                     String gateServoName, double gateOpenPos, double gateClosedPos,
-                     String spinnerMotorName) {
-        shooter.init(hardwareMap, shooterMotor1Name, shooterMotor2Name);
-        hood.init(hardwareMap, hoodServoName, hoodMinPos, hoodMaxPos);
-        gate.init(hardwareMap, gateServoName, gateOpenPos, gateClosedPos);
-        spinner.init(hardwareMap, spinnerMotorName);
-
+    public void init(HardwareMap hardwareMap) {
+        shooter.init(hardwareMap);
+        hood.init(hardwareMap);
+        gate.init(hardwareMap);
+        spinner.init(hardwareMap);
+        intake.init(hardwareMap);
         setSpinupTimeoutMs(Default_spinupTimeoutMs);
         setShooterTargetVelocity(Default_shooterTargetVelocity);
         setShooterVelocityThreshold(Default_shooterVelocityThreshold); 
@@ -61,6 +59,7 @@ public class ShootSequencer {
         spinner.turnOff();
         shooter.stopShooter();
         hood.setAngle(Default_hoodposition_Angle);
+        intake.turnOffIntake();
 
 
     }
@@ -70,7 +69,7 @@ public class ShootSequencer {
     public HoodController getHood() { return hood; }
     public Shooter getShooter() { return shooter; }
     public BallSpinnerController getSpinner() { return spinner; }
-
+    public IntakeController getIntake() { return intake; }
     private enum ShootState {
         IDLE,
         SPINUP,
@@ -228,12 +227,15 @@ public class ShootSequencer {
     public void startIntake() {
         intakeActive = true;
         spinner.turnOn();
+        intake.turnOnIntake();
     }
 
     public void stopIntake() {
         intakeActive = false;
+        intake.turnOffIntake();
         if(shootState != ShootState.SHOOTING) {
             spinner.turnOff();
+            
         }        
     }
 

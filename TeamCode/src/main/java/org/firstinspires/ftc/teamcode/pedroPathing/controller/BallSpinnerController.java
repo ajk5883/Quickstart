@@ -1,12 +1,13 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class BallSpinnerController {
     private DcMotorSimple spinnerMotor;
+    private String motorName = "bslr";
 
-    public void init(HardwareMap hardwareMap, String motorName) {
+    public void init(HardwareMap hardwareMap) {
         spinnerMotor = hardwareMap.get(DcMotorSimple.class, motorName);
     }
 

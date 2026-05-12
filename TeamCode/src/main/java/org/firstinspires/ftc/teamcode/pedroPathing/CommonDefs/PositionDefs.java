@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs;
 
 /**
  * Centralized numeric pose components for autonomous routines.

@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class GateController {
     private Servo gateServo;
-    private double openPosition;
-    private double closedPosition;
+    private double openPosition=0.0;
+    private double closedPosition=0.25;
+    private String servoName = "gate";
 
-    public void init(HardwareMap hardwareMap, String servoName, double openPosition, double closedPosition) {
-        this.openPosition = openPosition;
-        this.closedPosition = closedPosition;
+    public void init(HardwareMap hardwareMap) {
         gateServo = hardwareMap.get(Servo.class, servoName);
         closeGate();
     }
@@ -21,5 +20,13 @@ public class GateController {
 
     public void closeGate() {
         gateServo.setPosition(closedPosition);
+    }
+
+    public void setPosition(double position) {
+        gateServo.setPosition(Math.max(0.0, Math.min(1.0, position)));
+    }
+
+    public double getPosition() {
+        return gateServo.getPosition();
     }
 }

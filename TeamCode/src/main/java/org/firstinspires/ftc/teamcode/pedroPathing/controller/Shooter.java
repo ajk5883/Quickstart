@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,7 +9,11 @@ public class Shooter {
     private double targetVelocity;
     private double velocityThreshold;
 
-    public void init(HardwareMap hardwareMap, String motor1Name, String motor2Name) {
+    private String motor1Name ="launch1";
+    private String motor2Name ="launch2";
+
+
+    public void init(HardwareMap hardwareMap) {
         shooterMotor1 = hardwareMap.get(DcMotorEx.class, motor1Name);
         shooterMotor2 = hardwareMap.get(DcMotorEx.class, motor2Name);
     }
@@ -37,5 +41,13 @@ public class Shooter {
         double motor1Error = Math.abs(shooterMotor1.getVelocity() - targetVelocity);
         double motor2Error = Math.abs(shooterMotor2.getVelocity() - targetVelocity);
         return motor1Error <= velocityThreshold && motor2Error <= velocityThreshold;
+    }
+
+    public double getAverageVelocity() {
+        return (Math.abs(shooterMotor1.getVelocity()) + Math.abs(shooterMotor2.getVelocity())) / 2.0;
+    }
+
+    public double getTargetVelocity() {
+        return targetVelocity;
     }
 }
