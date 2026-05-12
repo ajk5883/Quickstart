@@ -11,6 +11,7 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.CameraController;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import java.util.function.Supplier;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 @TeleOp
 public class TestPedroTeleop extends OpMode {
     private Follower follower;
+    private CameraController cameraController;
     public static Pose startingPose =new Pose(72, 72, 0); //See ExampleAuto to understand how to use this
     private boolean automatedDrive;
     private Supplier<PathChain> pathChain;
@@ -29,6 +31,8 @@ public class TestPedroTeleop extends OpMode {
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
+        cameraController = new CameraController();
+        cameraController.init(hardwareMap);
         follower.setStartingPose(startingPose == null ? new Pose(72, 72, 0) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
@@ -101,13 +105,35 @@ public class TestPedroTeleop extends OpMode {
             slowModeMultiplier -= 0.25;
         }
 
-        telemetryM.debug("position", follower.getPose());
+        Pose pedroPose = follower.getPose();
+        Pose cameraPose = cameraController.getRobotPose();
+        Pose poseDifference = null;
+        if (cameraPose != null) {
+            poseDifference = new Pose(
+                    pedroPose.getX() - cameraPose.getX(),
+                    pedroPose.getY() - cameraPose.getY(),
+                    normalizeRadians(pedroPose.getHeading() - cameraPose.getHeading())
+            );
+        }
+
+        telemetryM.debug("position", pedroPose);
         telemetryM.debug("velocity", follower.getVelocity());
         telemetryM.debug("automatedDrive", automatedDrive);
+        telemetryM.debug("cameraTagCount", cameraController.getTagCount());
+        if (cameraPose != null) telemetryM.debug("cameraPose", cameraPose);
+        if(poseDifference != null) telemetryM.debug("poseDifference", poseDifference);
+        
 
-        telemetry.addData("position", follower.getPose());
+        telemetry.addData("position", pedroPose);
         telemetry.addData("velocity", follower.getVelocity());
         telemetry.addData("automatedDrive", automatedDrive);
+        telemetry.addData("cameraTagCount", cameraController.getTagCount());
+        if (cameraPose != null) telemetry.addData("cameraPose", cameraPose);
+        if (poseDifference != null) telemetry.addData("poseDifference", poseDifference);
         telemetry.update();
+    }
+
+    private double normalizeRadians(double angleRadians) {
+        return Math.atan2(Math.sin(angleRadians), Math.cos(angleRadians));
     }
 }

@@ -6,6 +6,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.controller.HoodController;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.IntakeController;
+import org.firstinspires.ftc.teamcode.pedroPathing.CameraController;
+
+import com.pedropathing.geometry.Pose;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -24,6 +27,7 @@ public class Testing_18954_Individual extends OpMode{
     BallSpinnerController ballSpinnerController;
     ShootSequencer shootSequencer;
     IntakeController intakeController;
+    CameraController cameraController;
 
     private double shooterTargetVelocity = 6000.0;
     private static final double SHOOTER_VELOCITY_STEP = 50.0;
@@ -63,6 +67,8 @@ public class Testing_18954_Individual extends OpMode{
         gateController = shootSequencer.getGate();
         ballSpinnerController = shootSequencer.getSpinner();
         intakeController = shootSequencer.getIntake();
+        cameraController = new CameraController();
+        cameraController.init(hardwareMap);
 
         shooter.setVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
@@ -156,12 +162,20 @@ public class Testing_18954_Individual extends OpMode{
         boolean thresholdReached = shooter.isVelocityWithinThreshold();
         double currentHoodPosition = hoodController.getPosition();
         double currentGatePosition = gateController.getPosition();
+        Pose cameraPose = cameraController.getRobotPose();
 
         telemetry.addData("Target Shooter Velocity (RPM)", shooterTargetVelocity);
         telemetry.addData("Current Shooter Velocity (RPM)", currentShooterVelocity);
         telemetry.addData("Shooter Threshold Reached", thresholdReached);
         telemetry.addData("Current Hood Position", currentHoodPosition);
         telemetry.addData("Current Gate Position", currentGatePosition);
+        telemetry.addData("Cam Tag Count", cameraController.getTagCount());
+        telemetry.addData("Cam Pose Available", cameraPose != null);
+        if (cameraPose != null) {
+            telemetry.addData("Cam X", cameraPose.getX());
+            telemetry.addData("Cam Y", cameraPose.getY());
+            telemetry.addData("Cam Heading (deg)", Math.toDegrees(cameraPose.getHeading()));
+        }
         telemetry.update();
 
         prevLeftBumper = gamepad1.left_bumper;
