@@ -11,14 +11,14 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.CameraController;
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import java.util.function.Supplier;
 
 @Configurable
 @TeleOp
-public class TestPedroTeleop extends OpMode {
+public class Testing_PedroCamPosition extends OpMode {
     private Follower follower;
     private CameraController cameraController;
     public static Pose startingPose =new Pose(72, 72, 0); //See ExampleAuto to understand how to use this

@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.controller.HoodController;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.IntakeController;
-import org.firstinspires.ftc.teamcode.pedroPathing.CameraController;
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 
 import com.pedropathing.geometry.Pose;
 

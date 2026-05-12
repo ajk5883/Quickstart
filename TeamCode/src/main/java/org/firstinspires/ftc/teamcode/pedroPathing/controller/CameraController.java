@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -9,6 +9,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+
 
 /**
  * CameraController wraps the Limelight 3A and provides robot pose estimates in
@@ -170,14 +175,17 @@ public class CameraController {
         if (fiducials == null || fiducials.isEmpty()) return null;
         if (useDecodeGoalOnlyLocalization && !containsAnyTag(fiducials, decodeGoalTagIds)) return null;
 
-        // botpose: [x_m, y_m, z_m, roll_deg, pitch_deg, yaw_deg, latency_ms]
-        double[] botpose = result.getBotpose();
-        if (botpose == null || botpose.length < BOTPOSE_MIN_LENGTH) return null;
+        // NEW: Get the Pose3D object instead of double[]
+        Pose3D botpose = result.getBotpose();
+        if (botpose == null) return null;
 
-        double xInches  = (botpose[BOTPOSE_X_IDX] * METERS_TO_INCHES) + fieldOriginOffsetX;
-        double rawY     = botpose[BOTPOSE_Y_IDX] * METERS_TO_INCHES;
-        double yInches  = (mirrorY ? -rawY : rawY) + fieldOriginOffsetY;
-        double heading  = Math.toRadians(botpose[BOTPOSE_YAW_IDX]) + headingOffsetRad;
+        // Convert the values directly using the Pose3D methods
+        double xInches = (botpose.getPosition().toUnit(DistanceUnit.INCH).x) + fieldOriginOffsetX;
+        double rawY    = botpose.getPosition().toUnit(DistanceUnit.INCH).y;
+        double yInches = (mirrorY ? -rawY : rawY) + fieldOriginOffsetY;
+
+        // Pedro Pathing typically uses Radians for heading
+        double heading = botpose.getOrientation().getYaw(AngleUnit.RADIANS) + headingOffsetRad;
 
         lastValidPose = new Pose(xInches, yInches, heading);
         return lastValidPose;
@@ -295,15 +303,7 @@ public class CameraController {
      * Returns detection latency in milliseconds (index 6 of the botpose array).
      * Returns -1 if unavailable. Use this for latency-compensated pose fusion.
      */
-    public double getLatencyMs() {
-        if (!isInitialized) return -1;
-        LLResult result = limelight.getLatestResult();
-        if (result == null || !result.isValid()) return -1;
-        double[] botpose = result.getBotpose();
-        return (botpose != null && botpose.length > BOTPOSE_LATENCY_IDX)
-                ? botpose[BOTPOSE_LATENCY_IDX]
-                : -1;
-    }
+
 
     // -------------------------------------------------------------------------
     //  Lifecycle
