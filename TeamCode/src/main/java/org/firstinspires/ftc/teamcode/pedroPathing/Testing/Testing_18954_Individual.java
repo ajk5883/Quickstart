@@ -152,13 +152,13 @@ public class Testing_18954_Individual extends OpMode{
             gateController.setPosition(targetGatePosition);
         }
 
-        double currentShooterVelocity = shooter.getAverageVelocity();
+        double currentShooterVelocity = shooter.getAverageVelocityRpm();
         boolean thresholdReached = shooter.isVelocityWithinThreshold();
         double currentHoodPosition = hoodController.getPosition();
         double currentGatePosition = gateController.getPosition();
 
         telemetry.addData("Target Shooter Velocity (RPM)", shooterTargetVelocity);
-        telemetry.addData("Current Shooter Velocity", currentShooterVelocity);
+        telemetry.addData("Current Shooter Velocity (RPM)", currentShooterVelocity);
         telemetry.addData("Shooter Threshold Reached", thresholdReached);
         telemetry.addData("Current Hood Position", currentHoodPosition);
         telemetry.addData("Current Gate Position", currentGatePosition);

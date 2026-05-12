@@ -1,53 +1,118 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+/**
+ * Shooter controller supporting single- or dual-motor configurations.
+ * Defaults to a single motor named "launch1". Motors are reversed by default
+ * (common for mirrored shooter motor installations) and can be configured
+ * to run using encoders for velocity control.
+ */
 public class Shooter {
     private DcMotorEx shooterMotor1;
     private DcMotorEx shooterMotor2;
-    private double targetVelocity;
-    private double velocityThreshold;
 
-    private String motor1Name ="launch1";
-    private String motor2Name ="launch2";
+    private String motor1Name = "launch1";
+    private String motor2Name = "launch2"; // empty => no second motor by default
 
+    private boolean hasSecondMotor = false;
+    private boolean motorsReversed = true;
+    private boolean useEncoders = true;
 
+    // targetVelocity is expressed in RPM (human-friendly). Internally we convert
+    // to ticks/sec for the DcMotorEx velocity calls.
+    private double targetVelocity = 0.0; // RPM
+    private double velocityThreshold = 50.0; // RPM tolerance by default
+
+    private static final double TICKS_PER_REV = 28.0;
+
+    public Shooter() {}
+
+    // --- Initialization ---
     public void init(HardwareMap hardwareMap) {
-        shooterMotor1 = hardwareMap.get(DcMotorEx.class, motor1Name);
-        shooterMotor2 = hardwareMap.get(DcMotorEx.class, motor2Name);
+
+        shooterMotor1 = hardwareMap.get(DcMotorEx.class, this.motor1Name);
+        shooterMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        if (motorsReversed) shooterMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        if (useEncoders) shooterMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        if (hasSecondMotor) {
+            shooterMotor2 = hardwareMap.get(DcMotorEx.class, this.motor2Name);
+            shooterMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            if (motorsReversed) shooterMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+            if (useEncoders) shooterMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        } 
+        else {
+            shooterMotor2 = null;
+        }
     }
 
-    public void setTargetVelocity(double targetVelocity) {
-        this.targetVelocity = targetVelocity;
+
+  
+
+    // --- Setters ---
+    public void setTargetVelocity(double targetVelocity) { this.targetVelocity = targetVelocity; }
+    /**
+     * Set velocity threshold in RPM (how close to targetRPM counts as "ready").
+     */
+    public void setVelocityThreshold(double velocityThreshold) { this.velocityThreshold = velocityThreshold; }
+
+    /** Set motor velocity PIDF coefficients (applied when encoders are used). */
+    public void setVelocityPIDF(double p, double i, double d, double f) {
+        PIDFCoefficients coeffs = new PIDFCoefficients(p, i, d, f);
+        if (shooterMotor1 != null && useEncoders) shooterMotor1.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, coeffs);
+        if (shooterMotor2 != null && hasSecondMotor && useEncoders) shooterMotor2.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, coeffs);
     }
 
-    public void setVelocityThreshold(double velocityThreshold) {
-        this.velocityThreshold = velocityThreshold;
+    public static double rpmToTicksPerSecond(double rpm) {
+        return (rpm / 60.0) * TICKS_PER_REV;
     }
 
+    public static double ticksPerSecondToRpm(double ticksPerSecond) {
+        return (ticksPerSecond / TICKS_PER_REV) * 60.0;
+    }
+
+    // --- Control ---
+    // startShooter expects targetVelocity in RPM; converts to ticks/sec for motor controllers
     public void startShooter(double targetVelocity) {
         setTargetVelocity(targetVelocity);
-        shooterMotor1.setVelocity(targetVelocity);
-        shooterMotor2.setVelocity(targetVelocity);
+        double targetTicksPerSec = rpmToTicksPerSecond(targetVelocity);
+        if (shooterMotor1 != null) shooterMotor1.setVelocity(targetTicksPerSec);
+        if (hasSecondMotor && shooterMotor2 != null) shooterMotor2.setVelocity(targetTicksPerSec);
     }
 
     public void stopShooter() {
-        shooterMotor1.setPower(0);
-        shooterMotor2.setPower(0);
+        if (shooterMotor1 != null) shooterMotor1.setPower(0);
+        if (hasSecondMotor && shooterMotor2 != null) shooterMotor2.setPower(0);
     }
 
+    // --- Telemetry / status ---
     public boolean isVelocityWithinThreshold() {
-        double motor1Error = Math.abs(shooterMotor1.getVelocity() - targetVelocity);
-        double motor2Error = Math.abs(shooterMotor2.getVelocity() - targetVelocity);
-        return motor1Error <= velocityThreshold && motor2Error <= velocityThreshold;
+        if (shooterMotor1 == null) return false;
+        double targetTicksPerSec = rpmToTicksPerSecond(targetVelocity);
+        double thresholdTicks = rpmToTicksPerSecond(velocityThreshold);
+        double motor1Error = Math.abs(shooterMotor1.getVelocity() - targetTicksPerSec);
+        if (!hasSecondMotor || shooterMotor2 == null) {
+            return motor1Error <= thresholdTicks;
+        }
+        double motor2Error = Math.abs(shooterMotor2.getVelocity() - targetTicksPerSec);
+        return motor1Error <= thresholdTicks && motor2Error <= thresholdTicks;
     }
 
     public double getAverageVelocity() {
+        if (shooterMotor1 == null) return 0.0;
+        if (!hasSecondMotor || shooterMotor2 == null) return Math.abs(shooterMotor1.getVelocity());
         return (Math.abs(shooterMotor1.getVelocity()) + Math.abs(shooterMotor2.getVelocity())) / 2.0;
     }
 
-    public double getTargetVelocity() {
-        return targetVelocity;
+    public double getTargetVelocity() { return targetVelocity; }
+
+    /** Return average velocity in RPM */
+    public double getAverageVelocityRpm() {
+        return ticksPerSecondToRpm(getAverageVelocity());
     }
 }
