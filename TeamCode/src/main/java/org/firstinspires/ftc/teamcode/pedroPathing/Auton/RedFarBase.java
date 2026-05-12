@@ -18,18 +18,36 @@ import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.PositionDefs;
 @Autonomous(name = "RedFarBase", group = "RedAuton")
 public class RedFarBase extends OpMode {
 
+    private enum PathState {
+        SCORE_PRELOAD,
+        WAIT_SCORE_PRELOAD_COMPLETE,
+        WAIT_SHOT_1,
+        DELAY_BEFORE_GRAB_1,
+        WAIT_GRAB_1_COMPLETE,
+        DELAY_BEFORE_SCORE_1,
+        WAIT_SCORE_1_COMPLETE,
+        WAIT_SHOT_2,
+        DELAY_BEFORE_GRAB_2,
+        WAIT_GRAB_2_COMPLETE,
+        DELAY_BEFORE_SCORE_2,
+        WAIT_SCORE_2_COMPLETE,
+        WAIT_SHOT_3,
+        DELAY_BEFORE_GRAB_3,
+        WAIT_GRAB_3_COMPLETE,
+        DELAY_BEFORE_SCORE_3,
+        WAIT_SCORE_3_COMPLETE,
+        WAIT_SHOT_4,
+        DELAY_BEFORE_PARK,
+        WAIT_PARK_COMPLETE,
+        FINISHED
+    }
+
     private Follower follower;
     private ShootSequencer shootSequencer;
-    private static final double PATH_DELAY_MILLISECONDS = 5000.0;
-    private static final String SHOOTER_MOTOR_1_NAME = "shooter1";
-    private static final String SHOOTER_MOTOR_2_NAME = "shooter2";
-    private static final String HOOD_SERVO_NAME = "hood";
-    private static final double HOOD_MIN_POS = 0.0;
-    private static final double HOOD_MAX_POS = 1.0;
-    private static final String GATE_SERVO_NAME = "gate";
-    private static final double GATE_OPEN_POS = 1.0;
-    private static final double GATE_CLOSED_POS = 0.0;
-    private static final String SPINNER_MOTOR_NAME = "spinner";
+    
+    private static final boolean Enable_Debug_Path_Wait = false;
+    private static final double Debug_Delay = 1000.0;
+
     private static final int SHOOT_DURATION_MS = 900;
     private static final double SHOOT_TARGET_VELOCITY = 3000.0;
     private static final double SHOOT_VELOCITY_THRESHOLD = 50.0;
@@ -48,27 +66,53 @@ public class RedFarBase extends OpMode {
     private Path scorePreload;
     private PathChain grabPickup1, scorePickup1, grabPickup2, scorePickup2, grabPickup3, scorePickup3, park;
     private Timer pathTimer, opmodeTimer;
-    private int pathState;
+    private PathState pathState = PathState.FINISHED;
+    private long shootSequenceStartMs;
     private long shootSequenceEndMs;
 
     private boolean pathDelayElapsed() {
-        return pathTimer.getElapsedTime() >= PATH_DELAY_MILLISECONDS;
+        if (!Enable_Debug_Path_Wait) {
+            return true;
+        }
+        return pathTimer.getElapsedTime() >= Debug_Delay;
     }
 
-    private void followPathAfterDelay(PathChain path, int nextState) {
+    private void followPathAfterDelay(PathChain path, PathState nextState) {
         follower.followPath(path, true);
         setPathState(nextState);
     }
 
-    private void beginTimedShootAtScorePose(int nextStateAfterShot) {
+    private void beginTimedShootAtScorePose(PathState nextStateAfterShot) {
         shootSequencer.stopIntake();
         shootSequencer.startShootingSequence(SHOOT_DURATION_MS, SHOOT_TARGET_VELOCITY, SHOOT_VELOCITY_THRESHOLD);
+        shootSequenceStartMs = System.currentTimeMillis();
         shootSequenceEndMs = System.currentTimeMillis() + SHOOT_SEQUENCE_WAIT_MS;
         setPathState(nextStateAfterShot);
     }
 
     private boolean shootWindowElapsed() {
         return System.currentTimeMillis() >= shootSequenceEndMs;
+    }
+
+    private boolean isShootingWindowState(PathState state) {
+        return state == PathState.WAIT_SHOT_1
+                || state == PathState.WAIT_SHOT_2
+                || state == PathState.WAIT_SHOT_3
+                || state == PathState.WAIT_SHOT_4;
+    }
+
+    private long getShootingElapsedMs() {
+        if (!isShootingWindowState(pathState)) {
+            return 0;
+        }
+        return Math.min(SHOOT_SEQUENCE_WAIT_MS, Math.max(0, System.currentTimeMillis() - shootSequenceStartMs));
+    }
+
+    private long getShootingRemainingMs() {
+        if (!isShootingWindowState(pathState)) {
+            return 0;
+        }
+        return Math.max(0, shootSequenceEndMs - System.currentTimeMillis());
     }
 
 public void buildPaths() {
@@ -129,120 +173,122 @@ public void buildPaths() {
 
     public void autonomousPathUpdate() {
     switch (pathState) {
-        case 0:
+        case SCORE_PRELOAD:
             follower.followPath(scorePreload);
-            setPathState(1);
+            setPathState(PathState.WAIT_SCORE_PRELOAD_COMPLETE);
             break;
-        case 1:
+        case WAIT_SCORE_PRELOAD_COMPLETE:
             if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(2);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_1);
             }
             break;
-        case 2:
+        case WAIT_SHOT_1:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(3);
+                setPathState(PathState.DELAY_BEFORE_GRAB_1);
             }
             break;
-        case 3:
+        case DELAY_BEFORE_GRAB_1:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup1, 4);
+                followPathAfterDelay(grabPickup1, PathState.WAIT_GRAB_1_COMPLETE);
             }
             break;
-        case 4:
+        case WAIT_GRAB_1_COMPLETE:
             if(!follower.isBusy()) {
-                setPathState(5);
+                setPathState(PathState.DELAY_BEFORE_SCORE_1);
             }
             break;
-        case 5:
+        case DELAY_BEFORE_SCORE_1:
             if(pathDelayElapsed()) {
                 shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup1, 6);
+                followPathAfterDelay(scorePickup1, PathState.WAIT_SCORE_1_COMPLETE);
             }
             break;
-        case 6:
+        case WAIT_SCORE_1_COMPLETE:
             if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(7);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_2);
             }
             break;
-        case 7:
+        case WAIT_SHOT_2:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(8);
+                setPathState(PathState.DELAY_BEFORE_GRAB_2);
             }
             break;
-        case 8:
+        case DELAY_BEFORE_GRAB_2:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup2, 9);
+                followPathAfterDelay(grabPickup2, PathState.WAIT_GRAB_2_COMPLETE);
             }
             break;
-        case 9:
+        case WAIT_GRAB_2_COMPLETE:
             if(!follower.isBusy()) {
-                setPathState(10);
+                setPathState(PathState.DELAY_BEFORE_SCORE_2);
             }
             break;
-        case 10:
+        case DELAY_BEFORE_SCORE_2:
             if(pathDelayElapsed()) {
                 shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup2, 11);
+                followPathAfterDelay(scorePickup2, PathState.WAIT_SCORE_2_COMPLETE);
             }
             break;
-        case 11:
+        case WAIT_SCORE_2_COMPLETE:
             if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(12);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_3);
             }
             break;
-        case 12:
+        case WAIT_SHOT_3:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(13);
+                setPathState(PathState.DELAY_BEFORE_GRAB_3);
             }
             break;
-        case 13:
+        case DELAY_BEFORE_GRAB_3:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup3, 14);
+                followPathAfterDelay(grabPickup3, PathState.WAIT_GRAB_3_COMPLETE);
             }
             break;
-        case 14:
+        case WAIT_GRAB_3_COMPLETE:
             if(!follower.isBusy()) {
-                setPathState(15);
+                setPathState(PathState.DELAY_BEFORE_SCORE_3);
             }
             break;
-        case 15:
+        case DELAY_BEFORE_SCORE_3:
             if(pathDelayElapsed()) {
                 shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup3, 16);
+                followPathAfterDelay(scorePickup3, PathState.WAIT_SCORE_3_COMPLETE);
             }
             break;
-        case 16:
+        case WAIT_SCORE_3_COMPLETE:
             if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(17);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_4);
             }
             break;
-        case 17:
+        case WAIT_SHOT_4:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(18);
+                setPathState(PathState.DELAY_BEFORE_PARK);
             }
             break;
-        case 18:
+        case DELAY_BEFORE_PARK:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(park, 19);
+                followPathAfterDelay(park, PathState.WAIT_PARK_COMPLETE);
             }
             break;
-        case 19:
+        case WAIT_PARK_COMPLETE:
             if(!follower.isBusy()) {
                 shootSequencer.stopIntake();
                 shootSequencer.setShooterRunningAfterShoot(false);
                 shootSequencer.stopShootingSequence();
-                setPathState(-1);
+                setPathState(PathState.FINISHED);
             }
+            break;
+        case FINISHED:
             break;
     }
 }
 
 /** These change the states of the paths and actions. It will also reset the timers of the individual switches **/
-public void setPathState(int pState) {
+public void setPathState(PathState pState) {
     pathState = pState;
     pathTimer.resetTimer();
 }
@@ -270,7 +316,7 @@ public void setPathState(int pState) {
     @Override
     public void start() {
         opmodeTimer.resetTimer();
-        setPathState(0);
+        setPathState(PathState.SCORE_PRELOAD);
     }
 
     /** This is the main loop of the OpMode, it will run repeatedly after clicking "Play". **/
@@ -282,6 +328,8 @@ public void setPathState(int pState) {
 
         // Feedback to Driver Hub for debugging
         telemetry.addData("path state", pathState);
+        telemetry.addData("shoot elapsed ms", getShootingElapsedMs());
+        telemetry.addData("shoot remaining ms", getShootingRemainingMs());
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());

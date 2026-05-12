@@ -16,7 +16,7 @@ public class ShootSequencer {
 
     // Configurable timing/velocity parameters (can be changed by caller)
     private int Default_spinupTimeoutMs = 3000;
-    private double Default_shooterTargetVelocity = 3000.0;
+    private double Default_shooterTargetVelocity = 6000.0;
     private double Default_shooterVelocityThreshold = 50.0;
     private int Default_hoodposition_Angle = 0;
 

@@ -49,6 +49,8 @@ public class Shooter {
         else {
             shooterMotor2 = null;
         }
+
+        setVelocityPIDF(14.0, 0.0, 0.4, 13.6); 
     }
 
 

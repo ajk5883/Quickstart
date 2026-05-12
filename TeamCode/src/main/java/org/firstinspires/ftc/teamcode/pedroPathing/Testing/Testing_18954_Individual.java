@@ -70,6 +70,7 @@ public class Testing_18954_Individual extends OpMode{
         cameraController = new CameraController();
         cameraController.init(hardwareMap);
 
+        
         shooter.setVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
 
