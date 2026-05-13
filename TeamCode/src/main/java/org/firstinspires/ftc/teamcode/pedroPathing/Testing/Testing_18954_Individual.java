@@ -1,11 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.Testing;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.controller.BallSpinnerController;
-import org.firstinspires.ftc.teamcode.pedroPathing.controller.GateController;
-import org.firstinspires.ftc.teamcode.pedroPathing.controller.HoodController;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
-import org.firstinspires.ftc.teamcode.pedroPathing.controller.Shooter;
-import org.firstinspires.ftc.teamcode.pedroPathing.controller.IntakeController;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 
 import com.pedropathing.geometry.Pose;
@@ -21,12 +16,7 @@ public class Testing_18954_Individual extends OpMode{
 
     // ---------------- HARDWARE DECLARATION ----------------
 
-    Shooter shooter;
-    HoodController hoodController;
-    GateController gateController;
-    BallSpinnerController ballSpinnerController;
     ShootSequencer shootSequencer;
-    IntakeController intakeController;
     CameraController cameraController;
 
     private double shooterTargetVelocity = 6000.0;
@@ -61,17 +51,10 @@ public class Testing_18954_Individual extends OpMode{
                 // Private init tasks can be added here if needed        
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
+        shootSequencer.setShooterVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
-        shooter = shootSequencer.getShooter();
-        hoodController = shootSequencer.getHood();
-        gateController = shootSequencer.getGate();
-        ballSpinnerController = shootSequencer.getSpinner();
-        intakeController = shootSequencer.getIntake();
         cameraController = new CameraController();
         cameraController.init(hardwareMap);
-
-        
-        shooter.setVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
 
         telemetry.addData("Status", "Initialized");      
@@ -82,12 +65,12 @@ public class Testing_18954_Individual extends OpMode{
 
     public void loop() {
         if (!hoodTargetInitialized) {
-            targetHoodPosition = hoodController.getPosition();
+            targetHoodPosition = shootSequencer.getHoodPosition();
             hoodTargetInitialized = true;
         }
 
         if (!gateTargetInitialized) {
-            targetGatePosition = gateController.getPosition();
+            targetGatePosition = shootSequencer.getGatePosition();
             gateTargetInitialized = true;
         }
 
@@ -114,55 +97,55 @@ public class Testing_18954_Individual extends OpMode{
         }
 
         if (rightTriggerEdge) {
-            shooter.startShooter(shooterTargetVelocity);
+            shootSequencer.startShooterDirectly(shooterTargetVelocity);
         }
 
         if (leftTriggerEdge) {
-            shooter.stopShooter();
+            shootSequencer.stopShooterDirectly();
         }
 
         if (yPressed) {
             intakeEnabled = !intakeEnabled;
             if (intakeEnabled) {
-                intakeController.turnOnIntake();
+                shootSequencer.startIntake();
             } else {
-                intakeController.turnOffIntake();
+                shootSequencer.stopIntake();
             }
         }
 
         if (xPressed) {
             spinnerEnabled = !spinnerEnabled;
             if (spinnerEnabled) {
-                ballSpinnerController.turnOn();
+                shootSequencer.turnOnSpinner();
             } else {
-                ballSpinnerController.turnOff();
+                shootSequencer.turnOffSpinner();
             }
         }
 
         if (dpadUpPressed) {
             targetHoodPosition = Math.min(1.0, targetHoodPosition + POSITION_STEP);
-            hoodController.setPosition(targetHoodPosition);
+            shootSequencer.setHoodPosition(targetHoodPosition);
         }
 
         if (dpadDownPressed) {
             targetHoodPosition = Math.max(0.0, targetHoodPosition - POSITION_STEP);
-            hoodController.setPosition(targetHoodPosition);
+            shootSequencer.setHoodPosition(targetHoodPosition);
         }
 
         if (dpadLeftPressed) {
             targetGatePosition = Math.max(0.0, targetGatePosition - POSITION_STEP);
-            gateController.setPosition(targetGatePosition);
+            shootSequencer.setGatePosition(targetGatePosition);
         }
 
         if (dpadRightPressed) {
             targetGatePosition = Math.min(1.0, targetGatePosition + POSITION_STEP);
-            gateController.setPosition(targetGatePosition);
+            shootSequencer.setGatePosition(targetGatePosition);
         }
 
-        double currentShooterVelocity = shooter.getAverageVelocityRpm();
-        boolean thresholdReached = shooter.isVelocityWithinThreshold();
-        double currentHoodPosition = hoodController.getPosition();
-        double currentGatePosition = gateController.getPosition();
+        double currentShooterVelocity = shootSequencer.getShooterVelocityRpm();
+        boolean thresholdReached = shootSequencer.isShooterVelocityWithinThreshold();
+        double currentHoodPosition = shootSequencer.getHoodPosition();
+        double currentGatePosition = shootSequencer.getGatePosition();
         Pose cameraPose = cameraController.getRobotPose();
 
         telemetry.addData("Target Shooter Velocity (RPM)", shooterTargetVelocity);

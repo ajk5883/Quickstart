@@ -11,22 +11,22 @@ public class ShootingLookupTable {
     public static class LookupEntry {
         public final double distanceInches;
         public final double rpm;
-        public final double hoodAngleDeg;
+        public final double hoodPosition;
 
-        public LookupEntry(double distanceInches, double rpm, double hoodAngleDeg) {
+        public LookupEntry(double distanceInches, double rpm, double hoodPosition) {
             this.distanceInches = distanceInches;
             this.rpm = rpm;
-            this.hoodAngleDeg = hoodAngleDeg;
+            this.hoodPosition = hoodPosition;
         }
     }
 
     public static class ShotSolution {
         public final double rpm;
-        public final double hoodAngleDeg;
+        public final double hoodPosition;
 
-        public ShotSolution(double rpm, double hoodAngleDeg) {
+        public ShotSolution(double rpm, double hoodPosition) {
             this.rpm = rpm;
-            this.hoodAngleDeg = hoodAngleDeg;
+            this.hoodPosition = hoodPosition;
         }
     }
 
@@ -34,15 +34,15 @@ public class ShootingLookupTable {
 
     public ShootingLookupTable() {
         // Placeholder values. Replace with tested measurements.
-        entries.add(new LookupEntry(24.0, 2600.0, 28.0));
-        entries.add(new LookupEntry(36.0, 2900.0, 34.0));
-        entries.add(new LookupEntry(48.0, 3200.0, 40.0));
-        entries.add(new LookupEntry(60.0, 3500.0, 47.0));
+        entries.add(new LookupEntry(24.0, 2600.0, 0.20));
+        entries.add(new LookupEntry(36.0, 2900.0, 0.35));
+        entries.add(new LookupEntry(48.0, 3200.0, 0.50));
+        entries.add(new LookupEntry(60.0, 3500.0, 0.65));
     }
 
     public ShotSolution getNearest(double distanceInches) {
         if (entries.isEmpty()) {
-            return new ShotSolution(3000.0, 35.0);
+            return new ShotSolution(3000.0, 0.35);
         }
 
         LookupEntry best = entries.get(0);
@@ -56,6 +56,6 @@ public class ShootingLookupTable {
             }
         }
 
-        return new ShotSolution(best.rpm, best.hoodAngleDeg);
+        return new ShotSolution(best.rpm, best.hoodPosition);
     }
 }

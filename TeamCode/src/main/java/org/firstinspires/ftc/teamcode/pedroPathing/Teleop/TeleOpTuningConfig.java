@@ -29,13 +29,13 @@ public final class TeleOpTuningConfig {
     public static double TARGET_MANUAL_FAR_HOOD_DEG = 44.0;
 
     public static class ShotConfig {
-        public final double rpm;
-        public final double hoodAngleDeg;
+                public final double rpm;
+                public final double hoodPosition;
 
-        public ShotConfig(double rpm, double hoodAngleDeg) {
-            this.rpm = rpm;
-            this.hoodAngleDeg = hoodAngleDeg;
-        }
+                public ShotConfig(double rpm, double hoodPosition) {
+                        this.rpm = rpm;
+                        this.hoodPosition = hoodPosition;
+                }
     }
 
     public static class AllianceTeleOpConfig {

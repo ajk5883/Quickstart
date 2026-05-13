@@ -215,12 +215,10 @@ public abstract class CommonTeleOp extends OpMode {
 
         if (gamepad1.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD) {
             shootSequencer.stopIntake();
-            shootSequencer.getSpinner().turnOff();
-            shootSequencer.getIntake().turnOnIntakeReverse();
+            shootSequencer.startIntakeReverse();
             return;
         }
 
-        shootSequencer.getIntake().turnOffIntake();
         shootSequencer.stopIntake();
     }
 
@@ -241,8 +239,8 @@ public abstract class CommonTeleOp extends OpMode {
     private void runSemiAutonShootControls() {
         TeleOpTuningConfig.ShotConfig presetShot = getPresetShotConfig();
         boolean shootHeld = gamepad2.right_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD
-                || gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
-        runHoldToShoot(shootHeld, presetShot.rpm, presetShot.hoodAngleDeg);
+            || gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
+        runHoldToShoot(shootHeld, presetShot.rpm, presetShot.hoodPosition);
     }
 
     private void runManualAssistedShootControls() {
@@ -300,12 +298,12 @@ public abstract class CommonTeleOp extends OpMode {
         boolean closeShootHeld = gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
 
         if (farShootHeld) {
-            runHoldToShoot(true, targetManualFarRpm, targetManualFarHoodDeg);
+            runHoldToShoot(true, targetManualFarRpm, targetManualFarHoodPosition);
             return;
         }
 
         if (closeShootHeld) {
-            runHoldToShoot(true, targetManualCloseRpm, targetManualCloseHoodDeg);
+            runHoldToShoot(true, targetManualCloseRpm, targetManualCloseHoodPosition);
             return;
         }
 
@@ -313,7 +311,7 @@ public abstract class CommonTeleOp extends OpMode {
     }
 
     private void runHoldToShoot(boolean shootHeld, double targetRpm, double targetHoodAngleDeg) {
-        shootSequencer.Set_Hoodposition_Angle((int) Math.round(targetHoodAngleDeg));
+        shootSequencer.setHoodPosition(targetHoodAngleDeg); // Now targetHoodAngleDeg is actually position 0.0-1.0
         if (shootHeld && !lastShootHeld) {
             shootSequencer.startShootingSequence(targetRpm, TeleOpTuningConfig.SHOOTER_VELOCITY_THRESHOLD_RPM);
         }
@@ -335,13 +333,13 @@ public abstract class CommonTeleOp extends OpMode {
 
         if (Math.abs(headingError) <= TeleOpTuningConfig.HEADING_ALIGN_TOLERANCE_RAD) {
             assistedAlignActive = false;
-            ShootingLookupTable.ShotSolution shot = lookupTable.getNearest(distanceToGoalInches(aimPose));
-            shootSequencer.Set_Hoodposition_Angle((int) Math.round(shot.hoodAngleDeg));
-            shootSequencer.startShootingSequence(
+                ShootingLookupTable.ShotSolution shot = lookupTable.getNearest(distanceToGoalInches(aimPose));
+                shootSequencer.setHoodPosition(shot.hoodPosition);
+                shootSequencer.startShootingSequence(
                     TeleOpTuningConfig.ASSISTED_SHOOT_DURATION_MS,
                     shot.rpm,
                     TeleOpTuningConfig.SHOOTER_VELOCITY_THRESHOLD_RPM
-            );
+                );
             lastShootHeld = false;
             return;
         }

@@ -18,9 +18,8 @@ public class ShootSequencer {
     private int Default_spinupTimeoutMs = 3000;
     private double Default_shooterTargetVelocity = 6000.0;
     private double Default_shooterVelocityThreshold = 50.0;
-    private int Default_hoodposition_Angle = 0;
-
-    private int Target_Hoodposition_Angle = 0;
+    private double Default_hoodPosition = 0.0;
+    private double Target_hoodPosition = 0.0;
     
     private int spinupTimeoutMs;
     private double shooterTargetVelocity;
@@ -35,8 +34,13 @@ public class ShootSequencer {
         intake = new IntakeController();
     }
 
-    public void Set_Hoodposition_Angle(int angle) {
-        Target_Hoodposition_Angle = angle;
+    public void setHoodPosition(double position) {
+        Target_hoodPosition = Math.max(0.0, Math.min(1.0, position));
+        hood.setPosition(Target_hoodPosition); // apply immediately for direct/test use
+    }
+
+    public double getHoodPosition() {
+        return hood.getPosition();
     }
 
     /**
@@ -58,18 +62,29 @@ public class ShootSequencer {
         gate.closeGate();
         spinner.turnOff();
         shooter.stopShooter();
-        hood.setAngle(Default_hoodposition_Angle);
+        hood.setPosition(Default_hoodPosition);
         intake.turnOffIntake();
 
 
     }
 
-    // Accessors
-    public GateController getGate() { return gate; }
-    public HoodController getHood() { return hood; }
-    public Shooter getShooter() { return shooter; }
-    public BallSpinnerController getSpinner() { return spinner; }
-    public IntakeController getIntake() { return intake; }
+    // ---- Sub-controller accessors removed in favour of the facade below ----
+
+    // Gate
+    public void openGate() { gate.openGate(); }
+    public void closeGate() { gate.closeGate(); }
+    public void setGatePosition(double position) { gate.setPosition(position); }
+    public double getGatePosition() { return gate.getPosition(); }
+
+    // Shooter (direct, bypasses the sequencer state machine – for testing / tuning)
+    public void startShooterDirectly(double rpm) { shooter.startShooter(rpm); }
+    public void stopShooterDirectly() { shooter.stopShooter(); }
+    public double getShooterVelocityRpm() { return shooter.getAverageVelocityRpm(); }
+    public boolean isShooterVelocityWithinThreshold() { return shooter.isVelocityWithinThreshold(); }
+
+    // Spinner (direct)
+    public void turnOnSpinner() { spinner.turnOn(); }
+    public void turnOffSpinner() { spinner.turnOff(); }
     private enum ShootState {
         IDLE,
         SPINUP,
@@ -115,7 +130,7 @@ public class ShootSequencer {
                     break;
                 }
 
-                hood.setAngle(Target_Hoodposition_Angle);
+                hood.setPosition(Target_hoodPosition);
                 shooter.startShooter(shooterTargetVelocity);
                 
                 if (shooter.isVelocityWithinThreshold() || now - shootStateStartMs >= spinupTimeoutMs) {
@@ -237,6 +252,14 @@ public class ShootSequencer {
             spinner.turnOff();
             
         }        
+    }
+
+    /**
+     * Run intake in reverse (eject). Clears intakeActive so spinner is not forced on.
+     */
+    public void startIntakeReverse() {
+        intakeActive = false;
+        intake.turnOnIntakeReverse();
     }
 
     /**
