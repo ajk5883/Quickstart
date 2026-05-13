@@ -14,158 +14,178 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
-
 /**
  * CameraController wraps the Limelight 3A and provides robot pose estimates in
  * Pedro Pathing field coordinates (inches, radians).
  *
- * PIPELINE SETUP:
- *   Use Pipeline 0 — the Limelight's built-in AprilTag detection pipeline.
- *   This detects ALL field AprilTags simultaneously. Filter by tag ID in code
- *   to identify alliance-specific targets. Running a single pipeline also enables
- *   MegaTag averaged pose estimation, which is more accurate than single-tag pose.
+ * ── ROBOT LAYOUT ──────────────────────────────────────────────────────────────
+ *   • Intake  faces FORWARD  (Pedro Pathing +X direction).
+ *   • Shooter + Limelight face BACKWARD (180° / π rad from intake).
  *
- * DECODE SEASON DEFAULTS (TU32):
- *   - Blue GOAL tag: 20
- *   - Red GOAL tag: 24
- *   - OBELISK tags: 21, 22, 33
+ * ── CAMERA MOUNT (measured from robot centre) ─────────────────────────────────
+ *   • Height         : CAMERA_HEIGHT_INCHES  = 10.0 in  (above ground)
+ *   • Forward offset : CAMERA_FORWARD_OFFSET = −3.543 in (90 mm BEHIND centre)
+ *   • Left offset    : CAMERA_LEFT_OFFSET    = −3.543 in (90 mm to the RIGHT of
+ *                      centre, when viewed from the back of the robot)
+ *   • Heading offset : CAMERA_HEADING_OFFSET = π rad    (camera faces backward)
  *
- *   For localization, OBELISK tags are excluded by default because placement can
- *   vary match-to-match. The controller only trusts frames that contain at least
- *   one GOAL tag unless decode filtering is disabled.
+ * ── PIPELINES ─────────────────────────────────────────────────────────────────
+ *   Pipeline 0 (RED_GOAL_PIPELINE)  → custom pipeline, detects red goal-post tag only.
+ *   Pipeline 1 (BLUE_GOAL_PIPELINE) → custom pipeline, detects blue goal-post tag only.
  *
- * COORDINATE TRANSFORM:
- *   The Limelight returns botpose in meters using its configured field origin.
- *   Pedro Pathing uses inches. Call setCoordinateTransform() to align the two
- *   coordinate systems once you know the offset between the Limelight field origin
- *   and Pedro's (0,0) corner.
+ * ── POSE TRANSFORM (two-stage) ────────────────────────────────────────────────
+ *   The Limelight's getBotpose() returns the CAMERA pose in the WPI field frame
+ *   (when the camera mount is not configured inside the Limelight web UI, which
+ *   is the assumed default here).  CameraController applies:
+ *     Stage 1 — field-to-Pedro: metres → inches, optional Y mirror, XY + heading
+ *               offsets.  Result exposed via getCameraRawPose().
+ *     Stage 2 — camera-to-robot-centre: rotates the physical camera mount offset
+ *               into the field frame and subtracts it from the camera position.
+ *               Result exposed via getRobotPose().
  *
- * HARDWARE MAP NAME:
+ * ── HARDWARE MAP NAME ─────────────────────────────────────────────────────────
  *   Default device name is "limelight". Configure in the Driver Hub robot config.
  */
 public class CameraController {
 
-    /** Built-in AprilTag pipeline index on the Limelight 3A. Detects all tags. */
-    public static final int APRILTAG_PIPELINE = 0;
+    // ── Pipeline indices ───────────────────────────────────────────────────────
+    /** Pipeline 0: custom pipeline that detects ONLY the red alliance goal-post tag. */
+    public static final int RED_GOAL_PIPELINE  = 0;
+    /** Pipeline 1: custom pipeline that detects ONLY the blue alliance goal-post tag. */
+    public static final int BLUE_GOAL_PIPELINE = 1;
 
-    // FTC DECODE TU32 field tags
+    // ── DECODE field tag IDs (FTC DECODE TU32) ────────────────────────────────
     public static final int DECODE_BLUE_GOAL_TAG_ID = 20;
-    public static final int DECODE_RED_GOAL_TAG_ID = 24;
-    public static final int DECODE_OBELISK_TAG_ID_1 = 21;
-    public static final int DECODE_OBELISK_TAG_ID_2 = 22;
-    public static final int DECODE_OBELISK_TAG_ID_3 = 33;
+    public static final int DECODE_RED_GOAL_TAG_ID  = 24;
 
-    private static final double METERS_TO_INCHES = 39.3701;
+    // ── Camera mount geometry (robot-frame, all in inches / radians) ──────────
+    /** Camera height above the ground (informational, not used in 2-D pose). */
+    public static final double CAMERA_HEIGHT_INCHES  = 10.0;
 
-    // Botpose array indices returned by Limelight
-    private static final int BOTPOSE_X_IDX       = 0;
-    private static final int BOTPOSE_Y_IDX       = 1;
-    private static final int BOTPOSE_YAW_IDX     = 5;
-    private static final int BOTPOSE_LATENCY_IDX = 6;
-    private static final int BOTPOSE_MIN_LENGTH  = 6;
+    /**
+     * Camera forward offset from robot centre (inches).
+     * Negative because the camera is BEHIND the centre (shooter side).
+     * 90 mm ÷ 25.4 mm/in = 3.543 in.
+     */
+    public static final double CAMERA_FORWARD_OFFSET = -3.543;
 
+    /**
+     * Camera left offset from robot centre (inches).
+     * Negative because the camera is to the RIGHT of centre.
+     * "90 mm to the right when looking from the back" → −Y in robot frame.
+     */
+    public static final double CAMERA_LEFT_OFFSET    = -3.543;
+
+    /**
+     * Camera heading offset relative to robot heading (radians).
+     * Camera faces backward (opposite to intake) → π rad.
+     */
+    public static final double CAMERA_HEADING_OFFSET = Math.PI;
+
+    // ── Internal state ────────────────────────────────────────────────────────
     private Limelight3A limelight;
     private boolean isInitialized = false;
+    private int activePipeline = RED_GOAL_PIPELINE;
 
-    // DECODE tag groups used for visibility checks and localization filtering
-    private final Set<Integer> decodeGoalTagIds = new HashSet<>();
-    private final Set<Integer> decodeObeliskTagIds = new HashSet<>();
-    private boolean useDecodeGoalOnlyLocalization = true;
+    // Per-pipeline expected tag IDs (for result validation)
+    private final Set<Integer> pipeline0Tags = new HashSet<>();   // red goal
+    private final Set<Integer> pipeline1Tags = new HashSet<>();   // blue goal
 
-    // Coordinate transform: applied after meters → inches conversion
-    private double fieldOriginOffsetX   = 0.0;  // inches
-    private double fieldOriginOffsetY   = 0.0;  // inches
-    private double headingOffsetRad     = 0.0;  // radians
-
-    // Whether to mirror the Y axis (needed if Limelight Y is inverted relative to Pedro)
-    private boolean mirrorY = false;
+    // Stage-1 field-to-Pedro transform parameters
+    private double fieldOriginOffsetX = 0.0;  // inches
+    private double fieldOriginOffsetY = 0.0;  // inches
+    private double headingOffsetRad   = 0.0;  // radians
+    private boolean mirrorY           = false;
 
     private Pose lastValidPose = null;
 
-        public CameraController() {
-        setDecodeTagGroups(
-            DECODE_BLUE_GOAL_TAG_ID,
-            DECODE_RED_GOAL_TAG_ID,
-            new int[] {
-                DECODE_OBELISK_TAG_ID_1,
-                DECODE_OBELISK_TAG_ID_2,
-                DECODE_OBELISK_TAG_ID_3
-            }
-        );
-        }
-
-    // -------------------------------------------------------------------------
-    //  Initialisation
-    // -------------------------------------------------------------------------
-
-    /**
-     * Initialise with the default hardware map name "limelight" and Pipeline 0.
-     */
-    public void init(HardwareMap hardwareMap) {
-        init(hardwareMap, "limelight", APRILTAG_PIPELINE);
+    public CameraController() {
+        pipeline0Tags.add(DECODE_RED_GOAL_TAG_ID);
+        pipeline1Tags.add(DECODE_BLUE_GOAL_TAG_ID);
     }
 
+    // ── Initialisation ────────────────────────────────────────────────────────
+
+
     /**
-     * Initialise with a custom hardware map name and pipeline index.
+     * Initialise with a custom hardware map name and starting pipeline.
      *
-     * @param hardwareMap  OpMode hardware map
-     * @param deviceName   Name configured in the Driver Hub robot config
-     * @param pipeline     Pipeline index (0 = built-in AprilTag; keep at 0 for pose estimation)
+     * @param hardwareMap OpMode hardware map
+     * @param pipeline    Starting pipeline index
      */
-    public void init(HardwareMap hardwareMap, String deviceName, int pipeline) {
-        limelight = hardwareMap.get(Limelight3A.class, deviceName);
+    public void init(HardwareMap hardwareMap, int pipeline) {
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(pipeline);
+        activePipeline = pipeline;
         limelight.start();
         isInitialized = true;
     }
 
-    // -------------------------------------------------------------------------
-    //  Coordinate transform configuration
-    // -------------------------------------------------------------------------
+    // ── Stage-1 field-to-Pedro coordinate transform ───────────────────────────
 
     /**
-     * Set the offset between the Limelight's field coordinate origin and Pedro's (0,0).
+     * Set the offset between the Limelight field origin and Pedro's (0, 0).
      *
-     * Example: if the Limelight field origin is at Pedro's (-72, -72) you would call
-     *   setCoordinateTransform(72, 72, 0)
+     * Example: if the Limelight field origin is at Pedro's (−72, −72) call
+     *   setCoordinateTransform(72, 72, 0).
      *
-     * @param xOffsetInches      X offset (inches) added after meters→inches conversion
-     * @param yOffsetInches      Y offset (inches) added after meters→inches conversion
-     * @param headingOffsetDeg   Heading offset (degrees) added to the Limelight yaw
+     * @param xOffsetInches    X offset (inches) added after metre → inch conversion
+     * @param yOffsetInches    Y offset (inches) added after metre → inch conversion
+     * @param headingOffsetDeg Heading offset (degrees) added to Limelight yaw
      */
     public void setCoordinateTransform(double xOffsetInches,
                                        double yOffsetInches,
                                        double headingOffsetDeg) {
         this.fieldOriginOffsetX = xOffsetInches;
         this.fieldOriginOffsetY = yOffsetInches;
-        this.headingOffsetRad  = Math.toRadians(headingOffsetDeg);
+        this.headingOffsetRad   = Math.toRadians(headingOffsetDeg);
     }
 
     /**
-     * Mirror the Y axis. Enable this if the Limelight Y direction is opposite to Pedro's Y.
-     * The mirror is applied before the Y offset.
-     *
-     * @param mirror true to negate the Y value from the Limelight
+     * Mirror the Y axis (enable if the Limelight Y direction is inverted relative to Pedro).
+     * Applied before the Y offset.
      */
     public void setMirrorY(boolean mirror) {
         this.mirrorY = mirror;
     }
 
-    // -------------------------------------------------------------------------
-    //  Pose estimation
-    // -------------------------------------------------------------------------
+    // ── Pipeline management ───────────────────────────────────────────────────
+
+    /** Switch to pipeline 0 — red alliance goal-post tag. */
+    public void switchToRedGoalPipeline() {
+        setPipeline(RED_GOAL_PIPELINE);
+    }
+
+    /** Switch to pipeline 1 — blue alliance goal-post tag. */
+    public void switchToBlueGoalPipeline() {
+        setPipeline(BLUE_GOAL_PIPELINE);
+    }
+
+    /** Switch to an arbitrary pipeline index and update internal tracking. */
+    public void setPipeline(int pipelineIndex) {
+        if (limelight != null) {
+            limelight.pipelineSwitch(pipelineIndex);
+            activePipeline = pipelineIndex;
+        }
+    }
+
+    /** Returns the currently active pipeline index. */
+    public int getActivePipeline() {
+        return activePipeline;
+    }
+
+    // ── Pose estimation ───────────────────────────────────────────────────────
 
     /**
-     * Returns the latest robot pose estimate from AprilTags in Pedro Pathing coordinates
-     * (x inches, y inches, heading radians).
+     * Returns the camera pose in Pedro field coordinates after Stage 1 only
+     * (field origin + heading offsets applied; camera-to-robot-centre NOT applied).
      *
-     * Returns null when:
-     *   - The camera is not initialised
-     *   - No valid Limelight result is available
-     *   - No AprilTags are detected
-     *   - The botpose array is malformed
+     * Useful for comparing raw Limelight output against the robot-centre estimate
+     * or for verifying the field-origin calibration.
+     *
+     * Returns null when no valid pose is available.
      */
-    public Pose getRobotPose() {
+    public Pose getCameraRawPose() {
         if (!isInitialized) return null;
 
         LLResult result = limelight.getLatestResult();
@@ -173,76 +193,73 @@ public class CameraController {
 
         List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
         if (fiducials == null || fiducials.isEmpty()) return null;
-        if (useDecodeGoalOnlyLocalization && !containsAnyTag(fiducials, decodeGoalTagIds)) return null;
+        if (!containsAnyTag(fiducials, getActivePipelineTags())) return null;
 
-        // NEW: Get the Pose3D object instead of double[]
         Pose3D botpose = result.getBotpose();
         if (botpose == null) return null;
 
-        // Convert the values directly using the Pose3D methods
-        double xInches = (botpose.getPosition().toUnit(DistanceUnit.INCH).x) + fieldOriginOffsetX;
+        // Stage 1: unit conversion + field-origin offset
+        double xInches = botpose.getPosition().toUnit(DistanceUnit.INCH).x + fieldOriginOffsetX;
         double rawY    = botpose.getPosition().toUnit(DistanceUnit.INCH).y;
         double yInches = (mirrorY ? -rawY : rawY) + fieldOriginOffsetY;
+        double cameraHeading = botpose.getOrientation().getYaw(AngleUnit.RADIANS) + headingOffsetRad;
 
-        // Pedro Pathing typically uses Radians for heading
-        double heading = botpose.getOrientation().getYaw(AngleUnit.RADIANS) + headingOffsetRad;
+        return new Pose(xInches, yInches, cameraHeading);
+    }
 
-        lastValidPose = new Pose(xInches, yInches, heading);
+    /**
+     * Returns the latest robot-centre pose in Pedro Pathing coordinates (inches, radians).
+     *
+     * Applies both transform stages:
+     *   1. Field-to-Pedro (unit conversion + coordinate offsets).
+     *   2. Camera-mount-to-robot-centre (physical offset geometry).
+     *
+     * The camera faces backward (CAMERA_HEADING_OFFSET = π), so:
+     *   robot_heading = camera_heading − π
+     *
+     * The camera mount offset (CAMERA_FORWARD_OFFSET, CAMERA_LEFT_OFFSET) is rotated
+     * into the field frame at robot_heading and subtracted from the camera position to
+     * give the robot centre.
+     *
+     * Returns null when no valid pose is available.
+     */
+    public Pose getRobotPose() {
+        Pose cameraPose = getCameraRawPose();
+        if (cameraPose == null) return null;
+
+        // Stage 2a: derive robot heading from camera heading
+        double robotHeading = normalizeAngle(cameraPose.getHeading() - CAMERA_HEADING_OFFSET);
+
+        // Stage 2b: rotate camera mount offset (robot frame) into field frame
+        double cam_dx = CAMERA_FORWARD_OFFSET * Math.cos(robotHeading)
+                      - CAMERA_LEFT_OFFSET    * Math.sin(robotHeading);
+        double cam_dy = CAMERA_FORWARD_OFFSET * Math.sin(robotHeading)
+                      + CAMERA_LEFT_OFFSET    * Math.cos(robotHeading);
+
+        // Stage 2c: robot centre = camera position − rotated offset
+        double robotX = cameraPose.getX() - cam_dx;
+        double robotY = cameraPose.getY() - cam_dy;
+
+        lastValidPose = new Pose(robotX, robotY, robotHeading);
         return lastValidPose;
     }
 
     /**
-     * Enable/disable DECODE localization filtering.
-     *
-     * When enabled (default), pose is returned only if at least one GOAL tag is visible.
-     * OBELISK-only frames are ignored for localization stability.
-     */
-    public void setUseDecodeGoalOnlyLocalization(boolean enabled) {
-        this.useDecodeGoalOnlyLocalization = enabled;
-    }
-
-    public boolean isUsingDecodeGoalOnlyLocalization() {
-        return useDecodeGoalOnlyLocalization;
-    }
-
-    /**
-     * Override DECODE tag groups if FIRST updates IDs in a future Team Update.
-     */
-    public void setDecodeTagGroups(int blueGoalTagId, int redGoalTagId, int[] obeliskTagIds) {
-        decodeGoalTagIds.clear();
-        decodeGoalTagIds.add(blueGoalTagId);
-        decodeGoalTagIds.add(redGoalTagId);
-
-        decodeObeliskTagIds.clear();
-        if (obeliskTagIds != null) {
-            for (int id : obeliskTagIds) {
-                decodeObeliskTagIds.add(id);
-            }
-        }
-    }
-
-    /**
-     * Returns the last successfully computed pose. May be stale if tags are no longer visible.
-     * Check {@link #getTagCount()} before trusting this for navigation.
+     * Returns the last successfully computed robot-centre pose.
+     * May be stale — check {@link #getTagCount()} before trusting for navigation.
      */
     public Pose getLastValidPose() {
         return lastValidPose;
     }
 
-    /**
-     * Returns true if a fresh valid pose estimate is available this cycle.
-     */
+    /** Returns true if a fresh valid robot pose is available this cycle. */
     public boolean hasPoseEstimate() {
         return getRobotPose() != null;
     }
 
-    // -------------------------------------------------------------------------
-    //  Tag inspection
-    // -------------------------------------------------------------------------
+    // ── Tag inspection ────────────────────────────────────────────────────────
 
-    /**
-     * Returns the number of AprilTags detected in the latest frame.
-     */
+    /** Returns the number of AprilTags detected in the latest frame. */
     public int getTagCount() {
         if (!isInitialized) return 0;
         LLResult result = limelight.getLatestResult();
@@ -252,10 +269,7 @@ public class CameraController {
     }
 
     /**
-     * Returns the raw list of fiducial (AprilTag) results from the latest frame.
-     * Use this to read individual tag IDs and poses when you need to identify
-     * specific field elements (e.g. goal-post tags vs. alliance wall tags).
-     *
+     * Returns the raw fiducial results from the latest frame.
      * Returns null if no result is available.
      */
     public List<LLResultTypes.FiducialResult> getFiducialResults() {
@@ -265,11 +279,7 @@ public class CameraController {
         return result.getFiducialResults();
     }
 
-    /**
-     * Returns true if the tag with the given ID is currently visible.
-     *
-     * @param tagId  AprilTag ID to search for
-     */
+    /** Returns true if the tag with the given ID is currently visible. */
     public boolean isTagVisible(int tagId) {
         List<LLResultTypes.FiducialResult> fiducials = getFiducialResults();
         if (fiducials == null) return false;
@@ -279,49 +289,19 @@ public class CameraController {
         return false;
     }
 
-    /** Returns true if either DECODE GOAL tag (20 or 24 by default) is visible. */
-    public boolean isAnyDecodeGoalTagVisible() {
-        List<LLResultTypes.FiducialResult> fiducials = getFiducialResults();
-        return fiducials != null && containsAnyTag(fiducials, decodeGoalTagIds);
+    /** Returns true if the red alliance goal-post tag is currently visible. */
+    public boolean isRedGoalTagVisible() {
+        return isTagVisible(DECODE_RED_GOAL_TAG_ID);
     }
 
-    /** Returns true if at least one OBELISK tag is visible in the latest frame. */
-    public boolean isAnyDecodeObeliskTagVisible() {
-        List<LLResultTypes.FiducialResult> fiducials = getFiducialResults();
-        return fiducials != null && containsAnyTag(fiducials, decodeObeliskTagIds);
+    /** Returns true if the blue alliance goal-post tag is currently visible. */
+    public boolean isBlueGoalTagVisible() {
+        return isTagVisible(DECODE_BLUE_GOAL_TAG_ID);
     }
 
-    /** Returns true when the camera sees tags, but all visible tags are OBELISK tags. */
-    public boolean isOnlyDecodeObeliskVisible() {
-        List<LLResultTypes.FiducialResult> fiducials = getFiducialResults();
-        if (fiducials == null || fiducials.isEmpty()) return false;
-        return containsAnyTag(fiducials, decodeObeliskTagIds)
-                && !containsAnyTag(fiducials, decodeGoalTagIds);
-    }
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
 
-    /**
-     * Returns detection latency in milliseconds (index 6 of the botpose array).
-     * Returns -1 if unavailable. Use this for latency-compensated pose fusion.
-     */
-
-
-    // -------------------------------------------------------------------------
-    //  Lifecycle
-    // -------------------------------------------------------------------------
-
-    /**
-     * Switch the active Limelight pipeline at runtime.
-     * Keep at {@link #APRILTAG_PIPELINE} (0) for pose estimation.
-     */
-    public void setPipeline(int pipelineIndex) {
-        if (limelight != null) {
-            limelight.pipelineSwitch(pipelineIndex);
-        }
-    }
-
-    /**
-     * Stop the Limelight to reduce power/CPU overhead (e.g. end of OpMode).
-     */
+    /** Stop the Limelight (call in OpMode.stop() to reduce CPU and power draw). */
     public void stop() {
         if (limelight != null) {
             limelight.stop();
@@ -332,11 +312,23 @@ public class CameraController {
         return isInitialized;
     }
 
+    // ── Private helpers ───────────────────────────────────────────────────────
+
+    /** Returns the expected tag ID set for the active pipeline. */
+    private Set<Integer> getActivePipelineTags() {
+        return (activePipeline == BLUE_GOAL_PIPELINE) ? pipeline1Tags : pipeline0Tags;
+    }
+
     private boolean containsAnyTag(List<LLResultTypes.FiducialResult> fiducials, Set<Integer> ids) {
         if (ids.isEmpty()) return true;
         for (LLResultTypes.FiducialResult f : fiducials) {
             if (ids.contains(f.getFiducialId())) return true;
         }
         return false;
+    }
+
+    /** Normalises an angle to [−π, π]. */
+    private double normalizeAngle(double angleRad) {
+        return Math.atan2(Math.sin(angleRad), Math.cos(angleRad));
     }
 }

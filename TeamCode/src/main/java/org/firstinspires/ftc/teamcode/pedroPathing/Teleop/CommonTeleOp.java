@@ -68,7 +68,7 @@ public abstract class CommonTeleOp extends OpMode {
     public void init() {
         follower = Constants.createFollower(hardwareMap);
         cameraController = new CameraController();
-        cameraController.init(hardwareMap);
+        cameraController.init(hardwareMap, "limelight", getAllianceConfig().cameraPipeline);
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
         shootSequencer.setShooterRunningAfterShoot(true);

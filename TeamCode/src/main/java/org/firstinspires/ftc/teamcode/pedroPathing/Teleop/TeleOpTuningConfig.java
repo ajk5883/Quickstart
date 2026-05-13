@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Teleop;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 
 @Configurable
 public final class TeleOpTuningConfig {
@@ -43,12 +44,16 @@ public final class TeleOpTuningConfig {
         public final Pose goalPose;
         public final Pose[] presetPoses;
         public final ShotConfig[] presetShots;
+        /** Limelight pipeline index to activate for this alliance (see CameraController). */
+        public final int cameraPipeline;
 
-        public AllianceTeleOpConfig(Pose startPose, Pose goalPose, Pose[] presetPoses, ShotConfig[] presetShots) {
+        public AllianceTeleOpConfig(Pose startPose, Pose goalPose, Pose[] presetPoses,
+                                    ShotConfig[] presetShots, int cameraPipeline) {
             this.startPose = startPose;
             this.goalPose = goalPose;
             this.presetPoses = presetPoses;
             this.presetShots = presetShots;
+            this.cameraPipeline = cameraPipeline;
         }
     }
 
@@ -66,7 +71,8 @@ public final class TeleOpTuningConfig {
                     new ShotConfig(3050.0, 35.0),
                     new ShotConfig(3100.0, 36.0),
                     new ShotConfig(3500.0, 44.0)
-            }
+            },
+            CameraController.RED_GOAL_PIPELINE
     );
 
     public static final AllianceTeleOpConfig BLUE = new AllianceTeleOpConfig(
@@ -83,6 +89,7 @@ public final class TeleOpTuningConfig {
                     new ShotConfig(3050.0, 35.0),
                     new ShotConfig(3100.0, 36.0),
                     new ShotConfig(3500.0, 44.0)
-            }
+            },
+            CameraController.BLUE_GOAL_PIPELINE
     );
 }
