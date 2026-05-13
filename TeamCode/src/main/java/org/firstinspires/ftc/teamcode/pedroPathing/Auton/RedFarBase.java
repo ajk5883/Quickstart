@@ -12,7 +12,6 @@ import com.pedropathing.util.Timer;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
-import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.PositionDefs;
 
 
 @Autonomous(name = "RedFarBase", group = "RedAuton")
@@ -21,23 +20,14 @@ public class RedFarBase extends OpMode {
     private enum PathState {
         SCORE_PRELOAD,
         WAIT_SCORE_PRELOAD_COMPLETE,
-        WAIT_SHOT_1,
-        DELAY_BEFORE_GRAB_1,
-        WAIT_GRAB_1_COMPLETE,
-        DELAY_BEFORE_SCORE_1,
-        WAIT_SCORE_1_COMPLETE,
-        WAIT_SHOT_2,
-        DELAY_BEFORE_GRAB_2,
-        WAIT_GRAB_2_COMPLETE,
-        DELAY_BEFORE_SCORE_2,
-        WAIT_SCORE_2_COMPLETE,
-        WAIT_SHOT_3,
-        DELAY_BEFORE_GRAB_3,
-        WAIT_GRAB_3_COMPLETE,
-        DELAY_BEFORE_SCORE_3,
-        WAIT_SCORE_3_COMPLETE,
-        WAIT_SHOT_4,
-        DELAY_BEFORE_PARK,
+        WAIT_SHOT_PRELOAD,
+        RUN_ROW_CYCLE,
+        WAIT_ROW_CYCLE_COMPLETE,
+        WAIT_SHOT_AFTER_ROW,
+        RUN_CORNER_CYCLE,
+        WAIT_CORNER_CYCLE_COMPLETE,
+        WAIT_SHOT_AFTER_CORNER,
+        RUN_PARK,
         WAIT_PARK_COMPLETE,
         FINISHED
     }
@@ -52,23 +42,24 @@ public class RedFarBase extends OpMode {
     private static final double SHOOT_TARGET_VELOCITY = 3000.0;
     private static final double SHOOT_VELOCITY_THRESHOLD = 50.0;
     private static final long SHOOT_SEQUENCE_WAIT_MS = 4500;
+    private static final int CORNER_CYCLE_REPEATS = 2;
 
-    private final Pose startPose = new Pose(PositionDefs.START_X, PositionDefs.START_Y, PositionDefs.START_HEADING); // Blue-side start at the small triangle, facing up-field.
-    private final Pose scorePose = new Pose(PositionDefs.SCORE_X, PositionDefs.SCORE_Y, PositionDefs.SCORE_HEADING); // Shooting pose.
-    private final Pose pickup1StartPose = new Pose(PositionDefs.PICKUP1_START_X, PositionDefs.PICKUP1_START_Y, PositionDefs.PICKUP1_START_HEADING); // First row approach.
-    private final Pose pickup1EndPose = new Pose(PositionDefs.PICKUP1_END_X, PositionDefs.PICKUP1_END_Y, PositionDefs.PICKUP1_END_HEADING); // First row pickup end.
-    private final Pose pickup2StartPose = new Pose(PositionDefs.PICKUP2_START_X, PositionDefs.PICKUP2_START_Y, PositionDefs.PICKUP2_START_HEADING); // Second row approach.
-    private final Pose pickup2EndPose = new Pose(PositionDefs.PICKUP2_END_X, PositionDefs.PICKUP2_END_Y, PositionDefs.PICKUP2_END_HEADING); // Second row pickup end.
-    private final Pose pickup3StartPose = new Pose(PositionDefs.PICKUP3_START_X, PositionDefs.PICKUP3_START_Y, PositionDefs.PICKUP3_START_HEADING); // Third row approach.
-    private final Pose pickup3EndPose = new Pose(PositionDefs.PICKUP3_END_X, PositionDefs.PICKUP3_END_Y, PositionDefs.PICKUP3_END_HEADING); // Third row pickup end.
-    private final Pose parkPose = new Pose(PositionDefs.PARK_X, PositionDefs.PARK_Y, PositionDefs.PARK_HEADING); // Final parking pose.
+    private final Pose startPose = new Pose(85.744, 7.484, Math.toRadians(-90));
+    private final Pose preloadScorePose = new Pose(83.853, 14.509, Math.toRadians(-118));
+    private final Pose rowPickupStartPose = new Pose(101.426, 34.583, Math.toRadians(0));
+    private final Pose rowPickupEndPose = new Pose(119.619, 34.403, Math.toRadians(0));
+    private final Pose scoreAfterRowPose = new Pose(83.699, 14.609, Math.toRadians(-118));
+    private final Pose cornerPickupStartPose = new Pose(126.891, 8.423);
+    private final Pose cornerPickupEndPose = new Pose(137.601, 8.258);
+    private final Pose scoreAfterCornerPose = new Pose(84.054, 14.841, Math.toRadians(-118));
+    private final Pose parkPose = new Pose(110.380, 14.098);
 
-    private Path scorePreload;
-    private PathChain grabPickup1, scorePickup1, grabPickup2, scorePickup2, grabPickup3, scorePickup3, park;
+    private PathChain preloadToScore, rowCycle, firstCornerCycle, repeatCornerCycle, parkPath;
     private Timer pathTimer, opmodeTimer;
     private PathState pathState = PathState.FINISHED;
     private long shootSequenceStartMs;
     private long shootSequenceEndMs;
+    private int completedCornerCycles;
 
     private boolean pathDelayElapsed() {
         if (!Enable_Debug_Path_Wait) {
@@ -80,6 +71,17 @@ public class RedFarBase extends OpMode {
     private void followPathAfterDelay(PathChain path, PathState nextState) {
         follower.followPath(path, true);
         setPathState(nextState);
+    }
+
+    private void startCornerCycleOrPark() {
+        if (completedCornerCycles < CORNER_CYCLE_REPEATS) {
+            PathChain cyclePath = (completedCornerCycles == 0) ? firstCornerCycle : repeatCornerCycle;
+            follower.followPath(cyclePath, true);
+            setPathState(PathState.WAIT_CORNER_CYCLE_COMPLETE);
+            return;
+        }
+        follower.followPath(parkPath, true);
+        setPathState(PathState.WAIT_PARK_COMPLETE);
     }
 
     private void beginTimedShootAtScorePose(PathState nextStateAfterShot) {
@@ -95,10 +97,9 @@ public class RedFarBase extends OpMode {
     }
 
     private boolean isShootingWindowState(PathState state) {
-        return state == PathState.WAIT_SHOT_1
-                || state == PathState.WAIT_SHOT_2
-                || state == PathState.WAIT_SHOT_3
-                || state == PathState.WAIT_SHOT_4;
+        return state == PathState.WAIT_SHOT_PRELOAD
+            || state == PathState.WAIT_SHOT_AFTER_ROW
+            || state == PathState.WAIT_SHOT_AFTER_CORNER;
     }
 
     private long getShootingElapsedMs() {
@@ -116,162 +117,101 @@ public class RedFarBase extends OpMode {
     }
 
 public void buildPaths() {
-    /* This is our scorePreload path. We are using a BezierLine, which is a straight line. */
-    scorePreload = new Path(new BezierLine(startPose, scorePose));
-    scorePreload.setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading());
-
-    /* Here is an example for Constant Interpolation
-    scorePreload.setConstantInterpolation(startPose.getHeading()); */
-
-    /* This is our grabPickup1 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup1 = follower.pathBuilder()
-            .addPath(new BezierLine(scorePose, pickup1StartPose))
-            .setLinearHeadingInterpolation(scorePose.getHeading(), pickup1StartPose.getHeading())
-            .addPath(new BezierLine(pickup1StartPose, pickup1EndPose))
-            .setLinearHeadingInterpolation(pickup1StartPose.getHeading(), pickup1EndPose.getHeading())
+    preloadToScore = follower.pathBuilder()
+            .addPath(new BezierLine(startPose, preloadScorePose))
+            .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(-118))
             .build();
 
-    /* This is our scorePickup1 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup1 = follower.pathBuilder()
-            .addPath(new BezierLine(pickup1EndPose, scorePose))
-            .setLinearHeadingInterpolation(pickup1EndPose.getHeading(), scorePose.getHeading())
+    rowCycle = follower.pathBuilder()
+            .addPath(new BezierLine(preloadScorePose, rowPickupStartPose))
+            .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+            .addPath(new BezierLine(rowPickupStartPose, rowPickupEndPose))
+            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(rowPickupEndPose, scoreAfterRowPose))
+            .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-118))
             .build();
 
-    /* This is our grabPickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup2 = follower.pathBuilder()
-            .addPath(new BezierLine(scorePose, pickup2StartPose))
-            .setLinearHeadingInterpolation(scorePose.getHeading(), pickup2StartPose.getHeading())
-            .addPath(new BezierLine(pickup2StartPose, pickup2EndPose))
-            .setLinearHeadingInterpolation(pickup2StartPose.getHeading(), pickup2EndPose.getHeading())
+    firstCornerCycle = follower.pathBuilder()
+            .addPath(new BezierLine(scoreAfterRowPose, cornerPickupStartPose))
+            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(cornerPickupStartPose, cornerPickupEndPose))
+            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(cornerPickupEndPose, scoreAfterCornerPose))
+            .setTangentHeadingInterpolation()
             .build();
 
-    /* This is our scorePickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup2 = follower.pathBuilder()
-            .addPath(new BezierLine(pickup2EndPose, scorePose))
-            .setLinearHeadingInterpolation(pickup2EndPose.getHeading(), scorePose.getHeading())
+    repeatCornerCycle = follower.pathBuilder()
+            .addPath(new BezierLine(scoreAfterCornerPose, cornerPickupStartPose))
+            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(cornerPickupStartPose, cornerPickupEndPose))
+            .setTangentHeadingInterpolation()
+            .addPath(new BezierLine(cornerPickupEndPose, scoreAfterCornerPose))
+            .setTangentHeadingInterpolation()
             .build();
 
-    /* This is our grabPickup3 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        grabPickup3 = follower.pathBuilder()
-            .addPath(new BezierLine(scorePose, pickup3StartPose))
-            .setLinearHeadingInterpolation(scorePose.getHeading(), pickup3StartPose.getHeading())
-            .addPath(new BezierLine(pickup3StartPose, pickup3EndPose))
-            .setLinearHeadingInterpolation(pickup3StartPose.getHeading(), pickup3EndPose.getHeading())
+    parkPath = follower.pathBuilder()
+            .addPath(new BezierLine(scoreAfterCornerPose, parkPose))
+            .setTangentHeadingInterpolation()
             .build();
-
-    /* This is our scorePickup3 PathChain. We are using a single path with a BezierLine, which is a straight line. */
-        scorePickup3 = follower.pathBuilder()
-            .addPath(new BezierLine(pickup3EndPose, scorePose))
-            .setLinearHeadingInterpolation(pickup3EndPose.getHeading(), scorePose.getHeading())
-            .build();
-
-            park = follower.pathBuilder()
-                .addPath(new BezierLine(scorePose, parkPose))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading())
-                .build();
 }
 
     public void autonomousPathUpdate() {
     switch (pathState) {
         case SCORE_PRELOAD:
-            follower.followPath(scorePreload);
+            follower.followPath(preloadToScore, true);
             setPathState(PathState.WAIT_SCORE_PRELOAD_COMPLETE);
             break;
         case WAIT_SCORE_PRELOAD_COMPLETE:
             if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(PathState.WAIT_SHOT_1);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_PRELOAD);
             }
             break;
-        case WAIT_SHOT_1:
+        case WAIT_SHOT_PRELOAD:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(PathState.DELAY_BEFORE_GRAB_1);
+                setPathState(PathState.RUN_ROW_CYCLE);
             }
             break;
-        case DELAY_BEFORE_GRAB_1:
+        case RUN_ROW_CYCLE:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup1, PathState.WAIT_GRAB_1_COMPLETE);
+                followPathAfterDelay(rowCycle, PathState.WAIT_ROW_CYCLE_COMPLETE);
             }
             break;
-        case WAIT_GRAB_1_COMPLETE:
+        case WAIT_ROW_CYCLE_COMPLETE:
             if(!follower.isBusy()) {
-                setPathState(PathState.DELAY_BEFORE_SCORE_1);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_AFTER_ROW);
             }
             break;
-        case DELAY_BEFORE_SCORE_1:
-            if(pathDelayElapsed()) {
-                shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup1, PathState.WAIT_SCORE_1_COMPLETE);
-            }
-            break;
-        case WAIT_SCORE_1_COMPLETE:
-            if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(PathState.WAIT_SHOT_2);
-            }
-            break;
-        case WAIT_SHOT_2:
+        case WAIT_SHOT_AFTER_ROW:
             if (shootWindowElapsed()) {
                 shootSequencer.startIntake();
-                setPathState(PathState.DELAY_BEFORE_GRAB_2);
+                setPathState(PathState.RUN_CORNER_CYCLE);
             }
             break;
-        case DELAY_BEFORE_GRAB_2:
+        case RUN_CORNER_CYCLE:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup2, PathState.WAIT_GRAB_2_COMPLETE);
+                startCornerCycleOrPark();
             }
             break;
-        case WAIT_GRAB_2_COMPLETE:
+        case WAIT_CORNER_CYCLE_COMPLETE:
             if(!follower.isBusy()) {
-                setPathState(PathState.DELAY_BEFORE_SCORE_2);
+                beginTimedShootAtScorePose(PathState.WAIT_SHOT_AFTER_CORNER);
             }
             break;
-        case DELAY_BEFORE_SCORE_2:
-            if(pathDelayElapsed()) {
-                shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup2, PathState.WAIT_SCORE_2_COMPLETE);
-            }
-            break;
-        case WAIT_SCORE_2_COMPLETE:
-            if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(PathState.WAIT_SHOT_3);
-            }
-            break;
-        case WAIT_SHOT_3:
+        case WAIT_SHOT_AFTER_CORNER:
             if (shootWindowElapsed()) {
+                completedCornerCycles++;
                 shootSequencer.startIntake();
-                setPathState(PathState.DELAY_BEFORE_GRAB_3);
+                if (completedCornerCycles < CORNER_CYCLE_REPEATS) {
+                    setPathState(PathState.RUN_CORNER_CYCLE);
+                } else {
+                    setPathState(PathState.RUN_PARK);
+                }
             }
             break;
-        case DELAY_BEFORE_GRAB_3:
+        case RUN_PARK:
             if(pathDelayElapsed()) {
-                followPathAfterDelay(grabPickup3, PathState.WAIT_GRAB_3_COMPLETE);
-            }
-            break;
-        case WAIT_GRAB_3_COMPLETE:
-            if(!follower.isBusy()) {
-                setPathState(PathState.DELAY_BEFORE_SCORE_3);
-            }
-            break;
-        case DELAY_BEFORE_SCORE_3:
-            if(pathDelayElapsed()) {
-                shootSequencer.stopIntake();
-                followPathAfterDelay(scorePickup3, PathState.WAIT_SCORE_3_COMPLETE);
-            }
-            break;
-        case WAIT_SCORE_3_COMPLETE:
-            if(!follower.isBusy()) {
-                beginTimedShootAtScorePose(PathState.WAIT_SHOT_4);
-            }
-            break;
-        case WAIT_SHOT_4:
-            if (shootWindowElapsed()) {
-                shootSequencer.startIntake();
-                setPathState(PathState.DELAY_BEFORE_PARK);
-            }
-            break;
-        case DELAY_BEFORE_PARK:
-            if(pathDelayElapsed()) {
-                followPathAfterDelay(park, PathState.WAIT_PARK_COMPLETE);
+                followPathAfterDelay(parkPath, PathState.WAIT_PARK_COMPLETE);
             }
             break;
         case WAIT_PARK_COMPLETE:
@@ -303,11 +243,12 @@ public void setPathState(PathState pState) {
         shootSequencer.init(
                 hardwareMap
         );
-            shootSequencer.setShooterRunningAfterShoot(true);
+        shootSequencer.setShooterRunningAfterShoot(true);
 
         follower = Constants.createFollower(hardwareMap);
         buildPaths();
         follower.setStartingPose(startPose);
+        completedCornerCycles = 0;
     }
 
     @Override
@@ -316,6 +257,7 @@ public void setPathState(PathState pState) {
     @Override
     public void start() {
         opmodeTimer.resetTimer();
+        completedCornerCycles = 0;
         setPathState(PathState.SCORE_PRELOAD);
     }
 
@@ -330,6 +272,7 @@ public void setPathState(PathState pState) {
         telemetry.addData("path state", pathState);
         telemetry.addData("shoot elapsed ms", getShootingElapsedMs());
         telemetry.addData("shoot remaining ms", getShootingRemainingMs());
+        telemetry.addData("corner cycles", completedCornerCycles + "/" + CORNER_CYCLE_REPEATS);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
