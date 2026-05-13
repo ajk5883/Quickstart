@@ -68,7 +68,7 @@ public abstract class CommonTeleOp extends OpMode {
     public void init() {
         follower = Constants.createFollower(hardwareMap);
         cameraController = new CameraController();
-        cameraController.init(hardwareMap, "limelight", getAllianceConfig().cameraPipeline);
+        cameraController.init(hardwareMap, getAllianceConfig().cameraPipeline);
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
         shootSequencer.setShooterRunningAfterShoot(true);
@@ -298,12 +298,12 @@ public abstract class CommonTeleOp extends OpMode {
         boolean closeShootHeld = gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
 
         if (farShootHeld) {
-            runHoldToShoot(true, targetManualFarRpm, targetManualFarHoodPosition);
+            runHoldToShoot(true, targetManualFarRpm, targetManualFarHoodDeg);
             return;
         }
 
         if (closeShootHeld) {
-            runHoldToShoot(true, targetManualCloseRpm, targetManualCloseHoodPosition);
+            runHoldToShoot(true, targetManualCloseRpm, targetManualCloseHoodDeg);
             return;
         }
 

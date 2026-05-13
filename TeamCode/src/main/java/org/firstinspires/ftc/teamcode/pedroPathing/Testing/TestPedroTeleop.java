@@ -32,7 +32,7 @@ public class TestPedroTeleop extends OpMode {
     public void init() {
         follower = Constants.createFollower(hardwareMap);
         cameraController = new CameraController();
-        cameraController.init(hardwareMap);
+        cameraController.init(hardwareMap, CameraController.RED_GOAL_PIPELINE);
         follower.setStartingPose(startingPose == null ? new Pose(72, 72, 0) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();

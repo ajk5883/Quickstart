@@ -24,10 +24,10 @@ public final class TeleOpTuningConfig {
     public static double FAR_HOOD_STEP_DEG = 0.1;
 
     // Manual mode defaults
-    public static double TARGET_MANUAL_CLOSE_RPM = 2800.0;
-    public static double TARGET_MANUAL_CLOSE_HOOD_DEG = 32.0;
-    public static double TARGET_MANUAL_FAR_RPM = 3400.0;
-    public static double TARGET_MANUAL_FAR_HOOD_DEG = 44.0;
+    public static double TARGET_MANUAL_CLOSE_RPM = 3200;
+    public static double TARGET_MANUAL_CLOSE_HOOD_DEG = 0.0;
+    public static double TARGET_MANUAL_FAR_RPM = 4800;
+    public static double TARGET_MANUAL_FAR_HOOD_DEG = 0.7;
 
     public static class ShotConfig {
                 public final double rpm;

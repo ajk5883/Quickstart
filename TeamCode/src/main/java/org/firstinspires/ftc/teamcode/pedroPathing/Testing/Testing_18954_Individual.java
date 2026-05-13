@@ -54,7 +54,7 @@ public class Testing_18954_Individual extends OpMode{
         shootSequencer.setShooterVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
         cameraController = new CameraController();
-        cameraController.init(hardwareMap);
+        cameraController.init(hardwareMap, CameraController.RED_GOAL_PIPELINE);
 
 
         telemetry.addData("Status", "Initialized");      
