@@ -9,11 +9,11 @@ public final class PositionDefs {
 
     public static final double START_X = 72.0;
     public static final double START_Y = 0.0;
-    public static final double START_HEADING = Math.toRadians(90.0);
+    public static final double START_HEADING = Math.toRadians(-90.0);
 
     public static final double SCORE_X = 72.0;
     public static final double SCORE_Y = 12.0;
-    public static final double SCORE_HEADING = Math.toRadians(45.0);
+    public static final double SCORE_HEADING = Math.toRadians(-118.6);
 
     public static final double PICKUP1_START_X = 90.0;
     public static final double PICKUP1_START_Y = 18.0;
