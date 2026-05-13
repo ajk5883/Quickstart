@@ -16,6 +16,10 @@ public class IntakeController {
         intakeMotor.setPower(1.0);
     }
 
+    public void turnOnIntakeReverse() {
+        intakeMotor.setPower(-1.0);
+    }
+
     public void turnOffIntake() {
         intakeMotor.setPower(0.0);
     }

@@ -17,12 +17,12 @@ public class HoodController {
         hoodServo.setPosition(hoodMinPosition);
     }
 
-    public void setAngle(double degrees) {
-        double clippedDegrees = Math.max(MIN_DEGREES, Math.min(MAX_DEGREES, degrees));
-        double normalizedDegrees = (clippedDegrees - MIN_DEGREES) / (MAX_DEGREES - MIN_DEGREES);
-        double servoPosition = hoodMinPosition + normalizedDegrees * (hoodMaxPosition - hoodMinPosition);
-        hoodServo.setPosition(servoPosition);
-    }
+    // public void setAngle(double degrees) {
+    //     double clippedDegrees = Math.max(MIN_DEGREES, Math.min(MAX_DEGREES, degrees));
+    //     double normalizedDegrees = (clippedDegrees - MIN_DEGREES) / (MAX_DEGREES - MIN_DEGREES);
+    //     double servoPosition = hoodMinPosition + normalizedDegrees * (hoodMaxPosition - hoodMinPosition);
+    //     hoodServo.setPosition(servoPosition);
+    // }
 
     public void setPosition(double position) {
         double clippedPosition = Math.max(hoodMinPosition, Math.min(hoodMaxPosition, position));
