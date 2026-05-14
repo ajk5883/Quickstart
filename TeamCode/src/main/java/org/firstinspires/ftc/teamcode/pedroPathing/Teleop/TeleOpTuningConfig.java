@@ -58,13 +58,13 @@ public final class TeleOpTuningConfig {
     }
 
     public static final AllianceTeleOpConfig RED = new AllianceTeleOpConfig(
-            new Pose(85.744, 7.484, Math.toRadians(-90)),
+            new Pose(85, 7, Math.toRadians(-90)),
             new Pose(144.0, 24.0, 0.0),
             new Pose[] {
-                    new Pose(83.853, 14.509, Math.toRadians(-118)),
-                    new Pose(83.699, 14.609, Math.toRadians(-118)),
-                    new Pose(84.054, 14.841, Math.toRadians(-118)),
-                    new Pose(110.380, 14.098, Math.toRadians(0))
+                    new Pose(78, 77, Math.toRadians(180-48)),
+                    new Pose(87, 1159, Math.toRadians(180-25)),
+                    new Pose(76, 132, Math.toRadians(180)),
+                    new Pose(79, 12, Math.toRadians(180-67))
             },
             new ShotConfig[] {
                     new ShotConfig(3000.0, 34.0),

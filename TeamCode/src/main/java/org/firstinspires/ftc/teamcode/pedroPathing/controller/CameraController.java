@@ -33,15 +33,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
  *   Pipeline 0 (RED_GOAL_PIPELINE)  → custom pipeline, detects red goal-post tag only.
  *   Pipeline 1 (BLUE_GOAL_PIPELINE) → custom pipeline, detects blue goal-post tag only.
  *
- * ── POSE TRANSFORM (two-stage) ────────────────────────────────────────────────
- *   The Limelight's getBotpose() returns the CAMERA pose in the WPI field frame
- *   (when the camera mount is not configured inside the Limelight web UI, which
- *   is the assumed default here).  CameraController applies:
- *     Stage 1 — field-to-Pedro: metres → inches, optional Y mirror, XY + heading
- *               offsets.  Result exposed via getCameraRawPose().
- *     Stage 2 — camera-to-robot-centre: rotates the physical camera mount offset
- *               into the field frame and subtracts it from the camera position.
- *               Result exposed via getRobotPose().
+ * ── POSE OUTPUT ──────────────────────────────────────────────────────────────
+ *   The Limelight's getBotpose() is treated as the robot position reported by
+ *   the camera. CameraController converts units to inches and only flips the
+ *   heading by 180° in getRobotPose() so it points opposite the camera.
  *
  * ── HARDWARE MAP NAME ─────────────────────────────────────────────────────────
  *   Default device name is "limelight". Configure in the Driver Hub robot config.
@@ -91,12 +86,6 @@ public class CameraController {
     private final Set<Integer> pipeline0Tags = new HashSet<>();   // red goal
     private final Set<Integer> pipeline1Tags = new HashSet<>();   // blue goal
 
-    // Stage-1 field-to-Pedro transform parameters
-    private double fieldOriginOffsetX = 0.0;  // inches
-    private double fieldOriginOffsetY = 0.0;  // inches
-    private double headingOffsetRad   = 0.0;  // radians
-    private boolean mirrorY           = false;
-
     private Pose lastValidPose = null;
 
     public CameraController() {
@@ -121,32 +110,20 @@ public class CameraController {
         isInitialized = true;
     }
 
-    // ── Stage-1 field-to-Pedro coordinate transform ───────────────────────────
+    // ── Pose configuration ────────────────────────────────────────────────────
 
     /**
-     * Set the offset between the Limelight field origin and Pedro's (0, 0).
-     *
-     * Example: if the Limelight field origin is at Pedro's (−72, −72) call
-     *   setCoordinateTransform(72, 72, 0).
-     *
-     * @param xOffsetInches    X offset (inches) added after metre → inch conversion
-     * @param yOffsetInches    Y offset (inches) added after metre → inch conversion
-     * @param headingOffsetDeg Heading offset (degrees) added to Limelight yaw
+     * Kept for compatibility, but no longer used by the pose calculation.
      */
     public void setCoordinateTransform(double xOffsetInches,
                                        double yOffsetInches,
                                        double headingOffsetDeg) {
-        this.fieldOriginOffsetX = xOffsetInches;
-        this.fieldOriginOffsetY = yOffsetInches;
-        this.headingOffsetRad   = Math.toRadians(headingOffsetDeg);
     }
 
     /**
-     * Mirror the Y axis (enable if the Limelight Y direction is inverted relative to Pedro).
-     * Applied before the Y offset.
+     * Kept for compatibility, but no longer used by the pose calculation.
      */
     public void setMirrorY(boolean mirror) {
-        this.mirrorY = mirror;
     }
 
     // ── Pipeline management ───────────────────────────────────────────────────
@@ -177,11 +154,8 @@ public class CameraController {
     // ── Pose estimation ───────────────────────────────────────────────────────
 
     /**
-     * Returns the camera pose in Pedro field coordinates after Stage 1 only
-     * (field origin + heading offsets applied; camera-to-robot-centre NOT applied).
-     *
-     * Useful for comparing raw Limelight output against the robot-centre estimate
-     * or for verifying the field-origin calibration.
+     * Returns the camera pose reported by the Limelight, converted to inches.
+     * Heading is left unchanged here so the robot pose can apply the 180° flip.
      *
      * Returns null when no valid pose is available.
      */
@@ -198,28 +172,18 @@ public class CameraController {
         Pose3D botpose = result.getBotpose();
         if (botpose == null) return null;
 
-        // Stage 1: unit conversion + field-origin offset
-        double xInches = botpose.getPosition().toUnit(DistanceUnit.INCH).x + fieldOriginOffsetX;
-        double rawY    = botpose.getPosition().toUnit(DistanceUnit.INCH).y;
-        double yInches = (mirrorY ? -rawY : rawY) + fieldOriginOffsetY;
-        double cameraHeading = botpose.getOrientation().getYaw(AngleUnit.RADIANS) + headingOffsetRad;
+        double xInches = botpose.getPosition().toUnit(DistanceUnit.INCH).x;
+        double yInches = botpose.getPosition().toUnit(DistanceUnit.INCH).y;
+        double cameraHeading = botpose.getOrientation().getYaw(AngleUnit.RADIANS);
 
         return new Pose(xInches, yInches, cameraHeading);
     }
 
     /**
-     * Returns the latest robot-centre pose in Pedro Pathing coordinates (inches, radians).
+     * Returns the latest robot pose in Pedro Pathing coordinates (inches, radians).
      *
-     * Applies both transform stages:
-     *   1. Field-to-Pedro (unit conversion + coordinate offsets).
-     *   2. Camera-mount-to-robot-centre (physical offset geometry).
-     *
-     * The camera faces backward (CAMERA_HEADING_OFFSET = π), so:
-     *   robot_heading = camera_heading − π
-     *
-     * The camera mount offset (CAMERA_FORWARD_OFFSET, CAMERA_LEFT_OFFSET) is rotated
-     * into the field frame at robot_heading and subtracted from the camera position to
-     * give the robot centre.
+     * Position is returned exactly as reported by the camera. Heading is rotated
+     * by 180° so it points opposite the camera.
      *
      * Returns null when no valid pose is available.
      */
@@ -227,20 +191,9 @@ public class CameraController {
         Pose cameraPose = getCameraRawPose();
         if (cameraPose == null) return null;
 
-        // Stage 2a: derive robot heading from camera heading
         double robotHeading = normalizeAngle(cameraPose.getHeading() - CAMERA_HEADING_OFFSET);
 
-        // Stage 2b: rotate camera mount offset (robot frame) into field frame
-        double cam_dx = CAMERA_FORWARD_OFFSET * Math.cos(robotHeading)
-                      - CAMERA_LEFT_OFFSET    * Math.sin(robotHeading);
-        double cam_dy = CAMERA_FORWARD_OFFSET * Math.sin(robotHeading)
-                      + CAMERA_LEFT_OFFSET    * Math.cos(robotHeading);
-
-        // Stage 2c: robot centre = camera position − rotated offset
-        double robotX = cameraPose.getX() - cam_dx;
-        double robotY = cameraPose.getY() - cam_dy;
-
-        lastValidPose = new Pose(robotX, robotY, robotHeading);
+        lastValidPose = new Pose(cameraPose.getX(), cameraPose.getY(), robotHeading);
         return lastValidPose;
     }
 

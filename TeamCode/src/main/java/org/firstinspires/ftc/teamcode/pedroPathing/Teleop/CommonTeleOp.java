@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
+import java.util.Locale;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 
 public abstract class CommonTeleOp extends OpMode {
@@ -380,8 +381,13 @@ public abstract class CommonTeleOp extends OpMode {
         telemetry.addData("manualFarRPM", targetManualFarRpm);
         telemetry.addData("manualFarHood", targetManualFarHoodDeg);
 
-        telemetry.addData("pose", follower.getPose());
+        telemetry.addData("pose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
+            follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
+        Pose campose = cameraController.getRobotPose();
+        if (campose != null) telemetry.addData("Campose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
+            campose.getX(), campose.getY(), Math.toDegrees(campose.getHeading())));
         telemetry.addData("cameraTagCount", cameraController.getTagCount());
+
 
         telemetryM.debug("mode", driveMode);
         telemetryM.debug("modeLocked", modeSelectionLocked);
@@ -389,7 +395,11 @@ public abstract class CommonTeleOp extends OpMode {
         telemetryM.debug("selectedPreset", selectedPresetIndex);
         telemetryM.debug("autoDriveActive", autoDriveActive);
         telemetryM.debug("assistedAlignActive", assistedAlignActive);
-        telemetryM.debug("pose", follower.getPose());
+        telemetryM.debug("pose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
+            follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
+        Pose camposeDbg = cameraController.getRobotPose();
+        if (camposeDbg != null) telemetryM.debug("Campose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
+            camposeDbg.getX(), camposeDbg.getY(), Math.toDegrees(camposeDbg.getHeading())));
     }
 
     private void cacheButtonStates() {
