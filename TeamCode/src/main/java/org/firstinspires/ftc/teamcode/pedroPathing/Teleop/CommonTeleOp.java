@@ -7,6 +7,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
@@ -69,7 +70,8 @@ public abstract class CommonTeleOp extends OpMode {
     public void init() {
         follower = Constants.createFollower(hardwareMap);
         cameraController = new CameraController();
-        cameraController.init(hardwareMap, getAllianceConfig().cameraPipeline);
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        cameraController.init(hardwareMap, imu, getAllianceConfig().cameraPipeline);
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
         shootSequencer.setShooterRunningAfterShoot(true);
@@ -87,6 +89,7 @@ public abstract class CommonTeleOp extends OpMode {
     @Override
     public void loop() {
         follower.update();
+        cameraController.update(System.currentTimeMillis());
 
         updateModeControls();
         updatePresetSelectionAndAutoDrive();

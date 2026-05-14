@@ -7,6 +7,7 @@ import com.pedropathing.geometry.Pose;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
 
 
 
@@ -54,7 +55,8 @@ public class Testing_18954_Individual extends OpMode{
         shootSequencer.setShooterVelocityThreshold(SHOOTER_VELOCITY_THRESHOLD);
 
         cameraController = new CameraController();
-        cameraController.init(hardwareMap, CameraController.RED_GOAL_PIPELINE);
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        cameraController.init(hardwareMap, imu, CameraController.RED_GOAL_PIPELINE);
 
 
         telemetry.addData("Status", "Initialized");      
@@ -64,6 +66,8 @@ public class Testing_18954_Individual extends OpMode{
     // ---------------- LOOP METHOD ----------------
 
     public void loop() {
+        cameraController.update(System.currentTimeMillis());
+
         if (!hoodTargetInitialized) {
             targetHoodPosition = shootSequencer.getHoodPosition();
             hoodTargetInitialized = true;

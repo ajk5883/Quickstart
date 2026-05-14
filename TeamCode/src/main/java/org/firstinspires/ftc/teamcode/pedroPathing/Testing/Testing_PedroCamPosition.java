@@ -10,6 +10,7 @@ import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -32,7 +33,8 @@ public class Testing_PedroCamPosition extends OpMode {
     public void init() {
         follower = Constants.createFollower(hardwareMap);
         cameraController = new CameraController();
-        cameraController.init(hardwareMap, CameraController.RED_GOAL_PIPELINE);
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        cameraController.init(hardwareMap, imu, CameraController.RED_GOAL_PIPELINE);
         follower.setStartingPose(startingPose == null ? new Pose(72, 72, 0) : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
@@ -55,6 +57,7 @@ public class Testing_PedroCamPosition extends OpMode {
     public void loop() {
         //Call this once per loop
         follower.update();
+        cameraController.update(System.currentTimeMillis());
         telemetryM.update();
 
         if (!automatedDrive) {

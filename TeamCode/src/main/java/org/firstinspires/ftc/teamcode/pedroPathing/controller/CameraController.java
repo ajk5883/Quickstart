@@ -5,6 +5,7 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,30 +14,29 @@ import java.util.Set;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 /**
  * CameraController wraps the Limelight 3A and provides robot pose estimates in
  * Pedro Pathing field coordinates (inches, radians).
  *
- * ── ROBOT LAYOUT ──────────────────────────────────────────────────────────────
- *   • Intake  faces FORWARD  (Pedro Pathing +X direction).
- *   • Shooter + Limelight face BACKWARD (180° / π rad from intake).
+ * Uses IMU orientation to tell Limelight the robot's heading, then transforms
+ * Limelight's reported pose from Limelight frame (meters, origin at field center)
+ * to field frame (inches, origin at lower-left corner).
  *
- * ── CAMERA MOUNT (measured from robot centre) ─────────────────────────────────
- *   • Height         : CAMERA_HEIGHT_INCHES  = 10.0 in  (above ground)
- *   • Forward offset : CAMERA_FORWARD_OFFSET = −3.543 in (90 mm BEHIND centre)
- *   • Left offset    : CAMERA_LEFT_OFFSET    = −3.543 in (90 mm to the RIGHT of
- *                      centre, when viewed from the back of the robot)
- *   • Heading offset : CAMERA_HEADING_OFFSET = π rad    (camera faces backward)
+ * ── COORDINATE TRANSFORMATION ─────────────────────────────────────────────────
+ * Limelight coordinates: origin at field center (0,0), meters.
+ * Field coordinates: origin at lower-left (0,0), inches.
+ * Field center: (72, 72) inches.
+ *
+ * Mapping:
+ *   fieldX = FIELD_CENTER_IN + METRE_INCH_MULTIPLIER * limelightY
+ *   fieldY = FIELD_CENTER_IN - METRE_INCH_MULTIPLIER * limelightX
+ *   fieldHeading = transform applied based on limelightHeading ranges
  *
  * ── PIPELINES ─────────────────────────────────────────────────────────────────
- *   Pipeline 0 (RED_GOAL_PIPELINE)  → custom pipeline, detects red goal-post tag only.
- *   Pipeline 1 (BLUE_GOAL_PIPELINE) → custom pipeline, detects blue goal-post tag only.
- *
- * ── POSE OUTPUT ──────────────────────────────────────────────────────────────
- *   The Limelight's getBotpose() is treated as the robot position reported by
- *   the camera. CameraController converts units to inches and only flips the
- *   heading by 180° in getRobotPose() so it points opposite the camera.
+ *   Pipeline 0 (RED_GOAL_PIPELINE)  → detects red alliance goal-post tag.
+ *   Pipeline 1 (BLUE_GOAL_PIPELINE) → detects blue alliance goal-post tag.
  *
  * ── HARDWARE MAP NAME ─────────────────────────────────────────────────────────
  *   Default device name is "limelight". Configure in the Driver Hub robot config.
@@ -53,32 +53,15 @@ public class CameraController {
     public static final int DECODE_BLUE_GOAL_TAG_ID = 20;
     public static final int DECODE_RED_GOAL_TAG_ID  = 24;
 
-    // ── Camera mount geometry (robot-frame, all in inches / radians) ──────────
-    /** Camera height above the ground (informational, not used in 2-D pose). */
-    public static final double CAMERA_HEIGHT_INCHES  = 10.0;
-
-    /**
-     * Camera forward offset from robot centre (inches).
-     * Negative because the camera is BEHIND the centre (shooter side).
-     * 90 mm ÷ 25.4 mm/in = 3.543 in.
-     */
-    public static final double CAMERA_FORWARD_OFFSET = -3.543;
-
-    /**
-     * Camera left offset from robot centre (inches).
-     * Negative because the camera is to the RIGHT of centre.
-     * "90 mm to the right when looking from the back" → −Y in robot frame.
-     */
-    public static final double CAMERA_LEFT_OFFSET    = -3.543;
-
-    /**
-     * Camera heading offset relative to robot heading (radians).
-     * Camera faces backward (opposite to intake) → π rad.
-     */
-    public static final double CAMERA_HEADING_OFFSET = Math.PI;
+    // ── Field and coordinate transformation constants ──────────────────────────
+    /** Conversion factor from meters to inches. */
+    public static final double METRE_INCH_MULTIPLIER = 39.3701;
+    /** Field center position in inches (origin lower-left). */
+    public static final double FIELD_CENTER_IN = 72.0;
 
     // ── Internal state ────────────────────────────────────────────────────────
     private Limelight3A limelight;
+    private IMU imu;
     private boolean isInitialized = false;
     private int activePipeline = RED_GOAL_PIPELINE;
 
@@ -86,6 +69,10 @@ public class CameraController {
     private final Set<Integer> pipeline0Tags = new HashSet<>();   // red goal
     private final Set<Integer> pipeline1Tags = new HashSet<>();   // blue goal
 
+    // Cached pose data
+    private Pose3D last_botpose = null;
+    private LLResult pose_result = null;
+    private long last_updatedtime = 0;
     private Pose lastValidPose = null;
 
     public CameraController() {
@@ -95,15 +82,17 @@ public class CameraController {
 
     // ── Initialisation ────────────────────────────────────────────────────────
 
-
     /**
-     * Initialise with a custom hardware map name and starting pipeline.
+     * Initialise with a hardware map, IMU, and starting pipeline.
      *
      * @param hardwareMap OpMode hardware map
-     * @param pipeline    Starting pipeline index
+     * @param imu         Robot IMU for orientation updates
+     * @param pipeline    Starting pipeline index (RED_GOAL_PIPELINE or BLUE_GOAL_PIPELINE)
      */
-    public void init(HardwareMap hardwareMap, int pipeline) {
+    public void init(HardwareMap hardwareMap, IMU imu, int pipeline) {
+        this.imu = imu;
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight.setPollRateHz(60);
         limelight.pipelineSwitch(pipeline);
         activePipeline = pipeline;
         limelight.start();
@@ -113,17 +102,27 @@ public class CameraController {
     // ── Pose configuration ────────────────────────────────────────────────────
 
     /**
-     * Kept for compatibility, but no longer used by the pose calculation.
+     * Update the Limelight with current robot orientation from IMU.
+     * Call this each loop cycle before reading pose estimates.
+     *
+     * @param current_ms Current time in milliseconds
+     * @return The latest LLResult, or null if no valid pose is available
      */
-    public void setCoordinateTransform(double xOffsetInches,
-                                       double yOffsetInches,
-                                       double headingOffsetDeg) {
-    }
+    public LLResult update(long current_ms) {
+        if (!isInitialized || imu == null) return null;
 
-    /**
-     * Kept for compatibility, but no longer used by the pose calculation.
-     */
-    public void setMirrorY(boolean mirror) {
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
+
+        LLResult result = limelight.getLatestResult();
+        if (result != null && result.isValid()) {
+            pose_result = result;
+            last_botpose = result.getBotpose();
+            last_updatedtime = current_ms;
+            return pose_result;
+        }
+
+        return null;
     }
 
     // ── Pipeline management ───────────────────────────────────────────────────
@@ -154,8 +153,54 @@ public class CameraController {
     // ── Pose estimation ───────────────────────────────────────────────────────
 
     /**
+     * Returns the latest robot pose in Pedro Pathing field coordinates (inches, radians).
+     *
+     * Transforms Limelight's pose from Limelight frame (meters, origin at field center)
+     * to field frame (inches, origin lower-left).
+     *
+     * Returns null when no valid pose is available.
+     */
+    public Pose getRobotPose() {
+        if (!isInitialized) return null;
+
+        if (last_botpose == null) {
+            LLResult result = limelight.getLatestResult();
+            if (result == null || !result.isValid()) return null;
+
+            List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
+            if (fiducials == null || fiducials.isEmpty()) return null;
+            if (!containsAnyTag(fiducials, getActivePipelineTags())) return null;
+
+            last_botpose = result.getBotpose();
+        }
+
+        if (last_botpose == null) return null;
+
+        // Convert Limelight meters to inches
+        double limelightX_in = METRE_INCH_MULTIPLIER * last_botpose.getPosition().y;
+        double limelightY_in = -METRE_INCH_MULTIPLIER * last_botpose.getPosition().x;
+
+        // Transform to field frame (origin lower-left)
+        double fieldX = FIELD_CENTER_IN + limelightX_in;
+        double fieldY = FIELD_CENTER_IN + limelightY_in;
+
+        // Transform heading from Limelight frame to field frame
+        double fieldYawDeg = last_botpose.getOrientation().getYaw(AngleUnit.DEGREES);
+        if (fieldYawDeg >= 0 && fieldYawDeg < 90) {
+            fieldYawDeg = -(Math.abs(90 - fieldYawDeg));
+        } else if (fieldYawDeg >= 90) {
+            fieldYawDeg -= 90;
+        } else if (fieldYawDeg < 0) {
+            fieldYawDeg = 90 + Math.abs(fieldYawDeg);
+        }
+
+        lastValidPose = new Pose(fieldX, fieldY, Math.toRadians(fieldYawDeg));
+        return lastValidPose;
+    }
+
+    /**
      * Returns the camera pose reported by the Limelight, converted to inches.
-     * Heading is left unchanged here so the robot pose can apply the 180° flip.
+     * For compatibility—use getRobotPose() for the actual field-frame pose.
      *
      * Returns null when no valid pose is available.
      */
@@ -165,40 +210,18 @@ public class CameraController {
         LLResult result = limelight.getLatestResult();
         if (result == null || !result.isValid()) return null;
 
-        List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
-        if (fiducials == null || fiducials.isEmpty()) return null;
-        if (!containsAnyTag(fiducials, getActivePipelineTags())) return null;
-
         Pose3D botpose = result.getBotpose();
         if (botpose == null) return null;
 
-        double xInches = botpose.getPosition().toUnit(DistanceUnit.INCH).x;
-        double yInches = botpose.getPosition().toUnit(DistanceUnit.INCH).y;
+        double xInches = METRE_INCH_MULTIPLIER * botpose.getPosition().x;
+        double yInches = METRE_INCH_MULTIPLIER * botpose.getPosition().y;
         double cameraHeading = botpose.getOrientation().getYaw(AngleUnit.RADIANS);
 
         return new Pose(xInches, yInches, cameraHeading);
     }
 
     /**
-     * Returns the latest robot pose in Pedro Pathing coordinates (inches, radians).
-     *
-     * Position is returned exactly as reported by the camera. Heading is rotated
-     * by 180° so it points opposite the camera.
-     *
-     * Returns null when no valid pose is available.
-     */
-    public Pose getRobotPose() {
-        Pose cameraPose = getCameraRawPose();
-        if (cameraPose == null) return null;
-
-        double robotHeading = normalizeAngle(cameraPose.getHeading() - CAMERA_HEADING_OFFSET);
-
-        lastValidPose = new Pose(cameraPose.getX(), cameraPose.getY(), robotHeading);
-        return lastValidPose;
-    }
-
-    /**
-     * Returns the last successfully computed robot-centre pose.
+     * Returns the last successfully computed robot pose.
      * May be stale — check {@link #getTagCount()} before trusting for navigation.
      */
     public Pose getLastValidPose() {
@@ -208,6 +231,27 @@ public class CameraController {
     /** Returns true if a fresh valid robot pose is available this cycle. */
     public boolean hasPoseEstimate() {
         return getRobotPose() != null;
+    }
+
+    /**
+     * Returns the cached raw Limelight pose (Pose3D in Limelight frame, meters).
+     */
+    public Pose3D getLast_botpose() {
+        return last_botpose;
+    }
+
+    /**
+     * Returns the cached Limelight result object.
+     */
+    public LLResult getLast_botposeResult() {
+        return pose_result;
+    }
+
+    /**
+     * Returns the timestamp of the last successful pose update.
+     */
+    public long getLast_updatedTime() {
+        return last_updatedtime;
     }
 
     // ── Tag inspection ────────────────────────────────────────────────────────
@@ -278,10 +322,5 @@ public class CameraController {
             if (ids.contains(f.getFiducialId())) return true;
         }
         return false;
-    }
-
-    /** Normalises an angle to [−π, π]. */
-    private double normalizeAngle(double angleRad) {
-        return Math.atan2(Math.sin(angleRad), Math.cos(angleRad));
     }
 }

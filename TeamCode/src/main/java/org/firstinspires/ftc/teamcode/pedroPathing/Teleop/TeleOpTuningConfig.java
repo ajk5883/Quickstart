@@ -61,16 +61,16 @@ public final class TeleOpTuningConfig {
             new Pose(85, 7, Math.toRadians(-90)),
             new Pose(144.0, 24.0, 0.0),
             new Pose[] {
-                    new Pose(78, 77, Math.toRadians(180-48)),
-                    new Pose(87, 1159, Math.toRadians(180-25)),
-                    new Pose(76, 132, Math.toRadians(180)),
-                    new Pose(79, 12, Math.toRadians(180-67))
+                    new Pose(78, 77, Math.toRadians(-180+48)),
+                    new Pose(87, 115, Math.toRadians(-180+25)),
+                    new Pose(76, 132, Math.toRadians(-180)),
+                    new Pose(79, 12, Math.toRadians(-180+67))
             },
             new ShotConfig[] {
-                    new ShotConfig(3000.0, 34.0),
-                    new ShotConfig(3050.0, 35.0),
-                    new ShotConfig(3100.0, 36.0),
-                    new ShotConfig(3500.0, 44.0)
+                    new ShotConfig(3100, 0.3),
+                    new ShotConfig(3100, 0.3),
+                    new ShotConfig(3100, 0.3),
+                    new ShotConfig(4800, 0.7)
             },
             CameraController.RED_GOAL_PIPELINE
     );
