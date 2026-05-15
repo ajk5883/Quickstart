@@ -9,15 +9,15 @@ public class IntakeController {
 
     public void init(HardwareMap hardwareMap) {
         intakeMotor = hardwareMap.get(DcMotorSimple.class, motorName);
-        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void turnOnIntake() {
-        intakeMotor.setPower(1.0);
+        intakeMotor.setPower(-1.0);
     }
 
     public void turnOnIntakeReverse() {
-        intakeMotor.setPower(-1.0);
+        intakeMotor.setPower(1.0);
     }
 
     public void turnOffIntake() {

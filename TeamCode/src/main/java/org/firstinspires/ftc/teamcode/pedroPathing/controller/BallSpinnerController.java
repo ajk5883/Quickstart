@@ -11,11 +11,11 @@ public class BallSpinnerController {
 
     public void init(HardwareMap hardwareMap) {
         spinnerMotor = hardwareMap.get(DcMotorSimple.class, motorName);
-        spinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        spinnerMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void turnOn() {
-        spinnerMotor.setPower(1.0);
+        spinnerMotor.setPower(-1.0);
     }
 
     public void turnOff() {
