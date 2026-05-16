@@ -40,7 +40,7 @@ public final class ControllerParams {
      * Default RPM tolerance: how close to target RPM counts as "shooter ready".
      * Represents mechanical precision of the motor controller, not strategy.
      */
-    public static final double SHOOTER_VELOCITY_THRESHOLD_RPM = 50.0;
+    //public static final double SHOOTER_VELOCITY_THRESHOLD_RPM = 50.0;
 
     /** Velocity PIDF coefficients applied to the shooter motor in RUN_USING_ENCODER mode. */
     public static final double SHOOTER_PIDF_P = 14.0;

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Testing;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
 import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
+import org.firstinspires.ftc.teamcode.pedroPathing.Teleop.TeleOpTuningConfig;
 
 import com.pedropathing.geometry.Pose;
 
@@ -152,6 +153,10 @@ public class Testing_18954_Individual extends OpMode{
         double currentHoodPosition = shootSequencer.getHoodPosition();
         double currentGatePosition = shootSequencer.getGatePosition();
         Pose cameraPose = cameraController.getRobotPose();
+        CameraController.AimData aimData = cameraPose == null
+            ? CameraController.AimData.invalid()
+            : cameraController.getAimData(TeleOpTuningConfig.RED.goalPose);
+        double headingCorrectionDeg = aimData.headingCorrectionDeg;
 
         telemetry.addData("Target Shooter Velocity (RPM)", shooterTargetVelocity);
         telemetry.addData("Current Shooter Velocity (RPM)", currentShooterVelocity);
@@ -161,10 +166,12 @@ public class Testing_18954_Individual extends OpMode{
         telemetry.addData("Cam Tag Count", cameraController.getTagCount());
         telemetry.addData("Cam Pose Available", cameraPose != null);
         if (cameraPose != null) {
-            telemetry.addData("Cam X", cameraPose.getX());
-            telemetry.addData("Cam Y", cameraPose.getY());
-            telemetry.addData("Cam Heading (deg)", Math.toDegrees(cameraPose.getHeading()));
+            telemetry.addData("Bot X", cameraPose.getX());
+            telemetry.addData("Bot Y", cameraPose.getY());
+            telemetry.addData("Bot Heading (deg)", Math.toDegrees(cameraPose.getHeading()));
         }
+        telemetry.addData("Heading Correction Needed (deg)", headingCorrectionDeg);
+        telemetry.addData("Distance to Target (in)", aimData.distanceToTargetInches);
         telemetry.update();
 
         prevLeftBumper = gamepad1.left_bumper;

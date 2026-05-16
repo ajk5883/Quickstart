@@ -11,12 +11,12 @@ public final class TeleOpTuningConfig {
 
     // Shared drive and control tuning
     public static double STICK_SCALE = 1.0;
-    public static double TRIGGER_THRESHOLD = 0.15;
-    public static double SHOOTER_VELOCITY_THRESHOLD_RPM = 60.0;
-    public static int ASSISTED_SHOOT_DURATION_MS = 900;
-    public static double HEADING_ALIGN_KP = 1.2;
+    public static double TRIGGER_THRESHOLD = 0.5;
+    public static double SHOOTER_VELOCITY_THRESHOLD_RPM = ParamsConfig.SHOOTER_DEFAULT_VELOCITY_THRESHOLD;
+    //public static int ASSISTED_SHOOT_DURATION_MS = 900;
+    //public static double HEADING_ALIGN_KP = 1.2;
     public static double HEADING_ALIGN_TOLERANCE_RAD = Math.toRadians(2.0);
-    public static double HEADING_ALIGN_MAX_TURN = 0.6;
+    //public static double HEADING_ALIGN_MAX_TURN = 0.6;
 
     // Maximum RPM allowed for manual adjustments
         // Manual adjustment constants removed; teleop uses configured preset shots.

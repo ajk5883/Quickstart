@@ -33,6 +33,7 @@ public abstract class CommonTeleOp extends OpMode {
     private boolean prevGp1X;
     private boolean prevGp1Y;
     private boolean prevGp1LeftBumper;
+    private boolean prevGp2LeftTriggerActive;
 
     private boolean lastShootHeld;
 
@@ -69,6 +70,10 @@ public abstract class CommonTeleOp extends OpMode {
         }
 
         updateShootingControls();
+
+        if (assistedAlignActive && !follower.isBusy()) {
+            cancelAssistedAlign();
+        }
 
         if (!autoDriveActive && !assistedAlignActive) {
             follower.setTeleOpDrive(
@@ -137,6 +142,11 @@ public abstract class CommonTeleOp extends OpMode {
         assistedAlignActive = false;
     }
 
+    private void cancelAssistedAlign() {
+        follower.startTeleopDrive();
+        assistedAlignActive = false;
+    }
+
     private void updateIntakeControls() {
         if (gamepad1.right_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD) {
             shootSequencer.startIntake();
@@ -155,23 +165,32 @@ public abstract class CommonTeleOp extends OpMode {
     private void updateShootingControls() {
         boolean presetShootHeld = gamepad2.right_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
         boolean aimShootHeld = gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
+        boolean aimShootEdge = aimShootHeld && !prevGp2LeftTriggerActive;
         boolean longShootHeld = gamepad2.right_bumper;
         boolean closeShootHeld = gamepad2.left_bumper;
 
         if (presetShootHeld) {
             TeleOpTuningConfig.ShotConfig presetShot = getPresetShotConfig();
-            assistedAlignActive = false;
+            if (assistedAlignActive) {
+                cancelAssistedAlign();
+            }
             runHoldToShoot(true, presetShot.rpm, presetShot.hoodPosition);
             return;
         }
 
-        if (aimShootHeld) {
+        if (aimShootEdge) {
             runCameraAimedShootControls();
             return;
         }
 
+        if (aimShootHeld) {
+            return;
+        }
+
         if (longShootHeld) {
-            assistedAlignActive = false;
+            if (assistedAlignActive) {
+                cancelAssistedAlign();
+            }
             runHoldToShoot(true,
                     ParamsConfig.TELEOP_SHOOT_TARGET_VELOCITY_LONG,
                     ParamsConfig.TELEOP_SHOOT_HOOD_POSITION_LONG);
@@ -179,14 +198,15 @@ public abstract class CommonTeleOp extends OpMode {
         }
 
         if (closeShootHeld) {
-            assistedAlignActive = false;
+            if (assistedAlignActive) {
+                cancelAssistedAlign();
+            }
             runHoldToShoot(true,
                     ParamsConfig.TELEOP_SHOOT_TARGET_VELOCITY_CLOSE,
                     ParamsConfig.TELEOP_SHOOT_HOOD_POSITION_CLOSE);
             return;
         }
 
-        assistedAlignActive = false;
         runHoldToShoot(false, 0.0, ParamsConfig.TELEOP_SHOOT_HOOD_POSITION_CLOSE);
     }
 
@@ -204,31 +224,37 @@ public abstract class CommonTeleOp extends OpMode {
         lastShootHeld = shootHeld;
     }
 
+    private void PedroPathing_TurnByAngle(double targetCorrectionRad) {
+
+            double turnAngle = normalizeRadians(targetCorrectionRad);
+            boolean turnPositive = turnAngle < 0;
+            follower.turn(turnAngle, turnPositive);
+
+    }
+    
+
+
     private void runCameraAimedShootControls() {
-        Pose aimPose = cameraController.getRobotPose();
-        if (aimPose == null) {
-            aimPose = follower.getPose();
-        }
-
         Pose goalPose = getAllianceConfig().goalPose;
-        double targetHeading = Math.atan2(goalPose.getY() - aimPose.getY(), goalPose.getX() - aimPose.getX());
-        double headingError = normalizeRadians(targetHeading - follower.getPose().getHeading());
+        CameraController.AimData aimData = cameraController.getAimData(goalPose);
+        Pose currentPose = follower.getPose();
 
-        if (Math.abs(headingError) <= TeleOpTuningConfig.HEADING_ALIGN_TOLERANCE_RAD) {
-            assistedAlignActive = true;
-            ShootingLookupTable.ShotSolution shot = lookupTable.getNearest(distanceToGoalInches(aimPose));
-            runHoldToShoot(true, shot.rpm, shot.hoodPosition);
+        if (!aimData.isValid || cameraController.getTagCount() == 0 || currentPose == null) {
+            cancelAssistedAlign();
             return;
         }
 
         assistedAlignActive = true;
-        double turn = clamp(
-                headingError * TeleOpTuningConfig.HEADING_ALIGN_KP,
-                -TeleOpTuningConfig.HEADING_ALIGN_MAX_TURN,
-                TeleOpTuningConfig.HEADING_ALIGN_MAX_TURN
-        );
-        follower.setTeleOpDrive(0.0, 0.0, turn, true);
-        lastShootHeld = shootSequencer.isShootingSequenceActive();
+        double headingCorrectionRad = Math.toRadians(aimData.headingCorrectionDeg);
+
+        if (Math.abs(headingCorrectionRad) <= TeleOpTuningConfig.HEADING_ALIGN_TOLERANCE_RAD) {
+            ShootingLookupTable.ShotSolution shot = lookupTable.getNearest(aimData.distanceToTargetInches);
+            runHoldToShoot(true, shot.rpm, shot.hoodPosition);
+            return;
+        }
+
+        PedroPathing_TurnByAngle(headingCorrectionRad);
+        lastShootHeld = false;
     }
 
     private TeleOpTuningConfig.ShotConfig getPresetShotConfig() {
@@ -242,14 +268,11 @@ public abstract class CommonTeleOp extends OpMode {
         return configs[selectedPresetIndex];
     }
 
-    private double distanceToGoalInches(Pose robotPose) {
-        Pose goal = getAllianceConfig().goalPose;
-        double dx = goal.getX() - robotPose.getX();
-        double dy = goal.getY() - robotPose.getY();
-        return Math.hypot(dx, dy);
-    }
-
     private void updateTelemetry() {
+        Pose goalPose = getAllianceConfig().goalPose;
+        CameraController.AimData aimData = cameraController.getAimData(goalPose);
+        boolean aimShootActive = gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
+
         telemetry.addData("selectedPreset", selectedPresetIndex);
         telemetry.addData("autoDriveActive", autoDriveActive);
         telemetry.addData("assistedAlignActive", assistedAlignActive);
@@ -272,26 +295,11 @@ public abstract class CommonTeleOp extends OpMode {
         if (campose != null) telemetry.addData("Campose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
             campose.getX(), campose.getY(), Math.toDegrees(campose.getHeading())));
         telemetry.addData("cameraTagCount", cameraController.getTagCount());
+        telemetry.addData("aimShootActive", aimShootActive);
+        telemetry.addData("aimHeadingCorrectionDeg", aimData.headingCorrectionDeg);
+        telemetry.addData("aimDistanceIn", aimData.distanceToTargetInches);
 
 
-        telemetryM.debug("selectedPreset", selectedPresetIndex);
-        telemetryM.debug("autoDriveActive", autoDriveActive);
-        telemetryM.debug("assistedAlignActive", assistedAlignActive);
-        telemetryM.debug("shootMode", shootSequencer.getShootMode());
-        telemetryM.debug("shootTimed", shootSequencer.isTimedMode());
-        telemetryM.debug("targetRpm", shootSequencer.getShooterTargetVelocity());
-        telemetryM.debug("shooterState", shootSequencer.getShootState());
-        telemetryM.debug("shooterRpm", shootSequencer.getShooterVelocityRpm());
-        telemetryM.debug("hoodPos", shootSequencer.getHoodPosition());
-        telemetryM.debug("gatePosRaw", shootSequencer.getGatePosition());
-        telemetryM.debug("gateState", shootSequencer.isGateOpen() ? "OPEN" : "CLOSED");
-        telemetryM.debug("spinnerState", shootSequencer.getSpinnerState());
-        telemetryM.debug("intakeState", shootSequencer.getIntakeState());
-        telemetryM.debug("pose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
-            follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
-        Pose camposeDbg = cameraController.getRobotPose();
-        if (camposeDbg != null) telemetryM.debug("Campose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
-            camposeDbg.getX(), camposeDbg.getY(), Math.toDegrees(camposeDbg.getHeading())));
     }
 
     private void cacheButtonStates() {
@@ -300,6 +308,7 @@ public abstract class CommonTeleOp extends OpMode {
         prevGp1X = gamepad1.x;
         prevGp1Y = gamepad1.y;
         prevGp1LeftBumper = gamepad1.left_bumper;
+        prevGp2LeftTriggerActive = gamepad2.left_trigger > TeleOpTuningConfig.TRIGGER_THRESHOLD;
     }
 
     private double normalizeRadians(double angleRadians) {

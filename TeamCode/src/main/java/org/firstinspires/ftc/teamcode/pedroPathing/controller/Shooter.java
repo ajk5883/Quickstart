@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ControllerParams;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
 
 /**
  * Shooter controller supporting single- or dual-motor configurations.
@@ -28,7 +29,7 @@ public class Shooter {
     // targetVelocity is expressed in RPM (human-friendly). Internally we convert
     // to ticks/sec for the DcMotorEx velocity calls.
     private double targetVelocity = 0.0; // RPM
-    private double velocityThreshold = ControllerParams.SHOOTER_VELOCITY_THRESHOLD_RPM;
+    private double velocityThreshold = ParamsConfig.SHOOTER_DEFAULT_VELOCITY_THRESHOLD; // RPM
 
     private static final double TICKS_PER_REV = ControllerParams.SHOOTER_TICKS_PER_REV;
 
