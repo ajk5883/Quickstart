@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Auton;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.Alliance;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig.Alliance;
 import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
 
 import java.util.ArrayList;

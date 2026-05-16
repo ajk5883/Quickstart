@@ -390,6 +390,14 @@ public abstract class CommonTeleOp extends OpMode {
         telemetry.addData("manualFarRPM", targetManualFarRpm);
         telemetry.addData("manualFarHood", targetManualFarHoodDeg);
 
+        // Shooter subsystem telemetry
+        telemetry.addData("shooterState", shootSequencer.getShootState());
+        telemetry.addData("shooterRpm", shootSequencer.getShooterVelocityRpm());
+        telemetry.addData("hoodPos", shootSequencer.getHoodPosition());
+        telemetry.addData("gatePosRaw", shootSequencer.getGatePosition());
+        telemetry.addData("spinnerState", shootSequencer.getSpinnerState());
+        telemetry.addData("intakeState", shootSequencer.getIntakeState());
+
         telemetry.addData("pose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
             follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
         Pose campose = cameraController.getRobotPose();
@@ -409,6 +417,12 @@ public abstract class CommonTeleOp extends OpMode {
         Pose camposeDbg = cameraController.getRobotPose();
         if (camposeDbg != null) telemetryM.debug("Campose", String.format(Locale.US, "(%.2f, %.2f, %.2f)",
             camposeDbg.getX(), camposeDbg.getY(), Math.toDegrees(camposeDbg.getHeading())));
+        telemetryM.debug("shooterState", shootSequencer.getShootState());
+        telemetryM.debug("shooterRpm", shootSequencer.getShooterVelocityRpm());
+        telemetryM.debug("hoodPos", shootSequencer.getHoodPosition());
+        telemetryM.debug("gatePosRaw", shootSequencer.getGatePosition());
+        telemetryM.debug("spinnerState", shootSequencer.getSpinnerState());
+        telemetryM.debug("intakeState", shootSequencer.getIntakeState());
     }
 
     private void cacheButtonStates() {

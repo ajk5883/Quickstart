@@ -10,6 +10,30 @@ import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
  * minimal so callers can implement timing/state machines in their OpModes.
  */
 public class ShootSequencer {
+    public enum ShootState {
+        IDLE,
+        SPINUP,
+        SHOOTING,
+        STOPPING
+    }
+
+    public enum ShootMode {
+        NONE,
+        TIMED,
+        ACTIVE_FLAG
+    }
+
+    public enum SpinnerState {
+        OFF,
+        ON
+    }
+
+    public enum IntakeState {
+        OFF,
+        FORWARD,
+        REVERSE
+    }
+
     private GateController gate;
     private HoodController hood;
     private Shooter shooter;
@@ -61,7 +85,7 @@ public class ShootSequencer {
 
         // Ensure everything starts in a safe default state
         gate.closeGate();
-        spinner.turnOff();
+        turnOffSpinner();
         shooter.stopShooter();
         hood.setPosition(DEFAULT_HOOD_POSITION);
         intake.turnOffIntake();
@@ -84,23 +108,22 @@ public class ShootSequencer {
     public boolean isShooterVelocityWithinThreshold() { return shooter.isVelocityWithinThreshold(); }
 
     // Spinner (direct)
-    public void turnOnSpinner() { spinner.turnOn(); }
-    public void turnOffSpinner() { spinner.turnOff(); }
-    private enum ShootState {
-        IDLE,
-        SPINUP,
-        SHOOTING,
-        STOPPING
+    public void turnOnSpinner() { spinner.turnOn(); spinnerState = SpinnerState.ON; }
+    public void turnOffSpinner() { spinner.turnOff(); spinnerState = SpinnerState.OFF; }
+    public SpinnerState getSpinnerState() { return spinnerState; }
+    public IntakeState getIntakeState() { return intakeState; }
+    public ShootState getShootState() { return shootState; }
+    public ShootMode getShootMode() { return shootMode; }
+    public boolean isTimedMode() { return shootMode == ShootMode.TIMED; }
+    public boolean isGateOpen() {
+        double position = gate.getPosition();
+        return Math.abs(position - ControllerParams.GATE_OPEN_POSITION) <= Math.abs(position - ControllerParams.GATE_CLOSED_POSITION);
     }
-
-    private enum ShootMode {
-        NONE,
-        TIMED,
-        ACTIVE_FLAG
-    }
-
+    public boolean isShootingSequenceActive() { return shootingSequenceActive; }
     private ShootState shootState = ShootState.IDLE;
     private ShootMode shootMode = ShootMode.NONE;
+    private SpinnerState spinnerState = SpinnerState.OFF;
+    private IntakeState intakeState = IntakeState.OFF;
     private boolean shootingSequenceActive = false;
     private boolean intakeActive = false;
     private boolean stopRequested = false;
@@ -143,7 +166,7 @@ public class ShootSequencer {
 
             case SHOOTING:
                 gate.openGate();
-                spinner.turnOn();
+                turnOnSpinner();
                 
                 if (stopRequested) {
                     shootState = ShootState.STOPPING;
@@ -161,7 +184,7 @@ public class ShootSequencer {
             case STOPPING:
                 gate.closeGate();
                 if (!intakeActive) {
-                    spinner.turnOff();
+                    turnOffSpinner();
                 }
                 stopRequested = false; // reset stop request for next time
 
@@ -192,7 +215,7 @@ public class ShootSequencer {
         
         this.gate.closeGate();
         if (!this.intakeActive) {
-            this.spinner.turnOff();
+            this.turnOffSpinner();
         }
     }
 
@@ -212,7 +235,7 @@ public class ShootSequencer {
         
         this.gate.closeGate();
         if (!this.intakeActive) {
-            this.spinner.turnOff();
+            this.turnOffSpinner();
         }
     }
 
@@ -227,7 +250,7 @@ public class ShootSequencer {
             // If the loop isn't active to process the state machine, force shutdown now
             gate.closeGate();
             if (!intakeActive) {
-                spinner.turnOff();
+                turnOffSpinner();
             }
             if (!keepShooterRunningAfterShoot) {
                 shooter.stopShooter();
@@ -242,17 +265,18 @@ public class ShootSequencer {
      */
     public void startIntake() {
         intakeActive = true;
-        spinner.turnOn();
+        turnOnSpinner();
         intake.turnOnIntake();
+        intakeState = IntakeState.FORWARD;
     }
 
     public void stopIntake() {
         intakeActive = false;
         intake.turnOffIntake();
+        intakeState = IntakeState.OFF;
         if(shootState != ShootState.SHOOTING) {
-            spinner.turnOff();
-            
-        }        
+            turnOffSpinner();
+        }
     }
 
     /**
@@ -261,6 +285,7 @@ public class ShootSequencer {
     public void startIntakeReverse() {
         intakeActive = false;
         intake.turnOnIntakeReverse();
+        intakeState = IntakeState.REVERSE;
     }
 
     /**

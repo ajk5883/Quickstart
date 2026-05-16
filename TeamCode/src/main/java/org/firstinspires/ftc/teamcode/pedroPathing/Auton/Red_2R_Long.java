@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.Alliance;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig.Alliance;;
 
 /**
  * Red alliance – Long side auton: 1 row pickup + 2 corner cycles, then park.

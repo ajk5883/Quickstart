@@ -3,10 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs;
 import com.pedropathing.geometry.Pose;
 
 /* Create an enum for RED / BLUE */
-public enum Alliance {
-    RED,
-    BLUE
-}
+
 
 /**
  * Shared autonomous pose catalog.
@@ -16,6 +13,11 @@ public enum Alliance {
  * by mirroring across the field's horizontal midline.
  */
 public final class ParamsConfig {
+
+    public enum Alliance {
+        RED,
+        BLUE
+    }
 
     private ParamsConfig() {}
 
@@ -114,6 +116,16 @@ public final class ParamsConfig {
     public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.35;
     /** Hood servo position (0.0–1.0) for close scoring positions (close-side). */
     public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.30;
+
+    /** Teleop long-shot shooter target velocity (RPM). */
+    public static final double TELEOP_SHOOT_TARGET_VELOCITY_LONG    = AUTON_SHOOT_TARGET_VELOCITY_FAR;
+    /** Teleop close-shot shooter target velocity (RPM). */
+    public static final double TELEOP_SHOOT_TARGET_VELOCITY_CLOSE   = AUTON_SHOOT_TARGET_VELOCITY_CLOSE;
+
+    /** Teleop long-shot hood position (0.0–1.0). */
+    public static final double TELEOP_SHOOT_HOOD_POSITION_LONG     = AUTON_SHOOT_HOOD_POSITION_FAR;
+    /** Teleop close-shot hood position (0.0–1.0). */
+    public static final double TELEOP_SHOOT_HOOD_POSITION_CLOSE    = AUTON_SHOOT_HOOD_POSITION_CLOSE;
 
     // ── ShootSequencer strategy defaults ─────────────────────────────────────────
 
