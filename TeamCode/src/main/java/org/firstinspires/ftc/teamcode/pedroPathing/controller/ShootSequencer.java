@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
+
 /**
  * High-level shoot sequencer that holds references to the shooter, hood, gate and feeder spinner.
  * This class provides simple init and convenience control methods; it intentionally keeps logic
@@ -14,12 +16,13 @@ public class ShootSequencer {
     private BallSpinnerController spinner;
     private IntakeController intake;
 
-    // Configurable timing/velocity parameters (can be changed by caller)
-    private int Default_spinupTimeoutMs = 3000;
-    private double Default_shooterTargetVelocity = 6000.0;
-    private double Default_shooterVelocityThreshold = 50.0;
-    private double Default_hoodPosition = 0.0;
-    private double Target_hoodPosition = 0.0;
+    // Sequencer defaults — sourced from config files, not hard-coded literals
+    private static final int    DEFAULT_SPINUP_TIMEOUT_MS          = ParamsConfig.SHOOTER_SPINUP_TIMEOUT_MS;
+    private static final double DEFAULT_SHOOTER_TARGET_VELOCITY    = ParamsConfig.SHOOTER_DEFAULT_TARGET_RPM;
+    private static final double DEFAULT_SHOOTER_VELOCITY_THRESHOLD = ParamsConfig.SHOOTER_DEFAULT_VELOCITY_THRESHOLD;
+    private static final double DEFAULT_HOOD_POSITION              = ControllerParams.HOOD_DEFAULT_POSITION;
+
+    private double targetHoodPosition = DEFAULT_HOOD_POSITION;
     
     private int spinupTimeoutMs;
     private double shooterTargetVelocity;
@@ -35,8 +38,8 @@ public class ShootSequencer {
     }
 
     public void setHoodPosition(double position) {
-        Target_hoodPosition = Math.max(0.0, Math.min(1.0, position));
-        hood.setPosition(Target_hoodPosition); // apply immediately for direct/test use
+        targetHoodPosition = Math.max(0.0, Math.min(1.0, position));
+        hood.setPosition(targetHoodPosition);
     }
 
     public double getHoodPosition() {
@@ -52,17 +55,15 @@ public class ShootSequencer {
         gate.init(hardwareMap);
         spinner.init(hardwareMap);
         intake.init(hardwareMap);
-        setSpinupTimeoutMs(Default_spinupTimeoutMs);
-        setShooterTargetVelocity(Default_shooterTargetVelocity);
-        setShooterVelocityThreshold(Default_shooterVelocityThreshold); 
-        
-        
+        setSpinupTimeoutMs(DEFAULT_SPINUP_TIMEOUT_MS);
+        setShooterTargetVelocity(DEFAULT_SHOOTER_TARGET_VELOCITY);
+        setShooterVelocityThreshold(DEFAULT_SHOOTER_VELOCITY_THRESHOLD);
 
         // Ensure everything starts in a safe default state
         gate.closeGate();
         spinner.turnOff();
         shooter.stopShooter();
-        hood.setPosition(Default_hoodPosition);
+        hood.setPosition(DEFAULT_HOOD_POSITION);
         intake.turnOffIntake();
 
 
@@ -130,7 +131,7 @@ public class ShootSequencer {
                     break;
                 }
 
-                hood.setPosition(Target_hoodPosition);
+                hood.setPosition(targetHoodPosition);
                 shooter.startShooter(shooterTargetVelocity);
                 
                 if (shooter.isVelocityWithinThreshold() || now - shootStateStartMs >= spinupTimeoutMs) {

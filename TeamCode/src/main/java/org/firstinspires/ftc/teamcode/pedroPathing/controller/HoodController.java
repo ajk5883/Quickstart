@@ -3,14 +3,16 @@ package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.ControllerParams;
+
 public class HoodController {
-    private String  servoName = "hood";
+    private String servoName       = ControllerParams.HW_HOOD_SERVO;
     private static final double MIN_DEGREES = 0.0;
     private static final double MAX_DEGREES = 180.0;
 
     private Servo hoodServo;
-    private double hoodMinPosition=0.0;
-    private double hoodMaxPosition=1.0;
+    private double hoodMinPosition = ControllerParams.HOOD_MIN_POSITION;
+    private double hoodMaxPosition = ControllerParams.HOOD_MAX_POSITION;
 
     public void init(HardwareMap hardwareMap ) {
         hoodServo = hardwareMap.get(Servo.class, servoName);

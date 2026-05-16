@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.ControllerParams;
+
 /**
  * Shooter controller supporting single- or dual-motor configurations.
  * Defaults to a single motor named "launch1". Motors are reversed by default
@@ -16,8 +18,8 @@ public class Shooter {
     private DcMotorEx shooterMotor1;
     private DcMotorEx shooterMotor2;
 
-    private String motor1Name = "launch1";
-    private String motor2Name = "launch2"; // empty => no second motor by default
+    private String motor1Name = ControllerParams.HW_SHOOTER_MOTOR1;
+    private String motor2Name = ControllerParams.HW_SHOOTER_MOTOR2;
 
     private boolean hasSecondMotor = false;
     private boolean motorsReversed = true;
@@ -26,9 +28,9 @@ public class Shooter {
     // targetVelocity is expressed in RPM (human-friendly). Internally we convert
     // to ticks/sec for the DcMotorEx velocity calls.
     private double targetVelocity = 0.0; // RPM
-    private double velocityThreshold = 50.0; // RPM tolerance by default
+    private double velocityThreshold = ControllerParams.SHOOTER_VELOCITY_THRESHOLD_RPM;
 
-    private static final double TICKS_PER_REV = 28.0;
+    private static final double TICKS_PER_REV = ControllerParams.SHOOTER_TICKS_PER_REV;
 
     public Shooter() {}
 
@@ -50,7 +52,11 @@ public class Shooter {
             shooterMotor2 = null;
         }
 
-        setVelocityPIDF(14.0, 0.0, 0.4, 13.6); 
+        setVelocityPIDF(
+                ControllerParams.SHOOTER_PIDF_P,
+                ControllerParams.SHOOTER_PIDF_I,
+                ControllerParams.SHOOTER_PIDF_D,
+                ControllerParams.SHOOTER_PIDF_F);
     }
 
 

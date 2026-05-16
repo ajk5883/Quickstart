@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.pedroPathing.controller;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.ControllerParams;
+
 public class GateController {
     private Servo gateServo;
-    private double openPosition=0.0;
-    private double closedPosition=0.25;
-    private String servoName = "gate";
+    private double openPosition   = ControllerParams.GATE_OPEN_POSITION;
+    private double closedPosition  = ControllerParams.GATE_CLOSED_POSITION;
+    private String servoName       = ControllerParams.HW_GATE_SERVO;
 
     public void init(HardwareMap hardwareMap) {
         gateServo = hardwareMap.get(Servo.class, servoName);

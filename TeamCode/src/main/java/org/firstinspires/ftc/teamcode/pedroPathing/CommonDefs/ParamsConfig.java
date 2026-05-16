@@ -114,4 +114,25 @@ public final class ParamsConfig {
     public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.35;
     /** Hood servo position (0.0–1.0) for close scoring positions (close-side). */
     public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.30;
+
+    // ── ShootSequencer strategy defaults ─────────────────────────────────────────
+
+    /**
+     * Maximum time (ms) allowed for the shooter to spin up before the gate opens
+     * regardless of whether the target velocity has been reached.
+     */
+    public static final int    SHOOTER_SPINUP_TIMEOUT_MS          = 3000;
+
+    /**
+     * Default shooter target RPM used by ShootSequencer when no explicit velocity is
+     * provided. Intentionally aligned with the far-side auton value to prevent
+     * unexpected behaviour. (Previously was 6000 RPM — inconsistent with tuned values.)
+     */
+    public static final double SHOOTER_DEFAULT_TARGET_RPM         = AUTON_SHOOT_TARGET_VELOCITY_FAR;
+
+    /**
+     * Default RPM tolerance for the ShootSequencer when no explicit threshold is
+     * supplied at the strategy level.
+     */
+    public static final double SHOOTER_DEFAULT_VELOCITY_THRESHOLD = 50.0;
 }

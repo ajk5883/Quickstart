@@ -16,6 +16,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
+
 /**
  * CameraController wraps the Limelight 3A and provides robot pose estimates in
  * Pedro Pathing field coordinates (inches, radians).
@@ -56,8 +58,11 @@ public class CameraController {
     // ── Field and coordinate transformation constants ──────────────────────────
     /** Conversion factor from meters to inches. */
     public static final double METRE_INCH_MULTIPLIER = 39.3701;
-    /** Field center position in inches (origin lower-left). */
-    public static final double FIELD_CENTER_IN = 72.0;
+    /**
+     * Field center in inches, derived from ParamsConfig so it stays in sync with
+     * {@link ParamsConfig#FIELD_SIZE_IN} if the field size ever changes.
+     */
+    public static final double FIELD_CENTER_IN = ParamsConfig.FIELD_SIZE_IN / 2.0;
 
     // ── Internal state ────────────────────────────────────────────────────────
     private Limelight3A limelight;
@@ -91,8 +96,8 @@ public class CameraController {
      */
     public void init(HardwareMap hardwareMap, IMU imu, int pipeline) {
         this.imu = imu;
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight.setPollRateHz(60);
+        limelight = hardwareMap.get(Limelight3A.class, ControllerParams.HW_LIMELIGHT);
+        limelight.setPollRateHz(ControllerParams.CAMERA_POLL_RATE_HZ);
         limelight.pipelineSwitch(pipeline);
         activePipeline = pipeline;
         limelight.start();
@@ -184,15 +189,13 @@ public class CameraController {
         double fieldX = FIELD_CENTER_IN + limelightX_in;
         double fieldY = FIELD_CENTER_IN + limelightY_in;
 
-        // Transform heading from Limelight frame to field frame
-        double fieldYawDeg = last_botpose.getOrientation().getYaw(AngleUnit.DEGREES);
-        if (fieldYawDeg >= 0 && fieldYawDeg < 90) {
-            fieldYawDeg = -(Math.abs(90 - fieldYawDeg));
-        } else if (fieldYawDeg >= 90) {
-            fieldYawDeg -= 90;
-        } else if (fieldYawDeg < 0) {
-            fieldYawDeg = 90 + Math.abs(fieldYawDeg);
-        }
+        // Rotate from Limelight frame to field frame by subtracting the fixed offset.
+        // BUG FIX: the previous if/else chain correctly applied (yaw - 90) for positive
+        // angles but incorrectly applied (90 + |yaw|) = (90 - yaw) for negative angles,
+        // flipping the sign. Simplified to a single subtraction that is correct for all
+        // yaw values in [-180, 180].
+        double fieldYawDeg = last_botpose.getOrientation().getYaw(AngleUnit.DEGREES)
+                - ControllerParams.CAMERA_HEADING_OFFSET_DEG;
 
         lastValidPose = new Pose(fieldX, fieldY, Math.toRadians(fieldYawDeg));
         return lastValidPose;
