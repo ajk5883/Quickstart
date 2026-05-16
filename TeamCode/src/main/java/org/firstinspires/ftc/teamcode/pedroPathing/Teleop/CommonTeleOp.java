@@ -314,8 +314,8 @@ public abstract class CommonTeleOp extends OpMode {
         runHoldToShoot(false, 0.0, 0.0);
     }
 
-    private void runHoldToShoot(boolean shootHeld, double targetRpm, double targetHoodAngleDeg) {
-        shootSequencer.setHoodPosition(targetHoodAngleDeg); // Now targetHoodAngleDeg is actually position 0.0-1.0
+    private void runHoldToShoot(boolean shootHeld, double targetRpm, double targetHoodPosition) {
+        shootSequencer.setHoodPosition(targetHoodPosition);
         if (shootHeld && !lastShootHeld) {
             shootSequencer.startShootingSequence(targetRpm, TeleOpTuningConfig.SHOOTER_VELOCITY_THRESHOLD_RPM);
         }
@@ -358,6 +358,9 @@ public abstract class CommonTeleOp extends OpMode {
 
     private TeleOpTuningConfig.ShotConfig getPresetShotConfig() {
         TeleOpTuningConfig.ShotConfig[] configs = getAllianceConfig().presetShots;
+        if (configs.length == 0) {
+            return new TeleOpTuningConfig.ShotConfig(0.0, 0.0);
+        }
         if (selectedPresetIndex < 0 || selectedPresetIndex >= configs.length) {
             return configs[0];
         }

@@ -154,6 +154,8 @@ public abstract class AutonBase extends OpMode {
             case INIT_STEP:
                 if (stepIndex < steps.size()) {
                     applyStepAction(steps.get(stepIndex));
+                } else {
+                    runState = RunState.DONE;
                 }
                 break;
 

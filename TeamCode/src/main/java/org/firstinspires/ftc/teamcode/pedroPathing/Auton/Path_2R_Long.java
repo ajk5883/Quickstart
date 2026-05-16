@@ -1,6 +1,16 @@
+package org.firstinspires.ftc.teamcode.pedroPathing.Auton;
+
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.Alliance;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Path_2R_Long {
-    
-    @Override
+
     protected AutonConfig getConfig(Alliance alliance) {
         // ── Poses ──────────────────────────────────────────────────────────────
         final Pose startPose             = alliance == Alliance.RED ? ParamsConfig.POSE_START_RED_LONG : ParamsConfig.POSE_START_BLUE_LONG;

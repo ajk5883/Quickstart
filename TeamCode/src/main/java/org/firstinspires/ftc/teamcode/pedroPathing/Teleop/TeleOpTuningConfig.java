@@ -85,10 +85,10 @@ public final class TeleOpTuningConfig {
                     new Pose(33.620, 129.902, Math.toRadians(180))
             },
             new ShotConfig[] {
-                    new ShotConfig(3000.0, 34.0),
-                    new ShotConfig(3050.0, 35.0),
-                    new ShotConfig(3100.0, 36.0),
-                    new ShotConfig(3500.0, 44.0)
+                    new ShotConfig(3000.0, 0.34),
+                    new ShotConfig(3050.0, 0.35),
+                    new ShotConfig(3100.0, 0.36),
+                    new ShotConfig(3500.0, 0.44)
             },
             CameraController.BLUE_GOAL_PIPELINE
     );
