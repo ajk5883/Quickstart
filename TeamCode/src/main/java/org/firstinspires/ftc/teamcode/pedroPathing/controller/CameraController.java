@@ -304,15 +304,15 @@ public class CameraController {
     // ── Private helpers ───────────────────────────────────────────────────────
 
     /** Returns the expected tag ID set for the active pipeline. */
-    private Set<Integer> getActivePipelineTags() {
-        return (activePipeline == BLUE_GOAL_PIPELINE) ? pipeline1Tags : pipeline0Tags;
-    }
-
-    private boolean containsAnyTag(List<LLResultTypes.FiducialResult> fiducials, Set<Integer> ids) {
-        if (ids.isEmpty()) return true;
-        for (LLResultTypes.FiducialResult f : fiducials) {
-            if (ids.contains(f.getFiducialId())) return true;
-        }
-        return false;
-    }
+//    private Set<Integer> getActivePipelineTags() {
+//        return (activePipeline == BLUE_GOAL_PIPELINE) ? pipeline1Tags : pipeline0Tags;
+//    }
+//
+//    private boolean containsAnyTag(List<LLResultTypes.FiducialResult> fiducials, Set<Integer> ids) {
+//        if (ids.isEmpty()) return true;
+//        for (LLResultTypes.FiducialResult f : fiducials) {
+//            if (ids.contains(f.getFiducialId())) return true;
+//        }
+//        return false;
+//    }
 }

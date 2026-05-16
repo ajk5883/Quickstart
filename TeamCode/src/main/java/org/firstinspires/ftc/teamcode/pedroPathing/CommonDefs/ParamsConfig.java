@@ -97,25 +97,25 @@ public final class ParamsConfig {
     // ── Auton shoot parameters ────────────────────────────────────────────────
 
     /** Timed gate-open window per shot (ms). Same for all shot positions. */
-    public static final int    AUTON_SHOOT_DURATION_MS              = 900;
+    public static final int    AUTON_SHOOT_DURATION_MS              = 1000;
 
     /** Shooter target velocity (RPM) for far scoring positions (long-side). */
-    public static final double AUTON_SHOOT_TARGET_VELOCITY_FAR      = 4800.0;
+    public static final double AUTON_SHOOT_TARGET_VELOCITY_FAR      = 5000.0;
     /** Shooter target velocity (RPM) for close scoring positions (close-side). */
     public static final double AUTON_SHOOT_TARGET_VELOCITY_CLOSE    = 3500.0;
 
     /** Velocity tolerance (RPM) to consider shooter ready — far positions. */
-    public static final double AUTON_SHOOT_VELOCITY_THRESHOLD_FAR   = 50.0;
+    public static final double AUTON_SHOOT_VELOCITY_THRESHOLD_FAR   = 100.0;
     /** Velocity tolerance (RPM) to consider shooter ready — close positions. */
-    public static final double AUTON_SHOOT_VELOCITY_THRESHOLD_CLOSE = 50.0;
+    public static final double AUTON_SHOOT_VELOCITY_THRESHOLD_CLOSE = 100.0;
 
     /** Total time to remain in SHOOTING state (ms). Same for all positions. */
     public static final long   AUTON_SHOOT_SEQUENCE_WAIT_MS         = 4500L;
 
     /** Hood servo position (0.0–1.0) for far scoring positions (long-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.35;
+    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.65;
     /** Hood servo position (0.0–1.0) for close scoring positions (close-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.30;
+    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.7;
 
     /** Teleop long-shot shooter target velocity (RPM). */
     public static final double TELEOP_SHOOT_TARGET_VELOCITY_LONG    = AUTON_SHOOT_TARGET_VELOCITY_FAR;
@@ -133,7 +133,7 @@ public final class ParamsConfig {
      * Maximum time (ms) allowed for the shooter to spin up before the gate opens
      * regardless of whether the target velocity has been reached.
      */
-    public static final int    SHOOTER_SPINUP_TIMEOUT_MS          = 3000;
+    public static final int    SHOOTER_SPINUP_TIMEOUT_MS          = 2000;
 
     /**
      * Default shooter target RPM used by ShootSequencer when no explicit velocity is
@@ -146,5 +146,5 @@ public final class ParamsConfig {
      * Default RPM tolerance for the ShootSequencer when no explicit threshold is
      * supplied at the strategy level.
      */
-    public static final double SHOOTER_DEFAULT_VELOCITY_THRESHOLD = 50.0;
+    public static final double SHOOTER_DEFAULT_VELOCITY_THRESHOLD = 100.0;
 }

@@ -105,6 +105,7 @@ public class ShootSequencer {
     public void startShooterDirectly(double rpm) { shooter.startShooter(rpm); }
     public void stopShooterDirectly() { shooter.stopShooter(); }
     public double getShooterVelocityRpm() { return shooter.getAverageVelocityRpm(); }
+    public double getShooterTargetVelocity() { return shooterTargetVelocity; }
     public boolean isShooterVelocityWithinThreshold() { return shooter.isVelocityWithinThreshold(); }
 
     // Spinner (direct)

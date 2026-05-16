@@ -51,9 +51,9 @@ public final class ControllerParams {
     // ── Gate servo positions ──────────────────────────────────────────────────
 
     /** Servo position (0.0–1.0) when the gate is fully open (ball released). */
-    public static final double GATE_OPEN_POSITION   = 0.1;
+    public static final double GATE_OPEN_POSITION   = 0.4;
     /** Servo position (0.0–1.0) when the gate is fully closed (ball retained). */
-    public static final double GATE_CLOSED_POSITION = 0.4;
+    public static final double GATE_CLOSED_POSITION = 0.1;
 
     // ── Hood servo ────────────────────────────────────────────────────────────
 
@@ -62,7 +62,7 @@ public final class ControllerParams {
     /** Maximum servo position for the hood (highest angle). */
     public static final double HOOD_MAX_POSITION     = 1.0;
     /** Initial hood servo position applied at init (fully retracted). */
-    public static final double HOOD_DEFAULT_POSITION = 0.1;
+    public static final double HOOD_DEFAULT_POSITION = 0.5;
 
     // ── Intake motor ──────────────────────────────────────────────────────────
 

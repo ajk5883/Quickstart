@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 
 @Configurable
 @TeleOp
+@Disabled
 public class Testing_PedroCamPosition extends OpMode {
     private Follower follower;
     private CameraController cameraController;

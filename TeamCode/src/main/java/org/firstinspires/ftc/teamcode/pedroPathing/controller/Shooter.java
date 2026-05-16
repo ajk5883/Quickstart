@@ -52,11 +52,11 @@ public class Shooter {
             shooterMotor2 = null;
         }
 
-        setVelocityPIDF(
-                ControllerParams.SHOOTER_PIDF_P,
-                ControllerParams.SHOOTER_PIDF_I,
-                ControllerParams.SHOOTER_PIDF_D,
-                ControllerParams.SHOOTER_PIDF_F);
+        // setVelocityPIDF(
+        //         ControllerParams.SHOOTER_PIDF_P,
+        //         ControllerParams.SHOOTER_PIDF_I,
+        //         ControllerParams.SHOOTER_PIDF_D,
+        //         ControllerParams.SHOOTER_PIDF_F);
     }
 
 

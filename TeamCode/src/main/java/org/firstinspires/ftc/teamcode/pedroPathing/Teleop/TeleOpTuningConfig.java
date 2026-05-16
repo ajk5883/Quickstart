@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Teleop;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
 
 @Configurable
 public final class TeleOpTuningConfig {
@@ -18,19 +19,7 @@ public final class TeleOpTuningConfig {
     public static double HEADING_ALIGN_MAX_TURN = 0.6;
 
     // Maximum RPM allowed for manual adjustments
-    public static double MAX_MANUAL_RPM = 6000.0;
-
-    // Manual target adjustment steps
-    public static double CLOSE_RPM_STEP = 50.0;
-    public static double FAR_RPM_STEP = 50.0;
-    public static double CLOSE_HOOD_STEP_DEG = 0.1;
-    public static double FAR_HOOD_STEP_DEG = 0.1;
-
-    // Manual mode defaults
-    public static double TARGET_MANUAL_CLOSE_RPM = 3200;
-    public static double TARGET_MANUAL_CLOSE_HOOD_DEG = 0.0;
-    public static double TARGET_MANUAL_FAR_RPM = 4800;
-    public static double TARGET_MANUAL_FAR_HOOD_DEG = 0.7;
+        // Manual adjustment constants removed; teleop uses configured preset shots.
 
     public static class ShotConfig {
                 public final double rpm;
@@ -73,7 +62,7 @@ public final class TeleOpTuningConfig {
                     new ShotConfig(3100, 0.3),
                     new ShotConfig(3100, 0.3),
                     new ShotConfig(3100, 0.3),
-                    new ShotConfig(4800, 0.7)
+                    new ShotConfig(ParamsConfig.TELEOP_SHOOT_TARGET_VELOCITY_LONG, ParamsConfig.TELEOP_SHOOT_HOOD_POSITION_LONG)
             },
             CameraController.RED_GOAL_PIPELINE
     );
@@ -91,7 +80,7 @@ public final class TeleOpTuningConfig {
                     new ShotConfig(3000.0, 0.34),
                     new ShotConfig(3050.0, 0.35),
                     new ShotConfig(3100.0, 0.36),
-                    new ShotConfig(3500.0, 0.44)
+                    new ShotConfig(ParamsConfig.TELEOP_SHOOT_TARGET_VELOCITY_LONG, ParamsConfig.TELEOP_SHOOT_HOOD_POSITION_LONG)
             },
             CameraController.BLUE_GOAL_PIPELINE
     );
