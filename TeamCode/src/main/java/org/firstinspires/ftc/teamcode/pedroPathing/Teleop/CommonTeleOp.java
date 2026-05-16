@@ -77,8 +77,8 @@ public abstract class CommonTeleOp extends OpMode {
 
         if (!autoDriveActive && !assistedAlignActive) {
             follower.setTeleOpDrive(
-                    -gamepad1.left_stick_y * TeleOpTuningConfig.STICK_SCALE,
-                    -gamepad1.left_stick_x * TeleOpTuningConfig.STICK_SCALE,
+                    gamepad1.left_stick_y * TeleOpTuningConfig.STICK_SCALE,
+                    gamepad1.left_stick_x * TeleOpTuningConfig.STICK_SCALE,
                     -gamepad1.right_stick_x * TeleOpTuningConfig.STICK_SCALE,
                     true
             );
