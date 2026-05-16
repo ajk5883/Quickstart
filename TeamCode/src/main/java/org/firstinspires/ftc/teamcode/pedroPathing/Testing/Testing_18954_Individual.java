@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Testing;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
 
 import com.pedropathing.geometry.Pose;
 
@@ -20,7 +21,7 @@ public class Testing_18954_Individual extends OpMode{
     ShootSequencer shootSequencer;
     CameraController cameraController;
 
-    private double shooterTargetVelocity = 6000.0;
+    private double shooterTargetVelocity = ParamsConfig.SHOOTER_DEFAULT_TARGET_RPM;
     private static final double SHOOTER_VELOCITY_STEP = 50.0;
     private static final double SHOOTER_VELOCITY_THRESHOLD = 50.0;
     private static final double POSITION_STEP = 0.1;

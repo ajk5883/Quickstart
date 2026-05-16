@@ -87,4 +87,11 @@ public final class ControllerParams {
      * Pedro Pathing field frame. Applied uniformly for all yaw values.
      */
     public static final double CAMERA_HEADING_OFFSET_DEG = 90.0;
+
+    /**
+     * Maximum age (ms) of a camera pose before it is considered stale and
+     * {@code CameraController#getRobotPose()} returns {@code null}.
+     * Prevents stale poses from being used for navigation when the tag is not visible.
+     */
+    public static final long   CAMERA_POSE_STALENESS_MS  = 500L;
 }

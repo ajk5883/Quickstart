@@ -17,6 +17,9 @@ public final class TeleOpTuningConfig {
     public static double HEADING_ALIGN_TOLERANCE_RAD = Math.toRadians(2.0);
     public static double HEADING_ALIGN_MAX_TURN = 0.6;
 
+    // Maximum RPM allowed for manual adjustments
+    public static double MAX_MANUAL_RPM = 6000.0;
+
     // Manual target adjustment steps
     public static double CLOSE_RPM_STEP = 50.0;
     public static double FAR_RPM_STEP = 50.0;

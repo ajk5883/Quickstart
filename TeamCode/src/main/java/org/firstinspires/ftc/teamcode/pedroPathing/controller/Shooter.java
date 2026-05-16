@@ -94,8 +94,8 @@ public class Shooter {
     }
 
     public void stopShooter() {
-        if (shooterMotor1 != null) shooterMotor1.setPower(0);
-        if (hasSecondMotor && shooterMotor2 != null) shooterMotor2.setPower(0);
+        if (shooterMotor1 != null) shooterMotor1.setVelocity(0);
+        if (hasSecondMotor && shooterMotor2 != null) shooterMotor2.setVelocity(0);
     }
 
     // --- Telemetry / status ---

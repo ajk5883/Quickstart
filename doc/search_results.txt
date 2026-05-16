@@ -1,0 +1,1799 @@
+--- Line 76 (TILE) ---
+9.2 FIELD ................................................................................................................................................. 60
+9.3 Areas, Zones, & Markings ................................................................................................................ 61
+9.4 TILE Coordinates ............................................................................................................................. 63
+9.5 ALLIANCE AREA............................................................................................................................... 64
+9.6 OBELISK ............................................................................................................................................ 65
+9.7 GOAL ................................................................................................................................................. 66
+9.8 CLASSIFIER ...................................................................................................................................... 68
+
+--- Line 77 (ALLIANCE AREA) ---
+9.3 Areas, Zones, & Markings ................................................................................................................ 61
+9.4 TILE Coordinates ............................................................................................................................. 63
+9.5 ALLIANCE AREA............................................................................................................................... 64
+9.6 OBELISK ............................................................................................................................................ 65
+9.7 GOAL ................................................................................................................................................. 66
+9.8 CLASSIFIER ...................................................................................................................................... 68
+9.8.1 SQUARE .................................................................................................................................... 69
+
+--- Line 78 (OBELISK) ---
+9.4 TILE Coordinates ............................................................................................................................. 63
+9.5 ALLIANCE AREA............................................................................................................................... 64
+9.6 OBELISK ............................................................................................................................................ 65
+9.7 GOAL ................................................................................................................................................. 66
+9.8 CLASSIFIER ...................................................................................................................................... 68
+9.8.1 SQUARE .................................................................................................................................... 69
+9.8.2 RAMP ........................................................................................................................................ 69
+
+--- Line 79 (GOAL) ---
+9.5 ALLIANCE AREA............................................................................................................................... 64
+9.6 OBELISK ............................................................................................................................................ 65
+9.7 GOAL ................................................................................................................................................. 66
+9.8 CLASSIFIER ...................................................................................................................................... 68
+9.8.1 SQUARE .................................................................................................................................... 69
+9.8.2 RAMP ........................................................................................................................................ 69
+9.8.3 GATE ......................................................................................................................................... 72
+
+--- Line 80 (CLASSIFIER) ---
+9.6 OBELISK ............................................................................................................................................ 65
+9.7 GOAL ................................................................................................................................................. 66
+9.8 CLASSIFIER ...................................................................................................................................... 68
+9.8.1 SQUARE .................................................................................................................................... 69
+9.8.2 RAMP ........................................................................................................................................ 69
+9.8.3 GATE ......................................................................................................................................... 72
+9.9 SCORING ELEMENTS ...................................................................................................................... 73
+
+--- Line 82 (RAMP) ---
+9.8 CLASSIFIER ...................................................................................................................................... 68
+9.8.1 SQUARE .................................................................................................................................... 69
+9.8.2 RAMP ........................................................................................................................................ 69
+9.8.3 GATE ......................................................................................................................................... 72
+9.9 SCORING ELEMENTS ...................................................................................................................... 73
+9.10 AprilTags .......................................................................................................................................... 74
+9.11 FIELD STAFF .................................................................................................................................... 76
+
+--- Line 83 (GATE) ---
+9.8.1 SQUARE .................................................................................................................................... 69
+9.8.2 RAMP ........................................................................................................................................ 69
+9.8.3 GATE ......................................................................................................................................... 72
+9.9 SCORING ELEMENTS ...................................................................................................................... 73
+9.10 AprilTags .......................................................................................................................................... 74
+9.11 FIELD STAFF .................................................................................................................................... 76
+9.12 Event Management System ............................................................................................................ 77
+
+--- Line 84 (SCORING ELEMENT) ---
+9.8.2 RAMP ........................................................................................................................................ 69
+9.8.3 GATE ......................................................................................................................................... 72
+9.9 SCORING ELEMENTS ...................................................................................................................... 73
+9.10 AprilTags .......................................................................................................................................... 74
+9.11 FIELD STAFF .................................................................................................................................... 76
+9.12 Event Management System ............................................................................................................ 77
+3 of 188
+
+--- Line 85 (AprilTag) ---
+9.8.3 GATE ......................................................................................................................................... 72
+9.9 SCORING ELEMENTS ...................................................................................................................... 73
+9.10 AprilTags .......................................................................................................................................... 74
+9.11 FIELD STAFF .................................................................................................................................... 76
+9.12 Event Management System ............................................................................................................ 77
+3 of 188
+=== PAGE 4 ===
+
+--- Line 94 (SCORING ELEMENT) ---
+10.2 DRIVE TEAM ..................................................................................................................................... 79
+10.3 Setup ................................................................................................................................................. 80
+10.3.1 SCORING ELEMENTS ............................................................................................................... 81
+10.3.2 DRIVE TEAMS ........................................................................................................................... 82
+10.3.3 OPERATOR CONSOLES ........................................................................................................... 82
+10.3.4 ROBOTS .................................................................................................................................... 82
+10.4 MATCH Periods ............................................................................................................................... 83
+
+--- Line 100 (ARTIFACT) ---
+10.4 MATCH Periods ............................................................................................................................... 83
+10.5 Scoring .............................................................................................................................................. 83
+10.5.1 ARTIFACT Scoring Criteria ...................................................................................................... 84
+10.5.2 PATTERN Scoring Criteria ....................................................................................................... 86
+10.5.3 ROBOT Scoring Criteria............................................................................................................ 87
+10.5.4 Point Values.............................................................................................................................. 88
+10.6 Violations.......................................................................................................................................... 89
+
+--- Line 118 (SCORING ELEMENT) ---
+11.4.1 AUTO ....................................................................................................................................... 103
+11.4.2 TELEOP ................................................................................................................................... 105
+11.4.3 SCORING ELEMENT ............................................................................................................... 105
+11.4.4 ROBOT ..................................................................................................................................... 107
+11.4.5 Opponent Interaction ............................................................................................................. 110
+11.4.6 Human .................................................................................................................................... 114
+12 ROBOT Construction Rules (R) ......................................................................................................... 119
+
+--- Line 199 (autonomous) ---
+stimulating experience. Every September, at an event known as “Kickoff”, a new game challenge is introduced.
+Once the challenge is released, small teams of students with the help of mentors design, build, test, and
+program robots that must perform a series of game tasks autonomously and under driver control. These
+teams then put their skills to the test in a series of tournaments which combine the excitement of a
+competitive sport while encouraging students to help and learn from one another.
+Participants and alumni of FIRST programs gain access to education and career discovery opportunities,
+connections to exclusive scholarships and employers, and a place in the FIRST community for life. To learn
+
+--- Line 223 (GOAL) ---
+Gracious Professionalism® is part of the ethos of FIRST. It’s a way of doing things that encourages high quality
+work, emphasizes the value of others, and respects individuals and the community. Gracious Professionalism
+is not clearly defined for a reason. It is an aspirational ideal to always strive towards, not a goal to be achieved
+or a method of measuring someone, and for this reason, you can never say someone “is” or “is not” being
+Graciously Professional. We should each work to better embody Gracious Professionalism in all our actions.
+How we pursue this can and should mean different things to everyone.
+Some possible meanings of Gracious Professionalism include:
+
+--- Line 416 (ARTIFACT) ---
+build skills, confidence, and resilience. Participants work collaboratively to solve the annual,
+themed robotics challenge.
+Every artifact we uncover holds a story. Each tool, each innovation, each work of art connects us
+to the people and ideas that came before us. Using STEM skills and teamwork, today we can dig
+deeper into discoveries than ever before.
+Welcome to FIRST® AGE™ presented by Qualcomm, our 2025-2026 robotics season inspired by
+archaeology. What will you uncover? Join us for an experience for the ages.
+
+--- Line 473 (ALLIANCE AREA) ---
+3.3 MATCH Eligibility Rules
+This section describes the rules governing MATCH participation. A team has participated in a MATCH if any
+member of their DRIVE TEAM is in the ALLIANCE AREA, with or without the ROBOT on the FIELD, at the start of
+the MATCH.
+This section describes the rules and requirements for team participation in MATCH play. ROBOTS are required
+to pass ROBOT inspections before being allowed to compete. These inspections are to help ensure that all
+section 12 ROBOT Construction Rules (R) are satisfied.
+
+--- Line 498 (ALLIANCE AREA) ---
+not present is eligible to receive Qualification MATCH Points or Playoff MATCH points provided that its ROBOT
+has passed inspection, per I302, and as long as at least one STUDENT DRIVE TEAM member is present in the
+ALLIANCE AREA.
+An Inspection Checklist is available to help teams self-inspect their ROBOT
+before their event. Teams are strongly encouraged to self-inspect prior to their
+event.
+Section 3 Competition Eligibility and Inspection (I) V3 18 of 188
+
+--- Line 508 (SCORING ELEMENT) ---
+MATCHES or as part of judged awards.
+A MAJOR MECHANISM is a group of COMPONENTS and/or MECHANISMS assembled together to
+address at least 1 game challenge: ROBOT movement, SCORING ELEMENT manipulation, FIELD
+element manipulation, or performance of a scorable task without the assistance of another ROBOT.
+This rule requires that the ROBOT and its MAJOR MECHANISMS were built by its
+team but is not intended to prohibit or discourage assistance from other teams
+(e.g., fabricating elements, supporting construction, writing software, developing
+
+--- Line 782 (GATE) ---
+early enough to allow teams to plan.
+Safety is always paramount, and many rules are intended to establish norms at
+each event that will mitigate injury risk to all participants.
+The Event Director has the final decision authority for all safety-related issues
+within a venue.
+5.1 General Rules
+E101 *Personal safety comes first. All team members must observe the following safety practices
+
+--- Line 823 (AprilTag) ---
+Examples of remote sensing capabilities include, but are not limited to, vision
+systems, acoustic range finders, sonars, and infrared proximity sensors.
+Use of imagery that, to a reasonably astute observer, mimics the AprilTags
+employed on the FIELD is a violation of this rule.
+Examples of particularly contemptible behavior that may result in ejection from
+the event include, but are not limited to, the following:
+E. assault, e.g., throwing something that hits another person (even if
+
+--- Line 951 (GATE) ---
+schedule, in which teams are invited to load their ROBOT and equipment into their pit areas before pits
+officially open.
+Load-in can be stressful for teams and volunteers, which can be mitigated by preparation and planning.
+Unanticipated factors, like traffic or weather, can change a team’s scheduled arrival time, making the process
+Section 5 Event Rules (E) V2 33 of 188
+=== PAGE 34 ===
+difficult. The most important things a team should remember are to be safe, gracious, and professional.
+
+--- Line 1162 (ARTIFACT) ---
+teams in the pit area during the competition and conduct informal pit interviews. During pit interviews, teams
+have the opportunity to expand upon materials presented in the structured interview and share additional
+content with the JUDGES (for example, ROBOT prototypes, design artifacts, and photos or letters from
+outreach events). A team does not need to prepare another presentation for a pit interview but should be ready
+to answer questions from the JUDGES.
+Section 6 Awards (A) V10 42 of 188
+=== PAGE 43 ===
+
+--- Line 1424 (GOAL) ---
+Encouraged 2 members to learn new skills,
+B. how the team recruited new people into FIRST, and/or
+C. how the team identified goals and tracked progress towards their goals
+throughout the season.
+Encouraged 3 PORTFOLIO information is organized in a clear and intuitive manner
+6.3.3 Connect Award
+This judged award is given to the team that connects with their local science, technology, engineering, and
+
+--- Line 1430 (GOAL) ---
+This judged award is given to the team that connects with their local science, technology, engineering, and
+math (STEM) community to learn and adopt new tools through effort and persistence. This team has a team
+plan and has identified steps to achieve their goals. A PORTFOLIO is not required for this award.
+Table 6-4: Connect Award Criteria
+Connect Award Criteria
+Team must describe, display, or document a team plan that covers all of the following:
+Required 1 A. The team’s goals for the development of team member skills, and
+
+--- Line 1434 (GOAL) ---
+Connect Award Criteria
+Team must describe, display, or document a team plan that covers all of the following:
+Required 1 A. The team’s goals for the development of team member skills, and
+B. The steps the team has taken or will take to reach those goals
+Provide examples of developing in person or virtual connections with individuals in the
+Encouraged 2
+engineering, science, or technology community.
+
+--- Line 1435 (GOAL) ---
+Team must describe, display, or document a team plan that covers all of the following:
+Required 1 A. The team’s goals for the development of team member skills, and
+B. The steps the team has taken or will take to reach those goals
+Provide examples of developing in person or virtual connections with individuals in the
+Encouraged 2
+engineering, science, or technology community.
+Encouraged 3 Provide examples of how it actively engages with the engineering community.
+
+--- Line 1500 (GATE) ---
+Designs often come with risks, the team should discuss, describe, display or document
+Encouraged 4
+how they mitigated that risk.
+6.3.7 Control Award
+The Control Award celebrates a team that uses sensors and software to increase the ROBOT’S functionality
+during gameplay. This award is given to the team that demonstrates innovative thinking and solutions to solve
+game challenges such as autonomous operation, improving mechanical systems with intelligent control, or
+
+--- Line 1504 (autonomous) ---
+The Control Award celebrates a team that uses sensors and software to increase the ROBOT’S functionality
+during gameplay. This award is given to the team that demonstrates innovative thinking and solutions to solve
+game challenges such as autonomous operation, improving mechanical systems with intelligent control, or
+using sensors to achieve better results. The solution(s) should work consistently during MATCHES but does
+not have to work all the time. Solutions considered for this award are not solely limited to the AUTO period of
+the MATCH and may also be used during TELEOP. The team’s PORTFOLIO must contain a summary of the
+software, sensors, and mechanical control but would not include copies of the code itself.
+
+--- Line 1506 (AUTO period) ---
+game challenges such as autonomous operation, improving mechanical systems with intelligent control, or
+using sensors to achieve better results. The solution(s) should work consistently during MATCHES but does
+not have to work all the time. Solutions considered for this award are not solely limited to the AUTO period of
+the MATCH and may also be used during TELEOP. The team’s PORTFOLIO must contain a summary of the
+software, sensors, and mechanical control but would not include copies of the code itself.
+Section 6 Awards (A) V10 52 of 188
+=== PAGE 53 ===
+
+--- Line 1565 (GOAL) ---
+examples of current STUDENT leaders who have led their teams and communities to increased awareness for
+FIRST and its mission, champion FIRST Core Values such as Inclusion, and embody Gracious
+Professionalism®. It is the goal of FIRST that these individuals will continue, post-award, as great leaders,
+STUDENT alumni, and advocates of FIRST.
+Please visit the FIRST Leadership Award Website to see complete award submission details and to see past
+FIRST Tech Challenge winners.
+For regions of the world that do not use grade levels such as this to identify years
+
+--- Line 1627 (ARTIFACT) ---
+=== PAGE 58 ===
+8 Game Overview
+In DECODE™ presented by RTX 2 competing ALLIANCES of 2 teams each score purple and green ARTIFACTS in
+their GOAL, build PATTERNS, and race back to their BASE before time runs out.
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+
+--- Line 1628 (GOAL) ---
+8 Game Overview
+In DECODE™ presented by RTX 2 competing ALLIANCES of 2 teams each score purple and green ARTIFACTS in
+their GOAL, build PATTERNS, and race back to their BASE before time runs out.
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+
+--- Line 1629 (OBELISK) ---
+In DECODE™ presented by RTX 2 competing ALLIANCES of 2 teams each score purple and green ARTIFACTS in
+their GOAL, build PATTERNS, and race back to their BASE before time runs out.
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+
+--- Line 1630 (RAMP) ---
+their GOAL, build PATTERNS, and race back to their BASE before time runs out.
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+LINE.
+
+--- Line 1631 (autonomous) ---
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+LINE.
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+
+--- Line 1632 (GOAL) ---
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+LINE.
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+and continue to score ARTIFACTS in their GOAL to earn points. DRIVE TEAM members can retrieve ARTIFACTS
+
+--- Line 1633 (RAMP) ---
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+LINE.
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+and continue to score ARTIFACTS in their GOAL to earn points. DRIVE TEAM members can retrieve ARTIFACTS
+from the ALLIANCE’S LOADING ZONE and help their ROBOTS by loading them with ARTIFACTS.
+
+--- Line 1636 (GOAL) ---
+LINE.
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+and continue to score ARTIFACTS in their GOAL to earn points. DRIVE TEAM members can retrieve ARTIFACTS
+from the ALLIANCE’S LOADING ZONE and help their ROBOTS by loading them with ARTIFACTS.
+As time runs out, ALLIANCES can work together to return both of their ROBOTS to the BASE. ALLIANCES that
+build PATTERNS based on the MOTIF at the end of the MATCH earn additional points.
+The ALLIANCE that earns the most points wins the MATCH and additional RANKING POINTS can be earned
+
+--- Line 1637 (ARTIFACT) ---
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+and continue to score ARTIFACTS in their GOAL to earn points. DRIVE TEAM members can retrieve ARTIFACTS
+from the ALLIANCE’S LOADING ZONE and help their ROBOTS by loading them with ARTIFACTS.
+As time runs out, ALLIANCES can work together to return both of their ROBOTS to the BASE. ALLIANCES that
+build PATTERNS based on the MOTIF at the end of the MATCH earn additional points.
+The ALLIANCE that earns the most points wins the MATCH and additional RANKING POINTS can be earned
+though completing other scoring achievements.
+
+--- Line 1646 (SCORING ELEMENT) ---
+9 ARENA
+The ARENA includes all elements of the game infrastructure that are required to play DECODE: the FIELD,
+SCORING ELEMENTS, queue area, team media area, and all equipment needed for event management.
+Figure 9-1 DECODE (queue area, FIELD display, and optional media area not pictured)
+9.1 Dimensions and Accuracy
+The specifications for the DECODE FIELD can be retrieved from a few locations:
+− The 3D CAD model is the official representation of the DECODE FIELD and how it is constructed.
+
+--- Line 1680 (TILE) ---
+Each FIELD for DECODE is an approximately 144 in. by 144 in. (365.75 cm by 365.75 cm) area bounded by the
+inside surface of the walls of the FIELD perimeter. The flooring surface of the FIELD is made of 36 interlocking
+soft foam TILES which are each approximately 24 in. by 24 in. by 0.59 in. (60.95 cm by 60.95 cm by 1.50 cm)
+nominally sized.
+The FIELD is populated with and surrounded by the following FIELD elements:
+− 1 CLASSIFIER per ALLIANCE which consists of a SQUARE, a RAMP, and a GATE
+− 1 GOAL per ALLIANCE
+
+--- Line 1683 (CLASSIFIER) ---
+nominally sized.
+The FIELD is populated with and surrounded by the following FIELD elements:
+− 1 CLASSIFIER per ALLIANCE which consists of a SQUARE, a RAMP, and a GATE
+− 1 GOAL per ALLIANCE
+− 1 OBELISK
+Official events use the full DECODE FIELD manufactured and sold by AndyMark (am-5400_Full) or officially
+licensed equivalent.
+
+--- Line 1684 (GOAL) ---
+The FIELD is populated with and surrounded by the following FIELD elements:
+− 1 CLASSIFIER per ALLIANCE which consists of a SQUARE, a RAMP, and a GATE
+− 1 GOAL per ALLIANCE
+− 1 OBELISK
+Official events use the full DECODE FIELD manufactured and sold by AndyMark (am-5400_Full) or officially
+licensed equivalent.
+The surface of the FIELD is FIRST Tech Challenge Field Soft Tiles (am-2499) or equivalent.
+
+--- Line 1685 (OBELISK) ---
+− 1 CLASSIFIER per ALLIANCE which consists of a SQUARE, a RAMP, and a GATE
+− 1 GOAL per ALLIANCE
+− 1 OBELISK
+Official events use the full DECODE FIELD manufactured and sold by AndyMark (am-5400_Full) or officially
+licensed equivalent.
+The surface of the FIELD is FIRST Tech Challenge Field Soft Tiles (am-2499) or equivalent.
+The primary version of the FIELD perimeter is the FIRST Tech Challenge Perimeter Kit (am-0481) sold by
+
+--- Line 1688 (TILE) ---
+Official events use the full DECODE FIELD manufactured and sold by AndyMark (am-5400_Full) or officially
+licensed equivalent.
+The surface of the FIELD is FIRST Tech Challenge Field Soft Tiles (am-2499) or equivalent.
+The primary version of the FIELD perimeter is the FIRST Tech Challenge Perimeter Kit (am-0481) sold by
+AndyMark. All illustrations in this manual show the am-0481 version of the FIELD design. Other versions of the
+FIELD perimeter of similar functionality may also be used in competitions.
+Some events including the FIRST Championship (see section 15.2 Game Modification) will place the FIELDS
+
+--- Line 1693 (ALLIANCE AREA) ---
+FIELD perimeter of similar functionality may also be used in competitions.
+Some events including the FIRST Championship (see section 15.2 Game Modification) will place the FIELDS
+on platforms or risers such that the FIELD is raised while the ALLIANCE AREAS remain at ground level.
+The FIELD variant used at an event will be determined by the local Program Delivery Partner and all
+competition FIELDS at the same event must comply with Section 9.1 Dimensions and Accuracy and be
+consistent with each other per T204.
+Section 9 ARENA V8 60 of 188
+
+--- Line 1708 (TILE) ---
+The tape used to mark lines and zones throughout the FIELD is shown as continuous strips in all official
+specifications. However, events do not need to install the tape as a continuous strip:
+− After applying the tape, event staff may cut the tape at the tile seams so the TILES may be removed
+without replacing the tape.
+− Events may also apply the tape in multiple segments with gaps at the tile junctions.
+REFEREES are instructed to treat these line segments as a continuous line segment, ignoring gaps, when
+applying game rules.
+
+--- Line 1710 (TILE) ---
+− After applying the tape, event staff may cut the tape at the tile seams so the TILES may be removed
+without replacing the tape.
+− Events may also apply the tape in multiple segments with gaps at the tile junctions.
+REFEREES are instructed to treat these line segments as a continuous line segment, ignoring gaps, when
+applying game rules.
+Figure 9-2 ALLIANCE AREA, LAUNCH LINES, and LAUNCH ZONE
+Section 9 ARENA V8 61 of 188
+
+--- Line 1713 (ALLIANCE AREA) ---
+REFEREES are instructed to treat these line segments as a continuous line segment, ignoring gaps, when
+applying game rules.
+Figure 9-2 ALLIANCE AREA, LAUNCH LINES, and LAUNCH ZONE
+Section 9 ARENA V8 61 of 188
+=== PAGE 62 ===
+− ALLIANCE AREA: a 96 in. (243.85 cm) wide by 54 in. (137.15 cm) deep by infinitely tall volume
+formed by placing ALLIANCE colored tape onto the flooring surface outside of the FIELD. The
+
+--- Line 1716 (ALLIANCE AREA) ---
+Section 9 ARENA V8 61 of 188
+=== PAGE 62 ===
+− ALLIANCE AREA: a 96 in. (243.85 cm) wide by 54 in. (137.15 cm) deep by infinitely tall volume
+formed by placing ALLIANCE colored tape onto the flooring surface outside of the FIELD. The
+ALLIANCE AREA includes the taped lines (Figure 9-2).
+− DEPOT: the white tape approximately 30 in. (76.20 cm) long which spans the entire length of the
+GOAL front face and is located at the base of the GOAL. The DEPOT tape is a LAUNCH LINE (Figure
+
+--- Line 1718 (ALLIANCE AREA) ---
+− ALLIANCE AREA: a 96 in. (243.85 cm) wide by 54 in. (137.15 cm) deep by infinitely tall volume
+formed by placing ALLIANCE colored tape onto the flooring surface outside of the FIELD. The
+ALLIANCE AREA includes the taped lines (Figure 9-2).
+− DEPOT: the white tape approximately 30 in. (76.20 cm) long which spans the entire length of the
+GOAL front face and is located at the base of the GOAL. The DEPOT tape is a LAUNCH LINE (Figure
+9-2).
+− LAUNCH LINE: the white tape which bounds 2 triangular LAUNCH ZONES, as well as 2 segments of
+
+--- Line 1720 (GOAL) ---
+ALLIANCE AREA includes the taped lines (Figure 9-2).
+− DEPOT: the white tape approximately 30 in. (76.20 cm) long which spans the entire length of the
+GOAL front face and is located at the base of the GOAL. The DEPOT tape is a LAUNCH LINE (Figure
+9-2).
+− LAUNCH LINE: the white tape which bounds 2 triangular LAUNCH ZONES, as well as 2 segments of
+white tape located at the base of the GOAL.(Figure 9-2).
+− LAUNCH ZONE: infinitely tall triangular volumes bounded by LAUNCH LINES and the FIELD
+
+--- Line 1723 (GOAL) ---
+9-2).
+− LAUNCH LINE: the white tape which bounds 2 triangular LAUNCH ZONES, as well as 2 segments of
+white tape located at the base of the GOAL.(Figure 9-2).
+− LAUNCH ZONE: infinitely tall triangular volumes bounded by LAUNCH LINES and the FIELD
+perimeter. There are 2 LAUNCH ZONES: the LAUNCH ZONE on the audience side of the FIELD
+spans a section 2 TILES wide and 1 TILE deep and the LAUNCH ZONE on the GOAL side of the
+FIELD spans a section 6 TILES wide by 3 TILES deep. The LAUNCH ZONES include the tape that
+
+--- Line 1726 (TILE) ---
+− LAUNCH ZONE: infinitely tall triangular volumes bounded by LAUNCH LINES and the FIELD
+perimeter. There are 2 LAUNCH ZONES: the LAUNCH ZONE on the audience side of the FIELD
+spans a section 2 TILES wide and 1 TILE deep and the LAUNCH ZONE on the GOAL side of the
+FIELD spans a section 6 TILES wide by 3 TILES deep. The LAUNCH ZONES include the tape that
+defines the LAUNCH LINES (Figure 9-2).
+Figure 9-3: SECRET TUNNEL, GATE ZONE, LOADING ZONE, and SPIKE MARKS (shown with ARTIFACTS removed)
+− BASE ZONE: an 18 in. +/- 0.125 in. (45.70 cm +/- 0.30 cm) wide by 18 in. +/- 0.125 in. (45.70 cm +/-
+
+--- Line 1727 (TILE) ---
+perimeter. There are 2 LAUNCH ZONES: the LAUNCH ZONE on the audience side of the FIELD
+spans a section 2 TILES wide and 1 TILE deep and the LAUNCH ZONE on the GOAL side of the
+FIELD spans a section 6 TILES wide by 3 TILES deep. The LAUNCH ZONES include the tape that
+defines the LAUNCH LINES (Figure 9-2).
+Figure 9-3: SECRET TUNNEL, GATE ZONE, LOADING ZONE, and SPIKE MARKS (shown with ARTIFACTS removed)
+− BASE ZONE: an 18 in. +/- 0.125 in. (45.70 cm +/- 0.30 cm) wide by 18 in. +/- 0.125 in. (45.70 cm +/-
+0.30 cm) deep infinitely tall volume bounded by ALLIANCE colored tape. The BASE ZONE is an
+
+--- Line 1729 (GATE) ---
+FIELD spans a section 6 TILES wide by 3 TILES deep. The LAUNCH ZONES include the tape that
+defines the LAUNCH LINES (Figure 9-2).
+Figure 9-3: SECRET TUNNEL, GATE ZONE, LOADING ZONE, and SPIKE MARKS (shown with ARTIFACTS removed)
+− BASE ZONE: an 18 in. +/- 0.125 in. (45.70 cm +/- 0.30 cm) wide by 18 in. +/- 0.125 in. (45.70 cm +/-
+0.30 cm) deep infinitely tall volume bounded by ALLIANCE colored tape. The BASE ZONE is an
+ALLIANCE specific zone belonging to the matching color ALLIANCE. The BASE ZONE includes the
+tape lines (Figure 9-3).
+
+--- Line 1734 (GATE) ---
+ALLIANCE specific zone belonging to the matching color ALLIANCE. The BASE ZONE includes the
+tape lines (Figure 9-3).
+− GATE ZONE: a 2.75 in. (7.00 cm) wide by 10 in. (25.40 cm) long infinitely tall volume bounded by 2
+parallel 10 in. (25.40 cm) long ALLIANCE colored tape segments adjacent to each GATE. The GATE
+ZONE includes the tape lines (Figure 9-3).
+− LOADING ZONE: an approximately 23 in. (58.40 cm) wide by 23 in. (58.40 cm) deep infinitely tall
+volume bounded by white tape and the adjoining FIELD perimeters. The LOADING ZONE includes
+
+--- Line 1735 (GATE) ---
+tape lines (Figure 9-3).
+− GATE ZONE: a 2.75 in. (7.00 cm) wide by 10 in. (25.40 cm) long infinitely tall volume bounded by 2
+parallel 10 in. (25.40 cm) long ALLIANCE colored tape segments adjacent to each GATE. The GATE
+ZONE includes the tape lines (Figure 9-3).
+− LOADING ZONE: an approximately 23 in. (58.40 cm) wide by 23 in. (58.40 cm) deep infinitely tall
+volume bounded by white tape and the adjoining FIELD perimeters. The LOADING ZONE includes
+the tape lines (Figure 9-3). The LOADING ZONE is an ALLIANCE specific zone belonging to the
+
+--- Line 1740 (ALLIANCE AREA) ---
+volume bounded by white tape and the adjoining FIELD perimeters. The LOADING ZONE includes
+the tape lines (Figure 9-3). The LOADING ZONE is an ALLIANCE specific zone belonging to the
+ALLIANCE with the adjacent ALLIANCE AREA.
+Section 9 ARENA V8 62 of 188
+=== PAGE 63 ===
+− SECRET TUNNEL ZONE: an approximately 46.5 in. (118.10 cm) long by approximately 6.125 in.
+(15.55 cm) wide infinitely tall volume bounded by ALLIANCE colored tape, the GOAL assembly, the
+
+--- Line 1744 (GOAL) ---
+=== PAGE 63 ===
+− SECRET TUNNEL ZONE: an approximately 46.5 in. (118.10 cm) long by approximately 6.125 in.
+(15.55 cm) wide infinitely tall volume bounded by ALLIANCE colored tape, the GOAL assembly, the
+LOADING ZONE, and the adjoining FIELD perimeter. The SECRET TUNNEL ZONE includes the
+ALLIANCE colored tape lines and excludes the white tape (Figure 9-3). The SECRET TUNNEL ZONE
+is an ALLIANCE specific zone belonging to the matching color ALLIANCE.
+− SPIKE MARK: 1 of 6 white tape marks 10 in. (25.40 cm) long used to identify the placement of 3
+
+--- Line 1749 (ARTIFACT) ---
+is an ALLIANCE specific zone belonging to the matching color ALLIANCE.
+− SPIKE MARK: 1 of 6 white tape marks 10 in. (25.40 cm) long used to identify the placement of 3
+ARTIFACTS before the MATCH (Figure 9-3).
+9.4 TILE Coordinates
+TILE coordinates are used to assist with FIELD setup. Figure 9-4 defines the intersections of each of the TILES
+on the FIELD where the TILE tabs interlock. Figure 9-5 defines the grid coordinate system for each of the TILES.
+Figure 9-4: TILE tab-line locations Figure 9-5: TILE locations
+
+--- Line 1750 (TILE) ---
+− SPIKE MARK: 1 of 6 white tape marks 10 in. (25.40 cm) long used to identify the placement of 3
+ARTIFACTS before the MATCH (Figure 9-3).
+9.4 TILE Coordinates
+TILE coordinates are used to assist with FIELD setup. Figure 9-4 defines the intersections of each of the TILES
+on the FIELD where the TILE tabs interlock. Figure 9-5 defines the grid coordinate system for each of the TILES.
+Figure 9-4: TILE tab-line locations Figure 9-5: TILE locations
+Section 9 ARENA V8 63 of 188
+
+--- Line 1751 (TILE) ---
+ARTIFACTS before the MATCH (Figure 9-3).
+9.4 TILE Coordinates
+TILE coordinates are used to assist with FIELD setup. Figure 9-4 defines the intersections of each of the TILES
+on the FIELD where the TILE tabs interlock. Figure 9-5 defines the grid coordinate system for each of the TILES.
+Figure 9-4: TILE tab-line locations Figure 9-5: TILE locations
+Section 9 ARENA V8 63 of 188
+=== PAGE 64 ===
+
+--- Line 1752 (TILE) ---
+9.4 TILE Coordinates
+TILE coordinates are used to assist with FIELD setup. Figure 9-4 defines the intersections of each of the TILES
+on the FIELD where the TILE tabs interlock. Figure 9-5 defines the grid coordinate system for each of the TILES.
+Figure 9-4: TILE tab-line locations Figure 9-5: TILE locations
+Section 9 ARENA V8 63 of 188
+=== PAGE 64 ===
+9.5 ALLIANCE AREA
+
+--- Line 1753 (TILE) ---
+TILE coordinates are used to assist with FIELD setup. Figure 9-4 defines the intersections of each of the TILES
+on the FIELD where the TILE tabs interlock. Figure 9-5 defines the grid coordinate system for each of the TILES.
+Figure 9-4: TILE tab-line locations Figure 9-5: TILE locations
+Section 9 ARENA V8 63 of 188
+=== PAGE 64 ===
+9.5 ALLIANCE AREA
+An ALLIANCE AREA is the designated red or blue ALLIANCE AREA adjacent to the FIELD where the DRIVE
+
+--- Line 1756 (ALLIANCE AREA) ---
+Section 9 ARENA V8 63 of 188
+=== PAGE 64 ===
+9.5 ALLIANCE AREA
+An ALLIANCE AREA is the designated red or blue ALLIANCE AREA adjacent to the FIELD where the DRIVE
+TEAMS stage themselves during a MATCH. The FIELD is oriented such that the red ALLIANCE AREA is located
+on the left from the primary audience viewing direction.
+Short tables, stands, or stools may be provided by the event which will sit near the FIELD perimeter inside the
+
+--- Line 1757 (ALLIANCE AREA) ---
+=== PAGE 64 ===
+9.5 ALLIANCE AREA
+An ALLIANCE AREA is the designated red or blue ALLIANCE AREA adjacent to the FIELD where the DRIVE
+TEAMS stage themselves during a MATCH. The FIELD is oriented such that the red ALLIANCE AREA is located
+on the left from the primary audience viewing direction.
+Short tables, stands, or stools may be provided by the event which will sit near the FIELD perimeter inside the
+ALLIANCE AREA. These tables are provided for teams to place their OPERATOR CONSOLES. If provided by the
+
+--- Line 1758 (ALLIANCE AREA) ---
+9.5 ALLIANCE AREA
+An ALLIANCE AREA is the designated red or blue ALLIANCE AREA adjacent to the FIELD where the DRIVE
+TEAMS stage themselves during a MATCH. The FIELD is oriented such that the red ALLIANCE AREA is located
+on the left from the primary audience viewing direction.
+Short tables, stands, or stools may be provided by the event which will sit near the FIELD perimeter inside the
+ALLIANCE AREA. These tables are provided for teams to place their OPERATOR CONSOLES. If provided by the
+event, these tables may not be removed or rearranged by the teams without permission from the Head
+
+--- Line 1761 (ALLIANCE AREA) ---
+on the left from the primary audience viewing direction.
+Short tables, stands, or stools may be provided by the event which will sit near the FIELD perimeter inside the
+ALLIANCE AREA. These tables are provided for teams to place their OPERATOR CONSOLES. If provided by the
+event, these tables may not be removed or rearranged by the teams without permission from the Head
+REFEREE, FIELD Supervisor, or FTA.
+Figure 9-6: ALLIANCE AREA
+Section 9 ARENA V8 64 of 188
+
+--- Line 1764 (ALLIANCE AREA) ---
+event, these tables may not be removed or rearranged by the teams without permission from the Head
+REFEREE, FIELD Supervisor, or FTA.
+Figure 9-6: ALLIANCE AREA
+Section 9 ARENA V8 64 of 188
+=== PAGE 65 ===
+9.6 OBELISK
+The OBELISK is an equilateral triangular prism (we know, real obelisks have 4 sides) which is positioned with 1
+
+--- Line 1767 (OBELISK) ---
+Section 9 ARENA V8 64 of 188
+=== PAGE 65 ===
+9.6 OBELISK
+The OBELISK is an equilateral triangular prism (we know, real obelisks have 4 sides) which is positioned with 1
+of the rectangular faces centered on the GOAL-side of the FIELD, just outside of the FIELD perimeter. The
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+
+--- Line 1768 (OBELISK) ---
+=== PAGE 65 ===
+9.6 OBELISK
+The OBELISK is an equilateral triangular prism (we know, real obelisks have 4 sides) which is positioned with 1
+of the rectangular faces centered on the GOAL-side of the FIELD, just outside of the FIELD perimeter. The
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+
+--- Line 1769 (GOAL) ---
+9.6 OBELISK
+The OBELISK is an equilateral triangular prism (we know, real obelisks have 4 sides) which is positioned with 1
+of the rectangular faces centered on the GOAL-side of the FIELD, just outside of the FIELD perimeter. The
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+
+--- Line 1770 (OBELISK) ---
+The OBELISK is an equilateral triangular prism (we know, real obelisks have 4 sides) which is positioned with 1
+of the rectangular faces centered on the GOAL-side of the FIELD, just outside of the FIELD perimeter. The
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+green (G), in a unique order. There are 3 MOTIFS in DECODE (GPP, PGP, PPG).
+
+--- Line 1771 (OBELISK) ---
+of the rectangular faces centered on the GOAL-side of the FIELD, just outside of the FIELD perimeter. The
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+green (G), in a unique order. There are 3 MOTIFS in DECODE (GPP, PGP, PPG).
+The OBELISK orientation is randomized by the FIELD STAFF using the event management software after DRIVE
+
+--- Line 1772 (AprilTag) ---
+OBELISK is 23 in. (58.40 cm) tall and each rectangular face is 11 in. (27.95 cm) wide (Figure 9-7).
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+green (G), in a unique order. There are 3 MOTIFS in DECODE (GPP, PGP, PPG).
+The OBELISK orientation is randomized by the FIELD STAFF using the event management software after DRIVE
+TEAMS have set-up for the MATCH (G304). The event management software will determine which face of the
+
+--- Line 1773 (ARTIFACT) ---
+Figure 9-7: OBELISK dimensions
+Each of the 3 rectangular faces of the OBELISK has an AprilTag (see section 9.10 AprilTags) which
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+green (G), in a unique order. There are 3 MOTIFS in DECODE (GPP, PGP, PPG).
+The OBELISK orientation is randomized by the FIELD STAFF using the event management software after DRIVE
+TEAMS have set-up for the MATCH (G304). The event management software will determine which face of the
+OBELISK should face towards the FIELD and the FIELD STAFF will put it in place. The location of the OBELISK
+
+--- Line 1775 (OBELISK) ---
+corresponds to a different MOTIF. A MOTIF is a series of ARTIFACT colors, comprised of 2 purple (P) and 1
+green (G), in a unique order. There are 3 MOTIFS in DECODE (GPP, PGP, PPG).
+The OBELISK orientation is randomized by the FIELD STAFF using the event management software after DRIVE
+TEAMS have set-up for the MATCH (G304). The event management software will determine which face of the
+OBELISK should face towards the FIELD and the FIELD STAFF will put it in place. The location of the OBELISK
+will be approximately centered along the outside edge of the FIELD perimeter with the face containing the
+AprilTag approximately parallel to and contacting the FIELD perimeter wall.
+
+--- Line 1777 (OBELISK) ---
+The OBELISK orientation is randomized by the FIELD STAFF using the event management software after DRIVE
+TEAMS have set-up for the MATCH (G304). The event management software will determine which face of the
+OBELISK should face towards the FIELD and the FIELD STAFF will put it in place. The location of the OBELISK
+will be approximately centered along the outside edge of the FIELD perimeter with the face containing the
+AprilTag approximately parallel to and contacting the FIELD perimeter wall.
+The location of the OBELISK is not intended to be deterministic relative to the
+field coordinate system and should not be used for navigation.
+
+--- Line 1779 (AprilTag) ---
+OBELISK should face towards the FIELD and the FIELD STAFF will put it in place. The location of the OBELISK
+will be approximately centered along the outside edge of the FIELD perimeter with the face containing the
+AprilTag approximately parallel to and contacting the FIELD perimeter wall.
+The location of the OBELISK is not intended to be deterministic relative to the
+field coordinate system and should not be used for navigation.
+Section 9 ARENA V8 65 of 188
+=== PAGE 66 ===
+
+--- Line 1780 (OBELISK) ---
+will be approximately centered along the outside edge of the FIELD perimeter with the face containing the
+AprilTag approximately parallel to and contacting the FIELD perimeter wall.
+The location of the OBELISK is not intended to be deterministic relative to the
+field coordinate system and should not be used for navigation.
+Section 9 ARENA V8 65 of 188
+=== PAGE 66 ===
+9.7 GOAL
+
+--- Line 1781 (coordinate) ---
+AprilTag approximately parallel to and contacting the FIELD perimeter wall.
+The location of the OBELISK is not intended to be deterministic relative to the
+field coordinate system and should not be used for navigation.
+Section 9 ARENA V8 65 of 188
+=== PAGE 66 ===
+9.7 GOAL
+The GOAL is an approximately 27 in. (68.60 cm) by 27 in. (68.60 cm) by 54 in. (137.15 cm) tall structure
+
+--- Line 1784 (GOAL) ---
+Section 9 ARENA V8 65 of 188
+=== PAGE 66 ===
+9.7 GOAL
+The GOAL is an approximately 27 in. (68.60 cm) by 27 in. (68.60 cm) by 54 in. (137.15 cm) tall structure
+primarily composed of 0.39 in. (1.00 cm) thick polypropylene corrugated plastic sheet. The GOAL is a 3-sided
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+
+--- Line 1785 (GOAL) ---
+=== PAGE 66 ===
+9.7 GOAL
+The GOAL is an approximately 27 in. (68.60 cm) by 27 in. (68.60 cm) by 54 in. (137.15 cm) tall structure
+primarily composed of 0.39 in. (1.00 cm) thick polypropylene corrugated plastic sheet. The GOAL is a 3-sided
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+
+--- Line 1786 (GOAL) ---
+9.7 GOAL
+The GOAL is an approximately 27 in. (68.60 cm) by 27 in. (68.60 cm) by 54 in. (137.15 cm) tall structure
+primarily composed of 0.39 in. (1.00 cm) thick polypropylene corrugated plastic sheet. The GOAL is a 3-sided
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+
+--- Line 1787 (CLASSIFIER) ---
+The GOAL is an approximately 27 in. (68.60 cm) by 27 in. (68.60 cm) by 54 in. (137.15 cm) tall structure
+primarily composed of 0.39 in. (1.00 cm) thick polypropylene corrugated plastic sheet. The GOAL is a 3-sided
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+
+--- Line 1788 (GOAL) ---
+primarily composed of 0.39 in. (1.00 cm) thick polypropylene corrugated plastic sheet. The GOAL is a 3-sided
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+FIRST Tech Challenge logo is 15 in. (38.10 cm) from the open top of the GOAL (Figure 9-9).
+
+--- Line 1789 (GOAL) ---
+structure with a horizontal triangular shaped opening at the top. On the side where the CLASSIFIER connects to
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+FIRST Tech Challenge logo is 15 in. (38.10 cm) from the open top of the GOAL (Figure 9-9).
+Section 9 ARENA V8 66 of 188
+
+--- Line 1790 (GOAL) ---
+the GOAL there is an exit archway (Figure 9-8).
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+FIRST Tech Challenge logo is 15 in. (38.10 cm) from the open top of the GOAL (Figure 9-9).
+Section 9 ARENA V8 66 of 188
+=== PAGE 67 ===
+
+--- Line 1791 (TILE) ---
+Figure 9-8: GOAL with Archway exit
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+FIRST Tech Challenge logo is 15 in. (38.10 cm) from the open top of the GOAL (Figure 9-9).
+Section 9 ARENA V8 66 of 188
+=== PAGE 67 ===
+Figure 9-9: GOAL Dimensions
+
+--- Line 1792 (GOAL) ---
+The opening of the GOAL is approximately 26.5 in. (67.30 cm) wide and 18.3 in. (46.45 cm) deep. The top lip of
+the GOAL is 38.75 in. (98.45 cm) from the surface of the TILE. The maximum height of the backboard with the
+FIRST Tech Challenge logo is 15 in. (38.10 cm) from the open top of the GOAL (Figure 9-9).
+Section 9 ARENA V8 66 of 188
+=== PAGE 67 ===
+Figure 9-9: GOAL Dimensions
+Section 9 ARENA V8 67 of 188
+
+--- Line 1795 (GOAL) ---
+Section 9 ARENA V8 66 of 188
+=== PAGE 67 ===
+Figure 9-9: GOAL Dimensions
+Section 9 ARENA V8 67 of 188
+=== PAGE 68 ===
+9.8 CLASSIFIER
+The CLASSIFIER is a structure attached to the GOAL which has 3 main components: the SQUARE, RAMP, and
+
+--- Line 1798 (CLASSIFIER) ---
+Section 9 ARENA V8 67 of 188
+=== PAGE 68 ===
+9.8 CLASSIFIER
+The CLASSIFIER is a structure attached to the GOAL which has 3 main components: the SQUARE, RAMP, and
+GATE (Figure 9-10).
+Figure 9-10: CLASSIFIER with no SCORING ELEMENTS
+Section 9 ARENA V8 68 of 188
+
+--- Line 1799 (GOAL) ---
+=== PAGE 68 ===
+9.8 CLASSIFIER
+The CLASSIFIER is a structure attached to the GOAL which has 3 main components: the SQUARE, RAMP, and
+GATE (Figure 9-10).
+Figure 9-10: CLASSIFIER with no SCORING ELEMENTS
+Section 9 ARENA V8 68 of 188
+=== PAGE 69 ===
+
+--- Line 1800 (GATE) ---
+9.8 CLASSIFIER
+The CLASSIFIER is a structure attached to the GOAL which has 3 main components: the SQUARE, RAMP, and
+GATE (Figure 9-10).
+Figure 9-10: CLASSIFIER with no SCORING ELEMENTS
+Section 9 ARENA V8 68 of 188
+=== PAGE 69 ===
+9.8.1 SQUARE
+
+--- Line 1801 (CLASSIFIER) ---
+The CLASSIFIER is a structure attached to the GOAL which has 3 main components: the SQUARE, RAMP, and
+GATE (Figure 9-10).
+Figure 9-10: CLASSIFIER with no SCORING ELEMENTS
+Section 9 ARENA V8 68 of 188
+=== PAGE 69 ===
+9.8.1 SQUARE
+The SQUARE (Figure 9-11) is a location at the top of the RAMP at which ARTIFACT scoring is assessed as per
+
+--- Line 1805 (RAMP) ---
+=== PAGE 69 ===
+9.8.1 SQUARE
+The SQUARE (Figure 9-11) is a location at the top of the RAMP at which ARTIFACT scoring is assessed as per
+10.5 Scoring.
+Figure 9-11: SQUARE on the RAMP
+9.8.2 RAMP
+The RAMP is a structure made of primarily aluminum extrusion. The RAMP can fit up to 9 CLASSIFIED
+
+--- Line 1807 (RAMP) ---
+The SQUARE (Figure 9-11) is a location at the top of the RAMP at which ARTIFACT scoring is assessed as per
+10.5 Scoring.
+Figure 9-11: SQUARE on the RAMP
+9.8.2 RAMP
+The RAMP is a structure made of primarily aluminum extrusion. The RAMP can fit up to 9 CLASSIFIED
+ARTIFACTS before newly entered ARTIFACTS will OVERFLOW.
+Section 9 ARENA V8 69 of 188
+
+--- Line 1808 (RAMP) ---
+10.5 Scoring.
+Figure 9-11: SQUARE on the RAMP
+9.8.2 RAMP
+The RAMP is a structure made of primarily aluminum extrusion. The RAMP can fit up to 9 CLASSIFIED
+ARTIFACTS before newly entered ARTIFACTS will OVERFLOW.
+Section 9 ARENA V8 69 of 188
+=== PAGE 70 ===
+
+--- Line 1809 (RAMP) ---
+Figure 9-11: SQUARE on the RAMP
+9.8.2 RAMP
+The RAMP is a structure made of primarily aluminum extrusion. The RAMP can fit up to 9 CLASSIFIED
+ARTIFACTS before newly entered ARTIFACTS will OVERFLOW.
+Section 9 ARENA V8 69 of 188
+=== PAGE 70 ===
+Figure 9-12: RAMP with no SCORING ELEMENTS
+
+--- Line 1810 (ARTIFACT) ---
+9.8.2 RAMP
+The RAMP is a structure made of primarily aluminum extrusion. The RAMP can fit up to 9 CLASSIFIED
+ARTIFACTS before newly entered ARTIFACTS will OVERFLOW.
+Section 9 ARENA V8 69 of 188
+=== PAGE 70 ===
+Figure 9-12: RAMP with no SCORING ELEMENTS
+In most cases exactly 9 ARTIFACTS will fit on the RAMP as CLASSIFIED before
+
+--- Line 1813 (RAMP) ---
+Section 9 ARENA V8 69 of 188
+=== PAGE 70 ===
+Figure 9-12: RAMP with no SCORING ELEMENTS
+In most cases exactly 9 ARTIFACTS will fit on the RAMP as CLASSIFIED before
+newly entered ARTIFACTS will OVERFLOW, but sometimes ARTIFACTS
+LAUNCHED into the GOAL at a high velocity or with significant spin may skip over
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+
+--- Line 1814 (RAMP) ---
+=== PAGE 70 ===
+Figure 9-12: RAMP with no SCORING ELEMENTS
+In most cases exactly 9 ARTIFACTS will fit on the RAMP as CLASSIFIED before
+newly entered ARTIFACTS will OVERFLOW, but sometimes ARTIFACTS
+LAUNCHED into the GOAL at a high velocity or with significant spin may skip over
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+operation and not an ARENA FAULT.
+
+--- Line 1815 (ARTIFACT) ---
+Figure 9-12: RAMP with no SCORING ELEMENTS
+In most cases exactly 9 ARTIFACTS will fit on the RAMP as CLASSIFIED before
+newly entered ARTIFACTS will OVERFLOW, but sometimes ARTIFACTS
+LAUNCHED into the GOAL at a high velocity or with significant spin may skip over
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+operation and not an ARENA FAULT.
+Figure 9-13: RAMP partially full of SCORING ELEMENTS
+
+--- Line 1816 (GOAL) ---
+In most cases exactly 9 ARTIFACTS will fit on the RAMP as CLASSIFIED before
+newly entered ARTIFACTS will OVERFLOW, but sometimes ARTIFACTS
+LAUNCHED into the GOAL at a high velocity or with significant spin may skip over
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+operation and not an ARENA FAULT.
+Figure 9-13: RAMP partially full of SCORING ELEMENTS
+Section 9 ARENA V8 70 of 188
+
+--- Line 1817 (CLASSIFIER) ---
+newly entered ARTIFACTS will OVERFLOW, but sometimes ARTIFACTS
+LAUNCHED into the GOAL at a high velocity or with significant spin may skip over
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+operation and not an ARENA FAULT.
+Figure 9-13: RAMP partially full of SCORING ELEMENTS
+Section 9 ARENA V8 70 of 188
+=== PAGE 71 ===
+
+--- Line 1819 (RAMP) ---
+the 9th open CLASSIFIER slot and count as OVERFLOW. This is a normal FIELD
+operation and not an ARENA FAULT.
+Figure 9-13: RAMP partially full of SCORING ELEMENTS
+Section 9 ARENA V8 70 of 188
+=== PAGE 71 ===
+Figure 9-14: RAMP full of SCORING ELEMENTS with OVERFLOW
+Section 9 ARENA V8 71 of 188
+
+--- Line 1822 (RAMP) ---
+Section 9 ARENA V8 70 of 188
+=== PAGE 71 ===
+Figure 9-14: RAMP full of SCORING ELEMENTS with OVERFLOW
+Section 9 ARENA V8 71 of 188
+=== PAGE 72 ===
+9.8.3 GATE
+The GATE is an ALLIANCE specific FIELD element that prevents CLASSIFIED ARTIFACTS from exiting the
+
+--- Line 1825 (GATE) ---
+Section 9 ARENA V8 71 of 188
+=== PAGE 72 ===
+9.8.3 GATE
+The GATE is an ALLIANCE specific FIELD element that prevents CLASSIFIED ARTIFACTS from exiting the
+RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE (Figure 9-15). OVERFLOW ARTIFACTS can pass
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+
+--- Line 1826 (GATE) ---
+=== PAGE 72 ===
+9.8.3 GATE
+The GATE is an ALLIANCE specific FIELD element that prevents CLASSIFIED ARTIFACTS from exiting the
+RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE (Figure 9-15). OVERFLOW ARTIFACTS can pass
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+
+--- Line 1827 (RAMP) ---
+9.8.3 GATE
+The GATE is an ALLIANCE specific FIELD element that prevents CLASSIFIED ARTIFACTS from exiting the
+RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE (Figure 9-15). OVERFLOW ARTIFACTS can pass
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+
+--- Line 1828 (GATE) ---
+The GATE is an ALLIANCE specific FIELD element that prevents CLASSIFIED ARTIFACTS from exiting the
+RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE (Figure 9-15). OVERFLOW ARTIFACTS can pass
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+
+--- Line 1829 (ARTIFACT) ---
+RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE (Figure 9-15). OVERFLOW ARTIFACTS can pass
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+
+--- Line 1830 (GATE) ---
+over the top of the GATE to exit the RAMP into the opposing ALLIANCE’S SECRET TUNNEL ZONE. The GATE is
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+
+--- Line 1831 (GATE) ---
+closed by gravity and after opening it may or may not stay open to clear all CLASSIFIED ARTIFACTS.
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+
+--- Line 1832 (RAMP) ---
+Figure 9-15: GATE
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+The GATE not closing immediately when released by the ROBOT (but closing
+
+--- Line 1833 (GATE) ---
+The GATE is a ROBOT-activated, push to open mechanism which will release ARTIFACTS which are
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+The GATE not closing immediately when released by the ROBOT (but closing
+eventually) is not considered an ARENA FAULT. During a MATCH, FIELD STAFF
+
+--- Line 1834 (RAMP) ---
+CLASSIFIED on the RAMP (Figure 9-16).
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+The GATE not closing immediately when released by the ROBOT (but closing
+eventually) is not considered an ARENA FAULT. During a MATCH, FIELD STAFF
+may follow steps in the Field Mitigation Guide to mitigate some FIELD issues
+
+--- Line 1835 (GATE) ---
+The GATE will take variable amounts of time to close. The GATE closing before
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+The GATE not closing immediately when released by the ROBOT (but closing
+eventually) is not considered an ARENA FAULT. During a MATCH, FIELD STAFF
+may follow steps in the Field Mitigation Guide to mitigate some FIELD issues
+during a MATCH. Refer to the Field Mitigation Guide for more guidance on how
+
+--- Line 1836 (GATE) ---
+all CLASSIFIED ARTIFACTS exit the RAMP is not considered an ARENA FAULT,
+and teams should be prepared to hold the GATE open to fully clear the RAMP.
+The GATE not closing immediately when released by the ROBOT (but closing
+eventually) is not considered an ARENA FAULT. During a MATCH, FIELD STAFF
+may follow steps in the Field Mitigation Guide to mitigate some FIELD issues
+during a MATCH. Refer to the Field Mitigation Guide for more guidance on how
+FIELD STAFF will respond to inconsistent FIELD behavior.
+
+--- Line 1838 (GATE) ---
+The GATE not closing immediately when released by the ROBOT (but closing
+eventually) is not considered an ARENA FAULT. During a MATCH, FIELD STAFF
+may follow steps in the Field Mitigation Guide to mitigate some FIELD issues
+during a MATCH. Refer to the Field Mitigation Guide for more guidance on how
+FIELD STAFF will respond to inconsistent FIELD behavior.
+When closed, the height of the contact area of the GATE above the surface of the TILE ranges from
+approximately 3.75 in. (9.55 cm) to 5.5 in. (14.00 cm) and when open the contact point is approximately 3 in.
+
+--- Line 1841 (TILE) ---
+during a MATCH. Refer to the Field Mitigation Guide for more guidance on how
+FIELD STAFF will respond to inconsistent FIELD behavior.
+When closed, the height of the contact area of the GATE above the surface of the TILE ranges from
+approximately 3.75 in. (9.55 cm) to 5.5 in. (14.00 cm) and when open the contact point is approximately 3 in.
+(7.60 cm) above the TILES (Figure 9-16). The total horizontal displacement required to move the GATE from
+closed to open is approximately 2 in. (5.10 cm).
+TEAMS are encouraged to design their ROBOTS with a large vertical surface
+
+--- Line 1843 (TILE) ---
+When closed, the height of the contact area of the GATE above the surface of the TILE ranges from
+approximately 3.75 in. (9.55 cm) to 5.5 in. (14.00 cm) and when open the contact point is approximately 3 in.
+(7.60 cm) above the TILES (Figure 9-16). The total horizontal displacement required to move the GATE from
+closed to open is approximately 2 in. (5.10 cm).
+TEAMS are encouraged to design their ROBOTS with a large vertical surface
+which ensures consistent contact with the GATE arm. It is particularly important
+that this panel extends up to the high end of the interface range approximately
+
+--- Line 1846 (GATE) ---
+closed to open is approximately 2 in. (5.10 cm).
+TEAMS are encouraged to design their ROBOTS with a large vertical surface
+which ensures consistent contact with the GATE arm. It is particularly important
+that this panel extends up to the high end of the interface range approximately
+5.5 in. (14.00 cm) above the TILE surface. This ensures the ROBOT cannot end
+Section 9 ARENA V8 72 of 188
+=== PAGE 73 ===
+
+--- Line 1848 (TILE) ---
+which ensures consistent contact with the GATE arm. It is particularly important
+that this panel extends up to the high end of the interface range approximately
+5.5 in. (14.00 cm) above the TILE surface. This ensures the ROBOT cannot end
+Section 9 ARENA V8 72 of 188
+=== PAGE 73 ===
+up “under” the GATE arm and will help prevent ROBOTS from inadvertently
+damaging the FIELD.
+
+--- Line 1851 (GATE) ---
+Section 9 ARENA V8 72 of 188
+=== PAGE 73 ===
+up “under” the GATE arm and will help prevent ROBOTS from inadvertently
+damaging the FIELD.
+Figure 9-16: GATE Actuation: Open & Closed
+9.9 SCORING ELEMENTS
+SCORING ELEMENTS are ALLIANCE neutral ARTIFACTS. ARTIFACTS are 5 in. (12.70 cm) nominal Gopher
+
+--- Line 1853 (GATE) ---
+up “under” the GATE arm and will help prevent ROBOTS from inadvertently
+damaging the FIELD.
+Figure 9-16: GATE Actuation: Open & Closed
+9.9 SCORING ELEMENTS
+SCORING ELEMENTS are ALLIANCE neutral ARTIFACTS. ARTIFACTS are 5 in. (12.70 cm) nominal Gopher
+ResisDent™ polypropylene balls in purple (am-3376a_purple) and green (am-3376a_green). There are 24 purple
+(P) ARTIFACTS and 12 green (G) ARTIFACTS total in a DECODE MATCH.
+
+--- Line 1854 (SCORING ELEMENT) ---
+damaging the FIELD.
+Figure 9-16: GATE Actuation: Open & Closed
+9.9 SCORING ELEMENTS
+SCORING ELEMENTS are ALLIANCE neutral ARTIFACTS. ARTIFACTS are 5 in. (12.70 cm) nominal Gopher
+ResisDent™ polypropylene balls in purple (am-3376a_purple) and green (am-3376a_green). There are 24 purple
+(P) ARTIFACTS and 12 green (G) ARTIFACTS total in a DECODE MATCH.
+ARTIFACTS are not perfectly spherical and may vary in size. Teams should plan for this variation when
+
+--- Line 1855 (ARTIFACT) ---
+Figure 9-16: GATE Actuation: Open & Closed
+9.9 SCORING ELEMENTS
+SCORING ELEMENTS are ALLIANCE neutral ARTIFACTS. ARTIFACTS are 5 in. (12.70 cm) nominal Gopher
+ResisDent™ polypropylene balls in purple (am-3376a_purple) and green (am-3376a_green). There are 24 purple
+(P) ARTIFACTS and 12 green (G) ARTIFACTS total in a DECODE MATCH.
+ARTIFACTS are not perfectly spherical and may vary in size. Teams should plan for this variation when
+designing their ROBOTS. Based on the specifications provided by the manufacturer, ARTFACTS are specified
+
+--- Line 1857 (ARTIFACT) ---
+SCORING ELEMENTS are ALLIANCE neutral ARTIFACTS. ARTIFACTS are 5 in. (12.70 cm) nominal Gopher
+ResisDent™ polypropylene balls in purple (am-3376a_purple) and green (am-3376a_green). There are 24 purple
+(P) ARTIFACTS and 12 green (G) ARTIFACTS total in a DECODE MATCH.
+ARTIFACTS are not perfectly spherical and may vary in size. Teams should plan for this variation when
+designing their ROBOTS. Based on the specifications provided by the manufacturer, ARTFACTS are specified
+to be 4.9 in +/- 0.25 in. (12.45 cm +/- 0.65 cm) in diameter at the mold seam.
+Figure 9-17: SCORING ELEMENTS (ARTIFACTS)
+
+--- Line 1858 (ARTIFACT) ---
+ResisDent™ polypropylene balls in purple (am-3376a_purple) and green (am-3376a_green). There are 24 purple
+(P) ARTIFACTS and 12 green (G) ARTIFACTS total in a DECODE MATCH.
+ARTIFACTS are not perfectly spherical and may vary in size. Teams should plan for this variation when
+designing their ROBOTS. Based on the specifications provided by the manufacturer, ARTFACTS are specified
+to be 4.9 in +/- 0.25 in. (12.45 cm +/- 0.65 cm) in diameter at the mold seam.
+Figure 9-17: SCORING ELEMENTS (ARTIFACTS)
+Section 9 ARENA V8 73 of 188
+
+--- Line 1861 (ARTIFACT) ---
+designing their ROBOTS. Based on the specifications provided by the manufacturer, ARTFACTS are specified
+to be 4.9 in +/- 0.25 in. (12.45 cm +/- 0.65 cm) in diameter at the mold seam.
+Figure 9-17: SCORING ELEMENTS (ARTIFACTS)
+Section 9 ARENA V8 73 of 188
+=== PAGE 74 ===
+9.10 AprilTags
+AprilTags for DECODE are 8.125 in. (~20.65 cm) square targets from the 36h11 tag family (Figure 9-18).
+
+--- Line 1864 (AprilTag) ---
+Section 9 ARENA V8 73 of 188
+=== PAGE 74 ===
+9.10 AprilTags
+AprilTags for DECODE are 8.125 in. (~20.65 cm) square targets from the 36h11 tag family (Figure 9-18).
+AprilTags are placed on the front face of the GOAL to help aid in ROBOT navigation and targeting. The red
+ALLIANCE GOAL has ID 24, and the blue ALLIANCE GOAL has tag ID 20. Each marker has an identifying “TAG
+ID” text label (Figure 9-19).
+
+--- Line 1865 (AprilTag) ---
+=== PAGE 74 ===
+9.10 AprilTags
+AprilTags for DECODE are 8.125 in. (~20.65 cm) square targets from the 36h11 tag family (Figure 9-18).
+AprilTags are placed on the front face of the GOAL to help aid in ROBOT navigation and targeting. The red
+ALLIANCE GOAL has ID 24, and the blue ALLIANCE GOAL has tag ID 20. Each marker has an identifying “TAG
+ID” text label (Figure 9-19).
+AprilTags with the ID 21, 22, 23 are located on each rectangular face of the OBELISK, which is placed outside
+
+--- Line 1866 (AprilTag) ---
+9.10 AprilTags
+AprilTags for DECODE are 8.125 in. (~20.65 cm) square targets from the 36h11 tag family (Figure 9-18).
+AprilTags are placed on the front face of the GOAL to help aid in ROBOT navigation and targeting. The red
+ALLIANCE GOAL has ID 24, and the blue ALLIANCE GOAL has tag ID 20. Each marker has an identifying “TAG
+ID” text label (Figure 9-19).
+AprilTags with the ID 21, 22, 23 are located on each rectangular face of the OBELISK, which is placed outside
+of the FIELD and can be used to identify the MOTIF for the MATCH.
+
+--- Line 1867 (Tag ID) ---
+AprilTags for DECODE are 8.125 in. (~20.65 cm) square targets from the 36h11 tag family (Figure 9-18).
+AprilTags are placed on the front face of the GOAL to help aid in ROBOT navigation and targeting. The red
+ALLIANCE GOAL has ID 24, and the blue ALLIANCE GOAL has tag ID 20. Each marker has an identifying “TAG
+ID” text label (Figure 9-19).
+AprilTags with the ID 21, 22, 23 are located on each rectangular face of the OBELISK, which is placed outside
+of the FIELD and can be used to identify the MOTIF for the MATCH.
+The OBELISK AprilTag is not recommended for ROBOT navigational use as the
+
+--- Line 1869 (AprilTag) ---
+ALLIANCE GOAL has ID 24, and the blue ALLIANCE GOAL has tag ID 20. Each marker has an identifying “TAG
+ID” text label (Figure 9-19).
+AprilTags with the ID 21, 22, 23 are located on each rectangular face of the OBELISK, which is placed outside
+of the FIELD and can be used to identify the MOTIF for the MATCH.
+The OBELISK AprilTag is not recommended for ROBOT navigational use as the
+exact placement location may vary from MATCH to MATCH.
+Figure 9-18: AprilTag Locations on the DECODE FIELD
+
+--- Line 1871 (AprilTag) ---
+AprilTags with the ID 21, 22, 23 are located on each rectangular face of the OBELISK, which is placed outside
+of the FIELD and can be used to identify the MOTIF for the MATCH.
+The OBELISK AprilTag is not recommended for ROBOT navigational use as the
+exact placement location may vary from MATCH to MATCH.
+Figure 9-18: AprilTag Locations on the DECODE FIELD
+Section 9 ARENA V8 74 of 188
+=== PAGE 75 ===
+
+--- Line 1873 (AprilTag) ---
+The OBELISK AprilTag is not recommended for ROBOT navigational use as the
+exact placement location may vary from MATCH to MATCH.
+Figure 9-18: AprilTag Locations on the DECODE FIELD
+Section 9 ARENA V8 74 of 188
+=== PAGE 75 ===
+Figure 9-19: AprilTag location on the GOAL
+Do not print the images from this manual for practice purposes, they are
+
+--- Line 1876 (AprilTag) ---
+Section 9 ARENA V8 74 of 188
+=== PAGE 75 ===
+Figure 9-19: AprilTag location on the GOAL
+Do not print the images from this manual for practice purposes, they are
+examples only and are not the same size as those used in the ARENA. Please
+refer to the Playing Field Resources page for printable versions of these images,
+including instructions on how to place the images correctly around the FIELD.
+
+--- Line 1932 (AUTO period) ---
+10.1 MATCH Overview
+MATCHES run on a typical 5- to 12-minute cycle time per FIELD, which consists of pre-MATCH setup, a 30-
+second AUTO period, an 8-second transition period between AUTO and TELEOP, and a 2-minute TELEOP
+period, followed by the post-MATCH reset.
+During the MATCH, ROBOTS collect ARTIFACTS and score them into their GOAL to CLASSIFY and create the
+randomly selected MOTIF. ROBOTS can then open their GATE to continue CLASSIFYING additional
+ARTIFACTS. ARTIFACTS which do not drop into the RAMP will count as OVERFLOW.
+
+--- Line 1934 (GOAL) ---
+second AUTO period, an 8-second transition period between AUTO and TELEOP, and a 2-minute TELEOP
+period, followed by the post-MATCH reset.
+During the MATCH, ROBOTS collect ARTIFACTS and score them into their GOAL to CLASSIFY and create the
+randomly selected MOTIF. ROBOTS can then open their GATE to continue CLASSIFYING additional
+ARTIFACTS. ARTIFACTS which do not drop into the RAMP will count as OVERFLOW.
+ROBOTS conclude the MATCH by returning to their BASE.
+10.2 DRIVE TEAM
+
+--- Line 1935 (GATE) ---
+period, followed by the post-MATCH reset.
+During the MATCH, ROBOTS collect ARTIFACTS and score them into their GOAL to CLASSIFY and create the
+randomly selected MOTIF. ROBOTS can then open their GATE to continue CLASSIFYING additional
+ARTIFACTS. ARTIFACTS which do not drop into the RAMP will count as OVERFLOW.
+ROBOTS conclude the MATCH by returning to their BASE.
+10.2 DRIVE TEAM
+A DRIVE TEAM is a set of up to 4 people from the same FIRST Tech Challenge team responsible for team
+
+--- Line 1936 (RAMP) ---
+During the MATCH, ROBOTS collect ARTIFACTS and score them into their GOAL to CLASSIFY and create the
+randomly selected MOTIF. ROBOTS can then open their GATE to continue CLASSIFYING additional
+ARTIFACTS. ARTIFACTS which do not drop into the RAMP will count as OVERFLOW.
+ROBOTS conclude the MATCH by returning to their BASE.
+10.2 DRIVE TEAM
+A DRIVE TEAM is a set of up to 4 people from the same FIRST Tech Challenge team responsible for team
+performance for a specific MATCH. There are 3 specific roles on a DRIVE TEAM which ALLIANCES can use to
+
+--- Line 1972 (SCORING ELEMENT) ---
+of the ROBOT STUDENT, must wear a “DRIVE TEAM”
+3
+a SCORING ELEMENT badge
+HUMAN PLAYER
+manager
+A STUDENT is a person who has not completed high-school, secondary school, or the comparable level in their
+home region as of September 1st of the current season.
+
+--- Line 1978 (SCORING ELEMENT) ---
+home region as of September 1st of the current season.
+10.3 Setup
+Before each MATCH begins, FIELD STAFF stage SCORING ELEMENTS as described in section 10.3.1
+SCORING ELEMENTS DRIVE TEAMS stage their ROBOTS (as described in section 10.3.4 ROBOTS) and
+OPERATOR CONSOLES (as described in section 10.3.3 OPERATOR CONSOLES). Then, DRIVE TEAMS take their
+places as described in section 10.3.2 DRIVE TEAMS
+Section 10 Game Details V9 80 of 188
+
+--- Line 1979 (SCORING ELEMENT) ---
+10.3 Setup
+Before each MATCH begins, FIELD STAFF stage SCORING ELEMENTS as described in section 10.3.1
+SCORING ELEMENTS DRIVE TEAMS stage their ROBOTS (as described in section 10.3.4 ROBOTS) and
+OPERATOR CONSOLES (as described in section 10.3.3 OPERATOR CONSOLES). Then, DRIVE TEAMS take their
+places as described in section 10.3.2 DRIVE TEAMS
+Section 10 Game Details V9 80 of 188
+=== PAGE 81 ===
+
+--- Line 1984 (SCORING ELEMENT) ---
+Section 10 Game Details V9 80 of 188
+=== PAGE 81 ===
+10.3.1 SCORING ELEMENTS
+Figure 10-2: SCORING ELEMENTS staging positions
+24 purple (P) and 12 green (G) ARTIFACTS and are staged on the FIELD as follows, with the MOTIFS starting
+from the middle of the FIELD and continuing toward the FIELD perimeter:
+A. 3 ARTIFACTS on each SPIKE MARK arranged as follows:
+
+--- Line 1985 (SCORING ELEMENT) ---
+=== PAGE 81 ===
+10.3.1 SCORING ELEMENTS
+Figure 10-2: SCORING ELEMENTS staging positions
+24 purple (P) and 12 green (G) ARTIFACTS and are staged on the FIELD as follows, with the MOTIFS starting
+from the middle of the FIELD and continuing toward the FIELD perimeter:
+A. 3 ARTIFACTS on each SPIKE MARK arranged as follows:
+i. Near (audience side): GPP
+
+--- Line 1986 (ARTIFACT) ---
+10.3.1 SCORING ELEMENTS
+Figure 10-2: SCORING ELEMENTS staging positions
+24 purple (P) and 12 green (G) ARTIFACTS and are staged on the FIELD as follows, with the MOTIFS starting
+from the middle of the FIELD and continuing toward the FIELD perimeter:
+A. 3 ARTIFACTS on each SPIKE MARK arranged as follows:
+i. Near (audience side): GPP
+ii. Middle: PGP
+
+--- Line 1988 (ARTIFACT) ---
+24 purple (P) and 12 green (G) ARTIFACTS and are staged on the FIELD as follows, with the MOTIFS starting
+from the middle of the FIELD and continuing toward the FIELD perimeter:
+A. 3 ARTIFACTS on each SPIKE MARK arranged as follows:
+i. Near (audience side): GPP
+ii. Middle: PGP
+iii. Far (GOAL side): PPG
+B. 3 ARTIFACTS (2P, 1G) in each LOADING ZONE biased against the FIELD perimeter adjacent
+
+--- Line 1991 (GOAL) ---
+i. Near (audience side): GPP
+ii. Middle: PGP
+iii. Far (GOAL side): PPG
+B. 3 ARTIFACTS (2P, 1G) in each LOADING ZONE biased against the FIELD perimeter adjacent
+to the ALLIANCE AREA and closest to the corner arranged PGP.
+C. 6 ARTIFACTS (4P, 2G) in each ALLIANCE AREA (may be organized in provided ARTIFACT
+tray or similar container) with no set order
+
+--- Line 1992 (ARTIFACT) ---
+ii. Middle: PGP
+iii. Far (GOAL side): PPG
+B. 3 ARTIFACTS (2P, 1G) in each LOADING ZONE biased against the FIELD perimeter adjacent
+to the ALLIANCE AREA and closest to the corner arranged PGP.
+C. 6 ARTIFACTS (4P, 2G) in each ALLIANCE AREA (may be organized in provided ARTIFACT
+tray or similar container) with no set order
+Each ROBOT may be pre-loaded with up to 3 ARTIFACTS from their own ALLIANCE AREA pre-staged
+
+--- Line 1993 (ALLIANCE AREA) ---
+iii. Far (GOAL side): PPG
+B. 3 ARTIFACTS (2P, 1G) in each LOADING ZONE biased against the FIELD perimeter adjacent
+to the ALLIANCE AREA and closest to the corner arranged PGP.
+C. 6 ARTIFACTS (4P, 2G) in each ALLIANCE AREA (may be organized in provided ARTIFACT
+tray or similar container) with no set order
+Each ROBOT may be pre-loaded with up to 3 ARTIFACTS from their own ALLIANCE AREA pre-staged
+ARTIFACTS in C such that each ARTIFACT is in direct contact with the ROBOT.
+
+--- Line 1994 (ARTIFACT) ---
+B. 3 ARTIFACTS (2P, 1G) in each LOADING ZONE biased against the FIELD perimeter adjacent
+to the ALLIANCE AREA and closest to the corner arranged PGP.
+C. 6 ARTIFACTS (4P, 2G) in each ALLIANCE AREA (may be organized in provided ARTIFACT
+tray or similar container) with no set order
+Each ROBOT may be pre-loaded with up to 3 ARTIFACTS from their own ALLIANCE AREA pre-staged
+ARTIFACTS in C such that each ARTIFACT is in direct contact with the ROBOT.
+As described in 15.2 Game Modification, the number, type, and distribution of
+
+--- Line 1996 (ARTIFACT) ---
+C. 6 ARTIFACTS (4P, 2G) in each ALLIANCE AREA (may be organized in provided ARTIFACT
+tray or similar container) with no set order
+Each ROBOT may be pre-loaded with up to 3 ARTIFACTS from their own ALLIANCE AREA pre-staged
+ARTIFACTS in C such that each ARTIFACT is in direct contact with the ROBOT.
+As described in 15.2 Game Modification, the number, type, and distribution of
+SCORING ELEMENTS may be adjusted for the FIRST Championship and FIRST
+Premier Events. For the FIRST Championship, any game modifications will be
+
+--- Line 1997 (ARTIFACT) ---
+tray or similar container) with no set order
+Each ROBOT may be pre-loaded with up to 3 ARTIFACTS from their own ALLIANCE AREA pre-staged
+ARTIFACTS in C such that each ARTIFACT is in direct contact with the ROBOT.
+As described in 15.2 Game Modification, the number, type, and distribution of
+SCORING ELEMENTS may be adjusted for the FIRST Championship and FIRST
+Premier Events. For the FIRST Championship, any game modifications will be
+published on or before the last regularly scheduled Team Update as described in
+
+--- Line 1999 (SCORING ELEMENT) ---
+ARTIFACTS in C such that each ARTIFACT is in direct contact with the ROBOT.
+As described in 15.2 Game Modification, the number, type, and distribution of
+SCORING ELEMENTS may be adjusted for the FIRST Championship and FIRST
+Premier Events. For the FIRST Championship, any game modifications will be
+published on or before the last regularly scheduled Team Update as described in
+section 1.8 Team Updates. For FIRST Premier Events, game modifications will
+be posted by the event organizers prior to the event.
+
+--- Line 2007 (ALLIANCE AREA) ---
+=== PAGE 82 ===
+10.3.2 DRIVE TEAMS
+DRIVE TEAMS prepare for a MATCH by staging in the ALLIANCE AREA after the DRIVE TEAM from the previous
+MATCH has left. DRIVE TEAM starting conditions are listed below, and a DRIVE TEAM obstructing or delaying
+any of the conditions is at risk of violating G301.
+A. only DRIVE TEAM members assigned to the upcoming MATCH are present.
+B. only DRIVE TEAM members whose ROBOTS have passed initial, complete Inspection are
+
+--- Line 2013 (ALLIANCE AREA) ---
+B. only DRIVE TEAM members whose ROBOTS have passed initial, complete Inspection are
+present.
+C. DRIVE TEAM members are staged in their designated ALLIANCE AREA. If members of the
+ALLIANCE cannot agree where their DRIVE TEAM members will be staged, the team listed
+on the MATCH schedule as “Red 1” or “Blue 1” will stage closest to the audience.
+D. DRIVE TEAM members clearly display their designated DRIVE TEAM badges above their
+waists.
+
+--- Line 2021 (ALLIANCE AREA) ---
+CAPTAIN identifier (e.g., hat or armband).
+10.3.3 OPERATOR CONSOLES
+DRIVE TEAMS set up their OPERATOR CONSOLES as soon as they are staged in their ALLIANCE AREA.
+OPERATOR CONSOLES must be compliant with all relevant rules, specifically those in section 12.9 OPERATOR
+CONSOLE. A DRIVE TEAM obstructing or delaying OPERATOR CONSOLE set up is at risk of violating G301.
+A. DRIVE TEAMS intending to run an OpMode during AUTO must select an OpMode within their
+DRIVER STATION app with the 30 second timer enabled.
+
+--- Line 2044 (autonomous) ---
+=== PAGE 83 ===
+10.4 MATCH Periods
+The first period of each MATCH is 30 seconds (0:30) long and called the Autonomous Period (AUTO). During
+AUTO, ROBOTS operate without any DRIVER control or input. There is an 8-second delay between AUTO and
+TELEOP for scoring purposes as described in Section 10.5 Scoring.
+At the FIRST Championship and FIRST Premier events, the timing of the transition
+between AUTO and TELEOP may vary from event to event. Details for the FIRST
+
+--- Line 2054 (ARTIFACT) ---
+10.5 Scoring
+ALLIANCES are rewarded for accomplishing various actions throughout a MATCH, including LEAVING their
+LAUNCH LINE, scoring CLASSIFIED or OVERFLOW ARTIFACTS, scoring ARTIFACTS in the DEPOT, achieving a
+PATTERN of ARTIFACTS, returning to their BASE, and winning or tying MATCHES.
+ALLIANCES are rewarded for their performance during MATCHES via MATCH points and RANKING POINTS
+(RP), which increase the measure used to rank teams per section 13.6.3 Qualification Ranking.
+All achievements are updated by FIELD STAFF throughout the MATCH. Scoring achievements are assessed as
+
+--- Line 2055 (ARTIFACT) ---
+ALLIANCES are rewarded for accomplishing various actions throughout a MATCH, including LEAVING their
+LAUNCH LINE, scoring CLASSIFIED or OVERFLOW ARTIFACTS, scoring ARTIFACTS in the DEPOT, achieving a
+PATTERN of ARTIFACTS, returning to their BASE, and winning or tying MATCHES.
+ALLIANCES are rewarded for their performance during MATCHES via MATCH points and RANKING POINTS
+(RP), which increase the measure used to rank teams per section 13.6.3 Qualification Ranking.
+All achievements are updated by FIELD STAFF throughout the MATCH. Scoring achievements are assessed as
+follows:
+
+--- Line 2060 (ARTIFACT) ---
+All achievements are updated by FIELD STAFF throughout the MATCH. Scoring achievements are assessed as
+follows:
+A. Assessment of ARTIFACTS as either CLASSIFIED or OVERFLOW occurs throughout the
+MATCH and continues until all ARTIFACTS have come to rest following the conclusion of
+the MATCH. ARTIFACTS that meet scoring criteria prior to the start of TELEOP are assessed
+as part of AUTO
+B. Assessment of AUTO PATTERN scoring occurs at when all ARTIFACTS have come to rest
+
+--- Line 2061 (ARTIFACT) ---
+follows:
+A. Assessment of ARTIFACTS as either CLASSIFIED or OVERFLOW occurs throughout the
+MATCH and continues until all ARTIFACTS have come to rest following the conclusion of
+the MATCH. ARTIFACTS that meet scoring criteria prior to the start of TELEOP are assessed
+as part of AUTO
+B. Assessment of AUTO PATTERN scoring occurs at when all ARTIFACTS have come to rest
+following the conclusion of AUTO or the start of TELEOP, whichever comes first.
+
+--- Line 2062 (ARTIFACT) ---
+A. Assessment of ARTIFACTS as either CLASSIFIED or OVERFLOW occurs throughout the
+MATCH and continues until all ARTIFACTS have come to rest following the conclusion of
+the MATCH. ARTIFACTS that meet scoring criteria prior to the start of TELEOP are assessed
+as part of AUTO
+B. Assessment of AUTO PATTERN scoring occurs at when all ARTIFACTS have come to rest
+following the conclusion of AUTO or the start of TELEOP, whichever comes first.
+C. Assessment of TELEOP PATTERN scoring occurs when all ROBOTS and ARTIFACTS have
+
+--- Line 2064 (ARTIFACT) ---
+the MATCH. ARTIFACTS that meet scoring criteria prior to the start of TELEOP are assessed
+as part of AUTO
+B. Assessment of AUTO PATTERN scoring occurs at when all ARTIFACTS have come to rest
+following the conclusion of AUTO or the start of TELEOP, whichever comes first.
+C. Assessment of TELEOP PATTERN scoring occurs when all ROBOTS and ARTIFACTS have
+come to rest following the conclusion of the MATCH.
+D. Assessment of DEPOT scoring occurs at the end of TELEOP when all ROBOTS and
+
+--- Line 2066 (ARTIFACT) ---
+B. Assessment of AUTO PATTERN scoring occurs at when all ARTIFACTS have come to rest
+following the conclusion of AUTO or the start of TELEOP, whichever comes first.
+C. Assessment of TELEOP PATTERN scoring occurs when all ROBOTS and ARTIFACTS have
+come to rest following the conclusion of the MATCH.
+D. Assessment of DEPOT scoring occurs at the end of TELEOP when all ROBOTS and
+ARTIFACTS have come to rest following the conclusion of the MATCH.
+E. Assessment of LEAVE scoring occurs at the end of AUTO.
+
+--- Line 2069 (ARTIFACT) ---
+come to rest following the conclusion of the MATCH.
+D. Assessment of DEPOT scoring occurs at the end of TELEOP when all ROBOTS and
+ARTIFACTS have come to rest following the conclusion of the MATCH.
+E. Assessment of LEAVE scoring occurs at the end of AUTO.
+F. Assessment of BASE scoring occurs at the end of the TELEOP.
+LEAVING the LAUNCH LINE, ARTIFACT scoring, and return to BASE points are all
+evaluated and scored by human volunteers. Teams are encouraged to make sure
+
+--- Line 2072 (ARTIFACT) ---
+E. Assessment of LEAVE scoring occurs at the end of AUTO.
+F. Assessment of BASE scoring occurs at the end of the TELEOP.
+LEAVING the LAUNCH LINE, ARTIFACT scoring, and return to BASE points are all
+evaluated and scored by human volunteers. Teams are encouraged to make sure
+that it is obvious and unambiguous that the criteria are met.
+Achievements scored before the MATCH starts, during the AUTO-to-TELEOP
+transition, and after the MATCH ends at 0:00 are subject to penalties.
+
+--- Line 2079 (ARTIFACT) ---
+Section 10 Game Details V9 83 of 188
+=== PAGE 84 ===
+10.5.1 ARTIFACT Scoring Criteria
+To qualify for CLASSIFIED or OVERFLOW points, an ARTIFACT must enter the GOAL through the open top, exit
+under the archway, and pass through the diverting SQUARE. The determination of whether an ARTIFACT is
+CLASSIFIED or OVERFLOW is made as the ARTIFACT passes through the diverting SQUARE as follows:
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+
+--- Line 2080 (GOAL) ---
+=== PAGE 84 ===
+10.5.1 ARTIFACT Scoring Criteria
+To qualify for CLASSIFIED or OVERFLOW points, an ARTIFACT must enter the GOAL through the open top, exit
+under the archway, and pass through the diverting SQUARE. The determination of whether an ARTIFACT is
+CLASSIFIED or OVERFLOW is made as the ARTIFACT passes through the diverting SQUARE as follows:
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+CLASSIFIED.
+
+--- Line 2081 (ARTIFACT) ---
+10.5.1 ARTIFACT Scoring Criteria
+To qualify for CLASSIFIED or OVERFLOW points, an ARTIFACT must enter the GOAL through the open top, exit
+under the archway, and pass through the diverting SQUARE. The determination of whether an ARTIFACT is
+CLASSIFIED or OVERFLOW is made as the ARTIFACT passes through the diverting SQUARE as follows:
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+CLASSIFIED.
+− An ARTIFACT that passes through the SQUARE but does not meet CLASSIFIED criteria is
+
+--- Line 2082 (ARTIFACT) ---
+To qualify for CLASSIFIED or OVERFLOW points, an ARTIFACT must enter the GOAL through the open top, exit
+under the archway, and pass through the diverting SQUARE. The determination of whether an ARTIFACT is
+CLASSIFIED or OVERFLOW is made as the ARTIFACT passes through the diverting SQUARE as follows:
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+CLASSIFIED.
+− An ARTIFACT that passes through the SQUARE but does not meet CLASSIFIED criteria is
+considered OVERFLOW.
+
+--- Line 2083 (RAMP) ---
+under the archway, and pass through the diverting SQUARE. The determination of whether an ARTIFACT is
+CLASSIFIED or OVERFLOW is made as the ARTIFACT passes through the diverting SQUARE as follows:
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+CLASSIFIED.
+− An ARTIFACT that passes through the SQUARE but does not meet CLASSIFIED criteria is
+considered OVERFLOW.
+ARTIFACTS that do not meet all the criteria for ARTIFACT scoring (e.g., did not
+
+--- Line 2085 (ARTIFACT) ---
+− An ARTIFACT that passes through the SQUARE and transitions directly to the RAMP is considered
+CLASSIFIED.
+− An ARTIFACT that passes through the SQUARE but does not meet CLASSIFIED criteria is
+considered OVERFLOW.
+ARTIFACTS that do not meet all the criteria for ARTIFACT scoring (e.g., did not
+enter the GOAL through the open top, did not exit under the archway, or did not
+pass through the diverting SQUARE) do not score as either CLASSIFIED or
+
+--- Line 2087 (ARTIFACT) ---
+− An ARTIFACT that passes through the SQUARE but does not meet CLASSIFIED criteria is
+considered OVERFLOW.
+ARTIFACTS that do not meet all the criteria for ARTIFACT scoring (e.g., did not
+enter the GOAL through the open top, did not exit under the archway, or did not
+pass through the diverting SQUARE) do not score as either CLASSIFIED or
+OVERFLOW.
+ARTIFACTS that are CLASSIFIED move directly to the RAMP, meaning they:
+
+--- Line 2088 (GOAL) ---
+considered OVERFLOW.
+ARTIFACTS that do not meet all the criteria for ARTIFACT scoring (e.g., did not
+enter the GOAL through the open top, did not exit under the archway, or did not
+pass through the diverting SQUARE) do not score as either CLASSIFIED or
+OVERFLOW.
+ARTIFACTS that are CLASSIFIED move directly to the RAMP, meaning they:
+− do not roll over or otherwise bypass any ARTIFACTS on the RAMP.
+
+--- Line 2091 (RAMP) ---
+pass through the diverting SQUARE) do not score as either CLASSIFIED or
+OVERFLOW.
+ARTIFACTS that are CLASSIFIED move directly to the RAMP, meaning they:
+− do not roll over or otherwise bypass any ARTIFACTS on the RAMP.
+ARTIFACTS that are OVERFLOW:
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+
+--- Line 2092 (RAMP) ---
+OVERFLOW.
+ARTIFACTS that are CLASSIFIED move directly to the RAMP, meaning they:
+− do not roll over or otherwise bypass any ARTIFACTS on the RAMP.
+ARTIFACTS that are OVERFLOW:
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+
+--- Line 2093 (ARTIFACT) ---
+ARTIFACTS that are CLASSIFIED move directly to the RAMP, meaning they:
+− do not roll over or otherwise bypass any ARTIFACTS on the RAMP.
+ARTIFACTS that are OVERFLOW:
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+
+--- Line 2094 (ARTIFACT) ---
+− do not roll over or otherwise bypass any ARTIFACTS on the RAMP.
+ARTIFACTS that are OVERFLOW:
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+
+--- Line 2095 (RAMP) ---
+ARTIFACTS that are OVERFLOW:
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+ARTIFACTS in the DEPOT.
+
+--- Line 2096 (ARTIFACT) ---
+− pass through the SQUARE and may roll over one or more ARTIFACTS that are
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+ARTIFACTS in the DEPOT.
+− DEPOTS are not protected zones, and either ALLIANCE can remove ARTIFACTS from either DEPOT
+
+--- Line 2097 (GOAL) ---
+on the RAMP.
+To qualify for DEPOT points, ARTIFACTS must be over the DEPOT.
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+ARTIFACTS in the DEPOT.
+− DEPOTS are not protected zones, and either ALLIANCE can remove ARTIFACTS from either DEPOT
+during the MATCH.
+
+--- Line 2099 (ARTIFACT) ---
+− DEPOTS are ALLIANCE specific and are tied to the GOAL they are adjacent to.
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+ARTIFACTS in the DEPOT.
+− DEPOTS are not protected zones, and either ALLIANCE can remove ARTIFACTS from either DEPOT
+during the MATCH.
+An ARTIFACT over a DEPOT that is in contact with or in CONTROL of a ROBOT
+from either ALLIANCE will still qualify for DEPOT points for the ALLIANCE that
+
+--- Line 2100 (ARTIFACT) ---
+− DEPOT points are assessed after the MATCH without regard to which ALLIANCE placed the
+ARTIFACTS in the DEPOT.
+− DEPOTS are not protected zones, and either ALLIANCE can remove ARTIFACTS from either DEPOT
+during the MATCH.
+An ARTIFACT over a DEPOT that is in contact with or in CONTROL of a ROBOT
+from either ALLIANCE will still qualify for DEPOT points for the ALLIANCE that
+owns the DEPOT.
+
+--- Line 2102 (ARTIFACT) ---
+− DEPOTS are not protected zones, and either ALLIANCE can remove ARTIFACTS from either DEPOT
+during the MATCH.
+An ARTIFACT over a DEPOT that is in contact with or in CONTROL of a ROBOT
+from either ALLIANCE will still qualify for DEPOT points for the ALLIANCE that
+owns the DEPOT.
+Section 10 Game Details V9 84 of 188
+=== PAGE 85 ===
+
+--- Line 2111 (RAMP) ---
+=== PAGE 86 ===
+10.5.2 PATTERN Scoring Criteria
+At the end of AUTO and TELEOP, ARTIFACTS that are directly on the RAMP score for PATTERN points if the
+color of the ARTIFACT in order matches the MOTIF color for that index, and the ARTIFACTS are retained by the
+GATE.
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+
+--- Line 2112 (ARTIFACT) ---
+10.5.2 PATTERN Scoring Criteria
+At the end of AUTO and TELEOP, ARTIFACTS that are directly on the RAMP score for PATTERN points if the
+color of the ARTIFACT in order matches the MOTIF color for that index, and the ARTIFACTS are retained by the
+GATE.
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+
+--- Line 2113 (GATE) ---
+At the end of AUTO and TELEOP, ARTIFACTS that are directly on the RAMP score for PATTERN points if the
+color of the ARTIFACT in order matches the MOTIF color for that index, and the ARTIFACTS are retained by the
+GATE.
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+MOTIF (Figure 10-5).
+
+--- Line 2114 (OBELISK) ---
+color of the ARTIFACT in order matches the MOTIF color for that index, and the ARTIFACTS are retained by the
+GATE.
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+MOTIF (Figure 10-5).
+Figure 10-4: MOTIFS as defined by the OBELISK
+
+--- Line 2115 (RAMP) ---
+GATE.
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+MOTIF (Figure 10-5).
+Figure 10-4: MOTIFS as defined by the OBELISK
+RAMP
+
+--- Line 2116 (RAMP) ---
+The randomization of the OBELISK prior to the start of the MATCH selects the MOTIF which is repeated 3
+times to define the PATTERN colors for each of the 9 indices on the RAMP (Figure 10-4). PATTERN points are
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+MOTIF (Figure 10-5).
+Figure 10-4: MOTIFS as defined by the OBELISK
+RAMP
+OBELISK
+
+--- Line 2118 (OBELISK) ---
+scored based on the color of the ARTIFACT on the RAMP matching the individual index color defined by the
+MOTIF (Figure 10-5).
+Figure 10-4: MOTIFS as defined by the OBELISK
+RAMP
+OBELISK
+Index 1 2 3 4 5 6 7 8 9
+G P P
+
+--- Line 2119 (RAMP) ---
+MOTIF (Figure 10-5).
+Figure 10-4: MOTIFS as defined by the OBELISK
+RAMP
+OBELISK
+Index 1 2 3 4 5 6 7 8 9
+G P P
+GATE G P P G P P G P P SQUARE
+
+--- Line 2120 (OBELISK) ---
+Figure 10-4: MOTIFS as defined by the OBELISK
+RAMP
+OBELISK
+Index 1 2 3 4 5 6 7 8 9
+G P P
+GATE G P P G P P G P P SQUARE
+(ID 21)
+
+--- Line 2123 (GATE) ---
+Index 1 2 3 4 5 6 7 8 9
+G P P
+GATE G P P G P P G P P SQUARE
+(ID 21)
+P G P
+GATE P G P P G P P G P SQUARE
+(ID 22)
+
+--- Line 2126 (GATE) ---
+(ID 21)
+P G P
+GATE P G P P G P P G P SQUARE
+(ID 22)
+P P G
+GATE P P G P P G P P G SQUARE
+(ID 23)

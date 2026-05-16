@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.CameraController;
+import org.firstinspires.ftc.teamcode.pedroPathing.controller.ControllerParams;
 import java.util.Locale;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 
@@ -272,29 +273,29 @@ public abstract class CommonTeleOp extends OpMode {
             boolean gp2BEdge = gamepad2.b && !prevGp2B;
 
             if (gp2DpadUpEdge) {
-                targetManualCloseRpm += TeleOpTuningConfig.CLOSE_RPM_STEP;
+                targetManualCloseRpm = Math.min(TeleOpTuningConfig.MAX_MANUAL_RPM, targetManualCloseRpm + TeleOpTuningConfig.CLOSE_RPM_STEP);
             }
             if (gp2DpadDownEdge) {
                 targetManualCloseRpm = Math.max(0.0, targetManualCloseRpm - TeleOpTuningConfig.CLOSE_RPM_STEP);
             }
             if (gp2DpadRightEdge) {
-                targetManualCloseHoodDeg += TeleOpTuningConfig.CLOSE_HOOD_STEP_DEG;
+                targetManualCloseHoodDeg = Math.min(ControllerParams.HOOD_MAX_POSITION, targetManualCloseHoodDeg + TeleOpTuningConfig.CLOSE_HOOD_STEP_DEG);
             }
             if (gp2DpadLeftEdge) {
-                targetManualCloseHoodDeg = Math.max(0.0, targetManualCloseHoodDeg - TeleOpTuningConfig.CLOSE_HOOD_STEP_DEG);
+                targetManualCloseHoodDeg = Math.max(ControllerParams.HOOD_MIN_POSITION, targetManualCloseHoodDeg - TeleOpTuningConfig.CLOSE_HOOD_STEP_DEG);
             }
 
             if (gp2YEdge) {
-                targetManualFarRpm += TeleOpTuningConfig.FAR_RPM_STEP;
+                targetManualFarRpm = Math.min(TeleOpTuningConfig.MAX_MANUAL_RPM, targetManualFarRpm + TeleOpTuningConfig.FAR_RPM_STEP);
             }
             if (gp2AEdge) {
                 targetManualFarRpm = Math.max(0.0, targetManualFarRpm - TeleOpTuningConfig.FAR_RPM_STEP);
             }
             if (gp2XEdge) {
-                targetManualFarHoodDeg += TeleOpTuningConfig.FAR_HOOD_STEP_DEG;
+                targetManualFarHoodDeg = Math.min(ControllerParams.HOOD_MAX_POSITION, targetManualFarHoodDeg + TeleOpTuningConfig.FAR_HOOD_STEP_DEG);
             }
             if (gp2BEdge) {
-                targetManualFarHoodDeg = Math.max(0.0, targetManualFarHoodDeg - TeleOpTuningConfig.FAR_HOOD_STEP_DEG);
+                targetManualFarHoodDeg = Math.max(ControllerParams.HOOD_MIN_POSITION, targetManualFarHoodDeg - TeleOpTuningConfig.FAR_HOOD_STEP_DEG);
             }
         }
 
@@ -315,7 +316,9 @@ public abstract class CommonTeleOp extends OpMode {
     }
 
     private void runHoldToShoot(boolean shootHeld, double targetRpm, double targetHoodPosition) {
-        shootSequencer.setHoodPosition(targetHoodPosition);
+        if (shootHeld) {
+            shootSequencer.setHoodPosition(targetHoodPosition);
+        }
         if (shootHeld && !lastShootHeld) {
             shootSequencer.startShootingSequence(targetRpm, TeleOpTuningConfig.SHOOTER_VELOCITY_THRESHOLD_RPM);
         }

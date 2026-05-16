@@ -1,0 +1,1133 @@
+﻿=== PAGE 25 ===
+
+Table 4-1: Advancement Point Assignment
+Category Advancement Points Earned
+Normal distribution of points from 16 to 2 across the highest ranked team to
+Qualification Phase the lowest based on the equation in section 4.1.1 Qualification Phase
+Performance Performance. (This will result in a minimum of 2 points and a maximum of
+16 points being awarded for qualification phase performance.)
+Equal to 21 minus the ALLIANCE lead number (e.g., 18 points for ALLIANCE
+ALLIANCE lead
+#3 lead)
+Equal to 21 minus the Draft Order Acceptance number (e.g., 18 points for the
+Draft Order Acceptance
+team which accepts the third draft position)
+40 points for 1st Place (Winners)
+20 points for 2nd Place (Finalists)
+10 points for 3rd Place
+Playoff Advancement
+5 points for 4th Place
+(See Section 13.8 Dual Division Events for modifications to this
+section)
+60 points for Inspire Award 1st Place
+30 points for Inspire Award 2nd Place
+15 points for Inspire Award 3rd Place
+Team Judged Awards 12 points for all other 1st Place Awards
+6 points for all other 2nd Place Awards
+3 points for all other 3rd Place Awards
+(See A211 for a list of points-eligible awards)
+Section 4 Advancement V3 25 of 188
+
+=== PAGE 26 ===
+
+If there is a tie in the point totals between teams, the higher ranked team will be determined using the following
+additional sorting criteria in Table 4-2.
+Table 4-2 Advancement Sorting Criteria Including Tiebreakers
+Order Sort Criteria
+1st Total Advancement Points (as calculated in Table 4-1)
+2nd Judged Team Award Points
+3rd Playoff Advancement Points
+4th ALLIANCE Selection Results Points (ALLIANCE lead or Draft Order Acceptance)
+5th Qualification Phase Performance Points
+6th Average Qualification MATCH Points (excluding FOULS)
+7th Average Qualification AUTO Points
+8th Highest individual Qualification MATCH Points (excluding FOULS)
+9th Second Highest individual Qualification MATCH Points (excluding FOULS)
+10th Random Selection by Event Management System
+4.1.1 Qualification Phase Performance
+The calculation of Qualification Phase Performance points is done using the equation below. This equation is
+an inverse error function which utilizes the following variables:
+ΓêÆ R ΓÇô the qualification rank of the team at the event at the conclusion of Qualification MATCHES (as
+reported by the Event Management Software and defined in Section 13.6.3 Qualification
+Ranking)
+ΓêÆ N ΓÇô the number of FIRST Tech Challenge teams participating in the Qualification rounds at the
+event
+ΓêÆ Alpha (╬▒) ΓÇô a static value (1.07) used to standardize the distribution of points at events
+≡¥æ╡ΓêÆ≡¥ƒÉ≡¥æ╣+≡¥ƒÉ ≡¥ƒò
+≡¥æ╕≡¥Æû≡¥Æé≡¥Æì≡¥Æè≡¥Æç≡¥Æè≡¥Æä≡¥Æé≡¥Æò≡¥Æè≡¥ÆÉ≡¥ÆÅ≡¥æ╖≡¥ÆÉ≡¥Æè≡¥ÆÅ≡¥Æò≡¥Æö(≡¥æ╣,≡¥æ╡,≡¥£╢)= Γîê≡¥æ░≡¥ÆÅ≡¥Æù≡¥æ¼≡¥æ╣≡¥æ¡( )( )+≡¥ƒùΓîë
+≡¥£╢≡¥æ╡ ≡¥ƒÅ
+≡¥æ░≡¥ÆÅ≡¥Æù≡¥æ¼≡¥æ╣≡¥æ¡( )
+≡¥£╢
+This formula generates an approximately normal distribution of Qualification Phase Performance points at an
+event, based on rank, with most teams getting a moderate number of points, and fewer teams getting the
+highest or lowest numbers of points available.
+Table 4-3 displays sample Qualification Phase Performance points for variously ranked teams at a 28-team
+event. The system will automatically generate the appropriate points for each team based on their rank and the
+number of teams at the event.
+Section 4 Advancement V3 26 of 188
+
+=== PAGE 27 ===
+
+Table 4-3 Sample Qualification Round Point Assignments
+Rank 1 2 3 4 ΓÇª 12 13 14 ΓÇª 25 26 27 28
+Points 16 15 14 14 ΓÇª 10 10 10 ΓÇª 6 5 5 4
+4.1.2 ALLIANCE Selection Results
+This attribute measures both individual team Qualification round seeding performance and recognition by
+peers.
+ALLIANCE leads are recognized based on their Qualification phase seeding rank. This rank is a result of the
+rules of the game, which typically incorporate several team performance attributes, and are designed to
+eliminate ties in rank. ALLIANCE partners are rewarded based on peer recognition. To be invited to join an
+ALLIANCE, a teamΓÇÖs peers have decided that the team has attributes that are desirable. Giving points for
+ALLIANCE selection also supports come-from-behind teams. A team taking several MATCHES to optimize
+their performance may be recognized as a late bloomer by a top seeded team, even if that performance isnΓÇÖt
+reflected in the rankings because of poor performance in early MATCHES. These points also have the potential
+to recognize teams employing a unique strategy with their ROBOT. Teams with unique or divergent ROBOT
+capabilities that complement the strengths of other ALLIANCE members may be selected to fill a strategic
+niche.
+Note also that ALLIANCE leads are given the same number of points as the team drafted in the same
+sequence. For example, the team who accepts the pick from the 3rd ALLIANCE lead receives the same number
+of points as the 3rd ALLIANCE lead. Numerical analysis supports the idea that ALLIANCE leads are about as
+strong in ROBOT performance as equivalently drafted teams. An additional minor benefit to this system is that
+it allows teams who would traditionally not be a top ranked team the opportunity to be an ALLIANCE lead.
+4.1.3 Playoff Performance
+This attribute measures team performance as part of an ALLIANCE.
+Teams earn points based on how far they progress into the Playoffs. Points are given to all teams within the
+ALLIANCE as described in Table 4-1.
+See Section 13.7.2 Playoff MATCH Bracket for more details on the number of ALLIANCES that are formed
+for the Playoffs and an example of the Playoff MATCH bracket.
+4.1.4 Team Judged Awards
+This attribute measures team performance with respect to team awards judged at the event.
+The points earned for team awards in this system are not intended to capture the full value of the award to the
+team winning the award, or to represent the full value of the award to FIRST. In many ways, the teamΓÇÖs
+experience in being selected for awards, especially the Inspire Award, is beyond measure, and could not be
+fully captured in its entirety by any points-based system. Points are being assigned to awards in this system
+only to help teams recognize that FIRST continues to be ΓÇ£More than Robots┬«,ΓÇ¥ and to assist in elevating award-
+winning teams above non-award-winning teams in the ranking system.
+Section 4 Advancement V3 27 of 188
+
+=== PAGE 28 ===
+
+Teams only get points for team awards judged at the event. If an award is not judged, is not for a team (e.g.,
+the FIRST Leadership Award), or is not judged at the event (e.g., Safety Animation Award), no points are
+earned. Points for awards not given at the event are not assigned to any team. See A211 for the list of points-
+eligible awards.
+4.2 Advancement Distribution by Region
+Advancement within a region is determined by the Program Delivery Partner and minimum advancement
+numbers should be made publicly accessible to participating teams as early as possible before the event, and
+no later than when ALLIANCE selection begins. Advancement information may be published on the FTC-Events
+page as shown in Figure 4-3.
+Figure 4-3 Event Advancement Information as shown on the ftc-events.firstinspires.org/ page
+Advancement to the FIRST Championship and FIRST Premier Events is determined by FIRST Headquarters
+based on a number of factors including:
+ΓêÆ Number of teams registered within the region before the cutoff date (this season November 17th)
+o Regions who meet minimum registration requirements
+o Total number of teams within the region
+ΓêÆ New developing regions with a Program Delivery Partner
+ΓêÆ Global and regional representation
+Regional allocations of advancement slots information will be published on the FTC-Events page starting in
+early December. Regionally allocated slots which are not secured by the event deadline will be returned to
+FIRST HQ or Premier Event Host for reallocation which may include reallocation to a new region or waitlist
+team invitation.
+Section 4 Advancement V3 28 of 188
+
+=== PAGE 29 ===
+
+5 Event Rules (E)
+This section includes general rules which apply from the beginning of the public schedule when teams arrive
+through the end of the event with departure from the venue. These are high-level rules intended to promote an
+orderly and safe experience for all participants. The Event Director may specify additional restrictions beyond
+those listed here based on local venue requirements which in most circumstances will be communicated to
+teams in advance of the event.
+Universal Violation Note: A violation of any Event Rules (E) will result in a warning from event
+volunteers. Egregious or repeated violations of an Event Rule will be addressed with a VERBAL WARNING
+from the Head REFEREE, the Lead ROBOT INSPECTOR (LRI) and/or Event Director. Subsequent violations
+of an Event Rule may result in escalation to FIRST Headquarters and/or disqualification for the team from
+MATCHES and awards. Criminal behavior will not be tolerated and will result in removal of individual(s)
+involved and/or disqualification for the team from the event.
+Any items that are deemed unsafe or outside specifications by FIRST personnel and/or the Event Director
+must be removed.
+Additional rule specific violations, if applicable, are listed with their corresponding rule.
+FIRST is committed to STEM for EveryoneΓäó and as such, FIRST strives to make reasonable accommodations
+for persons with disabilities that request accommodation. If a participant needs an accommodation for an
+event, we ask that they talk to a volunteer at the event or contact their local leadership before the event so they
+can ensure the request is addressed. Accommodations are considered reasonable if they do not create an
+undue hardship, cause safety concerns, or fundamentally alter the nature of the event.
+Rules around safety and security within this section are minimum requirements, and Program Delivery Partners
+are able to implement increased restrictions due to local or venue requirements (e.g., requiring badging for all
+attendees, reserving seating for accessibility). Partners should communicate additional local requirements
+early enough to allow teams to plan.
+Safety is always paramount, and many rules are intended to establish norms at
+each event that will mitigate injury risk to all participants.
+The Event Director has the final decision authority for all safety-related issues
+within a venue.
+5.1 General Rules
+E101 *Personal safety comes first. All team members must observe the following safety practices
+throughout the event:
+A. wear safety glasses or safety rated glasses with side shields (ANSI-approved, UL Listed, CE
+EN166 rated, AS/NZS certified, or CSA rated) while in and around the playing FIELD and in
+the pit area. Clear or lightly tinted safety glasses are preferred. Shaded glasses are allowed
+for those who need them and do not require a specific accommodation request. The only
+instances where teams are not required to wear safety glasses are in their first 10 minutes
+Section 5 Event Rul
+=== PAGE 30 ===
+
+of their event load in, and for the first 10 minutes pits are open each day of the event as long
+as theyΓÇÖre not working on the ROBOT or setting up their pit,
+B. wear closed toed/heeled shoes,
+C. control entanglement risks by tying back long hair and removing other dangling decorations
+including lanyards, spirit wear and rings as needed while working on or around a ROBOT or
+ROBOT related materials or tools,
+D. wear appropriate clothing,
+E. walk in the venue, and
+F. comply with government and venue-specific health and safety requirements in place for that
+event (i.e., mask wearing).
+Teams are responsible for bringing their own personal protective equipment.
+For more information about safety at FIRST events, please reference the FIRST
+Safety Manual.
+A partial list of footwear that is not allowed: Crocs, slides, sandals, flip flops,
+Birkenstocks, sandals with an ankle strap, clogs.
+E102 *Be Nice. All participants should strive to be gracious and professional at all times while attending a
+FIRST Tech Challenge event. Uncivil behavior toward any participants is not tolerated.
+Examples of inappropriate behavior include, but are not limited to:
+A. use of offensive language or other uncivil conduct towards someone,
+B. ΓÇ£weaponizing Gracious ProfessionalismΓÇ¥ by accusing another person or team
+of being ΓÇ£not GPΓÇ¥,
+C. intentionally blocking the view of other participants or spectators for an
+extended period (Team members momentarily holding up team signs while
+directly supporting their team is not considered a violation of this rule.), and
+D. jamming or interfering with the remote sensing capabilities of a ROBOT or the
+FIELD while in open-access spectator seating areas.
+Examples of remote sensing capabilities include, but are not limited to, vision
+systems, acoustic range finders, sonars, and infrared proximity sensors.
+Use of imagery that, to a reasonably astute observer, mimics the AprilTags
+employed on the FIELD is a violation of this rule.
+Examples of particularly contemptible behavior that may result in ejection from
+the event include, but are not limited to, the following:
+E. assault, e.g., throwing something that hits another person (even if
+unintended),
+F. threat, e.g., saying something like ΓÇ£if you donΓÇÖt reverse that call, IΓÇÖll make you
+regret it,ΓÇ¥
+G. harassment, e.g., badgering someone with no new information after a
+decision has been made or a question has been answered,
+H. bullying, e.g., using body or verbal language to cause another person to feel
+inadequate or unsafe,
+Section 5 Event Rules (E) V2 30 of 188
+
+=== PAGE 31 ===
+
+I. insulting, e.g., telling someone they do not deserve to be on a team,
+J. swearing at another person (versus swearing under oneΓÇÖs breath or at
+oneself), and
+K. yelling at another person(s) in anger or frustration.
+E103 *Children with adults, please. Children under 12 must be accompanied in the pits by an adult at all
+times.
+E104 *Respect the venue. Teams may not damage the venue, including but not limited to bleachers, floors,
+walls, railings, in any way. This includes littering with team giveaways including candies, flyers, and
+stickers.
+E105 *Teams must check in. An adult team member must check in at the Pit Administration station, or the
+designated check in location, no later than 45 minutes before Qualification MATCHES are scheduled to
+start unless otherwise specified or approved by the Event Director.
+Violation: Failure to check in may result in a team not participating in the event.
+E106 *Event resources are for competing teams only. Only teams registered for an event may use that
+eventΓÇÖs competition FIELD, practice FIELD, and inspection unless pre-approved by the Event Director or
+the Program Delivery Partner. Host teams supplying practice FIELD elements and/or machine shop
+resources may use them; however, teams registered for that event must be granted priority.
+E107 *Practice only when/where permitted. Teams may only practice with their ROBOT in their pit space, in
+the designated event practice areas, or while in a Practice MATCH.
+Teams may not set up their own practice equipment outside their pit in other
+areas of the event venue. If the Event Director determines a pit practice setup is
+unsafe or interferes with activity in adjacent pits or aisles, the team must
+discontinue the activity.
+Demonstrating robot functionality to guests or JUDGES is not considered
+practice.
+E108 *Work in designated areas only. At the event venue, teams may only produce FABRICATED ITEMS as
+follows:
+A. in their pit area,
+B. in another teamΓÇÖs pit area with permission from that team,
+C. while queued for a MATCH or practice FIELD (given space constraints, extra scrutiny
+regarding safety is required),
+D. any area designated by event staff (e.g., playoff pit area), or
+E. as permitted at provided machine shops that are available to all teams.
+E109 *Some things do not belong at events. Do not bring or use the following:
+A. Skateboards,
+B. ΓÇÿhoverboardsΓÇÖ,
+C. drones,
+D. bottled gas tanks (e.g., helium),
+E. noisy devices or noisemakers, such as floor stompers, whistles and/or air horns,
+Section 5 Event Rules (E) V2 31 of 188
+
+=== PAGE 32 ===
+
+F. walkie-talkies, or
+G. scooters, except for those used for accommodations.
+E110 *Do not arrange for additional utilities. Do not arrange for power, internet access, or phone lines from
+venue service providers or attempt to use venue internet connections reserved for event purposes (e.g.,
+FIRST event management software or webcasting).
+E111 *Do not sell stuff. Teams may not conduct sales at an event. This includes, but is not limited to, raffle
+tickets, food, hats, shirts, candy, water, soft drinks, fruit, or any promotional products unless specifically
+allowed by the Event Director.
+E112 *Make FIRST loud, but with restrictions. Do not invite or bring live bands to play in the audience. Do not
+play loud music.
+E113 *Hang banners with care. Be respectful when hanging your banners.
+A. Do not cover or move other team or sponsor signs already in place.
+B. Share the available space fairly with other teams.
+C. Do not obstruct the view of spectators.
+D. Get permission from the Event Director before hanging banners outside of your pit.
+E. Hang signs and banners in a safe manner.
+F. Banners hung outside team pits must not be larger than 25 ft.2 (2.3 m2).
+We encourage teams to bring team flags and/or signs for display in their pits
+and/or the ARENA.
+Respect venue-specific rules regarding sign location and hanging methods. At
+the end of the event, safely remove all signs and anything used to hang the signs
+(tape, string, etc.).
+E114 *Limit flag and flagpole size if used in the ARENA. Flags and flagpoles may not be of unreasonable
+size and weight if they are going to be used around the FIELD.
+As a guideline, reasonable flags are less than 3 ft. by 5 ft. (~91 cm by 152 cm) in
+size and weigh less than 2 lbs. (~907g). Reasonable flagpoles may not be more
+than 8 ft. (~243 cm) long and must weigh less than 3 lbs. (~1360g).
+E115 *No firearms or other weapons. Firearms or other weapons are prohibited at all FIRST events for all
+FIRST programs, including without limitation, all official FIRST Events posted here. This rule includes
+prop or simulated weapons which appear to be real. This policy does not apply to law enforcement or
+venue security personnel.
+E116 *Inspection required for practice FIELD access. A team may only use a practice FIELD with a ROBOT
+that has passed an initial, complete inspection. This rule only applies to events not using scheduled
+inspection times.
+E117 *Do not record anyone at the event without their consent. Do not record interactions with anyone at an
+event, without the personΓÇÖs consent. FIRST event staff and volunteers are empowered to excuse
+themselves from an interaction in which they are being recorded after declining consent.
+Section 5 Event Rules (E) V2 32 of 188
+
+=== PAGE 33 ===
+
+Please note that many FIRST events are livestreamed and FIRST participants
+have given permission to appear in footage from FIRST. This does not mean that
+people can record specific interactions without additional consent.
+Laws regarding recording of conversations vary state-to-state and country-to
+country, and, in some cases, recording without consent may be criminal.
+Introducing the idea of recording a conversation with an implied reason of
+proving someoneΓÇÖs error can escalate a discussion and is likely to increase its
+adversarial nature.
+5.2 Machine Shops and Host Team Build Spaces
+Rarely, some events host a machine shop or open their teamΓÇÖs build space, during specific hours (see the event
+public agenda), to help teams with repair and fabrication of their ROBOT. Machine shops are typically
+sponsored by the local host organization. In most cases, the machine shop is on site and readily accessible to
+all teams. All competing teams should have access to the same resources.
+5.3 Wireless Rules
+E301 *No wireless communication. Teams may not set up their own Wi-Fi (802.11a/b/g/n/ac/ax/be)
+wireless communication (e.g., access points or ad-hoc networks), Bluetooth, or any other
+communications systems using 2.4GHz or 5GHz wireless in the venue.
+A wireless hot spot created by a cellular device, camera, smart TV, etc. is
+considered an access point.
+Some smart TVs have access points enabled by factory default. Please make
+sure that functionality is disabled for any TVs brought to the event.
+Bluetooth uses 2.4GHz frequencies to communicate which can interfere with
+venue and ROBOT systems.
+Many R/C toys (including drones, wireless vehicles, FPV systems) use 2.4GHz
+and 5GHz communications. Do not operate these in the venue.
+E302 *DonΓÇÖt interfere with wireless networks. Participants may not interfere, attempt to interfere, or attempt
+to connect with any other team or FIRST wireless network without expressed permission.
+Teams are encouraged to report suspected wireless security vulnerabilities to
+the FIRST Technical Advisor (FTA) or Event Director if at the event or to FIRST via
+customerservice@firstinspires.org to report a suspected issue after the event.
+5.4 Load-In
+Some large events (often multi-day events) may set specific time frames, published on the event public
+schedule, in which teams are invited to load their ROBOT and equipment into their pit areas before pits
+officially open.
+Load-in can be stressful for teams and volunteers, which can be mitigated by preparation and planning.
+Unanticipated factors, like traffic or weather, can change a teamΓÇÖs scheduled arrival time, making the process
+Section 5 Event Rules (E) V2 33 of 188
+
+=== PAGE 34 ===
+
+difficult. The most important things a team should remember are to be safe, gracious, and professional.
+Teams who experience smooth and easy load-ins are encouraged to check with others to see if they can help
+and make their experience as positive as possible.
+5.5 Pits
+A team pit is the designated space, typically a 10 ft. by 10 ft. by 10 ft. (~3 m x 3 m x 3 m) area, where a team
+may work on their ROBOT. Each team is assigned a pit space typically marked with their team number. This
+helps team members, JUDGES, and visitors find teams easily. Pit spaces may vary based on competition venue
+size limits.
+The pit area refers to the general area where team pits are located which encompasses the aisles between the
+pits, pit admin, ROBOT inspection, practice FIELD, or other areas where ROBOTS may be active or worked on.
+All pit rules apply to the full pit area.
+Additional limitations beyond those listed below may be imposed by the Event Director but they should be
+clearly communicated at least 48 hours before the event start time and applied to all teams fairly. Team pits
+may or may not have a table and power outlet. If individual team outlets are not provided, the venue must
+provide access to team-usable outlets in the pit area for charging batteries. Power may not be available
+overnight for a multi-day event.
+Teams, volunteers, FIRST staff, and guests spend a lot of time in the pits. Get to know other teams and help
+each other when you can. Time is short and help is very often right "next door" in the adjacent team pits.
+Small, bench-top machinery, with appropriate guards, is permitted in team pits. ΓÇÿSmallΓÇÖ machinery is machinery
+that can be easily lifted by one person and examples include, but are not limited to: 3D printers, small band
+saws, small drill presses, desktop CNC mills, and sanders.
+E501 *Pits are unavailable if closed. Teams may not access their pit area outside the designated hours.
+E502 *Stay in your pit. Teams should set up their allowed equipment fully within their assigned pit space.
+Teams may not:
+A. run power or internet lines from their team pit to any other area except as instructed or
+allowed by the Event Director,
+B. swap team pits with other teams if pits have assigned team numbers, or
+C. move themselves to empty team pits without Event Director approval.
+E503 *Keep aisles clear. Aisles must be kept clear.
+E504 *No sparks or flames. Tools that throw sparks or produce open flames are prohibited.
+Examples of tools that violate this rule include, but are not limited to: welders,
+bench and angle grinders, and gas torches.
+E505 *Nothing too big. Floor standing power tools are prohibited.
+Examples include, but are not limited to: full-size drill presses, and band saws.
+E506 *No brazing or welding. Brazing/welding is prohibited.
+Section 5 Event Rules (E) V2 34 of 188
+
+=== PAGE 35 ===
+
+E507 *Solder with specific tools only. Soldering may be done using an electric iron/gun only.
+E508 *Structures must be safe. Teams may not build any structure that supports the weight of people or
+stores items overhead. Structures may not block or inhibit fire sprinkler systems or otherwise be
+unsafe.
+E509 *Secure team identification assets. Team signs, flags, and displays must be securely mounted to the
+pit structure.
+E510 *Only use aerosol or other chemicals with noxious fumes in approved areas. Any aerosol or chemical
+that produces noxious fumes or spray particulates should only be used in approved areas. Not all
+venues will allow the use of these products anywhere on site.
+Section 5 Event Rules (E) V2 35 of 188
+
+=== PAGE 36 ===
+
+5.6 ROBOT Carts
+Most teams use carts to transport their ROBOT throughout an event. Carts are not required but are
+recommended (to minimize risk of muscle strains, dropped ROBOTS, and other hazards). In addition to the
+rules listed below, teams are encouraged to put the teamΓÇÖs number on the cart, refer to the FIRST Safety
+Manual for key safety guidelines and practices.
+E601 *Carts must be safe and easy to use. Carts must be easy to control, maneuver, and pose no risk to
+bystanders.
+E602 *Carts should not be too big. Carts must fit through a standard 30-inch door.
+E603 *Carts cannot park anywhere. Carts must remain in the team pit (or other venue designated cart
+staging areas) when not in use.
+E604 *No noisy carts. Carts may not be equipped with music or other sound-generating devices.
+E605 *No motor driven carts. ROBOT carts may not use powered propulsion.
+5.7 Ceremonies
+At most events, there are opening and closing ceremonies to show honor and respect for represented
+countries, sponsors, teams, mentors, volunteers, and award winners. Ceremonies provide everyone with the
+opportunity to collectively applaud the successes of all participants. They also give teams a chance to "meet"
+the volunteers and other people and sponsors involved with the event. Closing ceremony elements are at the
+end of most events and are integrated into and presented between Playoff MATCHES.
+At the awards ceremony, FIRST presents trophies and medallions to outstanding teams. All team members are
+encouraged to attend the ceremonies, be punctual, and show appreciation to volunteers that staffed the event.
+E701 *Quiet in the pits during ceremonies. During ceremonies outside of Playoff MATCHES, team members
+may not:
+A. use power tools
+B. use loud hand tools (hammers, saws, etc.), or
+C. shout, yell, or use loud voices, unless as a demonstration of approval during a ceremonial
+activity.
+E702 *Pit person limit during ceremonies is 5. No more than 5 team members may be in the pits during
+ceremonies outside of Playoff MATCHES. Each team must have at least 1 representative observing
+ceremonies to be responsible for relaying important information to the entire team.
+All teams are encouraged to have as many people in the stands for ceremonies
+as possible. This is important both to celebrate all who are recognized during
+ceremonies, but also to listen for important day-of information from event
+organizers which might be critical for your team.
+E703 *Be respectful during anthems. Team members, including any remaining in the pits, should exhibit
+peaceful behavior during the presentation of all national anthems. If team members wish to abstain
+from traditional anthem observance behaviors, they have a right to do so, as long as they remain silent
+and non-disruptive.
+Section 5 Event Rules (E) V2 36 of 188
+
+=== PAGE 37 ===
+
+5.8 In the Stands
+E801 *No saving seats. Teams are not permitted to save or designate seats for team members that are not
+actively using them.
+Teams may not hang banners or ribbons or otherwise designate seating. (Event
+staff will remove and discard any banners, roping, etc., used to designate
+seating.) Please take turns sitting in the bleachers/stands if seating is limited. If
+there is a crowding problem, we ask that you kindly leave after your team's
+MATCH and return later, if possible.
+The Event Director may reserve seats for attendees who require accessible
+seating, for certain volunteers, or to ensure teams in the Playoffs have seats to
+watch their teams play.
+E802 *No throwing items from the stands. Items may not be thrown from the audience seating.
+Section 5 Event Rules (E) V2 37 of 188
+
+=== PAGE 39 ===
+
+6 Awards (A)
+FIRST Tech Challenge celebrates the excitement of competition both on and off the field. Through the
+following awards, we celebrate the FIRST Core Values which makes us so much ΓÇ£More than RobotsΓÇ¥. Please
+note that different event types (e.g., League Tournaments, Regional Championship, FIRST Championship) or
+event sizes may offer different sets of awards. Not every award is presented at every FIRST Tech Challenge
+event. No awards are presented at League Meets, see section 14 League Play Tournaments (L), additional
+details by event type are available in the sections below.
+Judged awards are determined by volunteers from the community who prepare for the event with thorough
+training and certification. There are two key judging volunteer roles:
+ΓêÆ JUDGES ΓÇô meet with teams to learn about and celebrate the unique journey and accomplishments
+of each team and evaluate these against award requirements. JUDGES interact with STUDENTS
+during the interview process, and in the pits. As a group, JUDGES determine the teams that receive
+awards at events.
+ΓêÆ JUDGE Advisor (JA) ΓÇô trains, directs, and supervises JUDGES throughout the event. JUDGE
+Advisors oversee the judging processes and procedures to make sure they are in accordance with
+FIRST Tech Challenge judging guidelines.
+FIRST Tech Challenge judging is delivered in one of two ways. Most events will have in-person (ΓÇ£traditionalΓÇ¥)
+judging along with the standard in-person gameplay. The second is hybrid format which has in-person
+gameplay, but judging is done remotely before in-person gameplay. This manual will primarily describe the
+traditional in person judging process. The remote judging process follows the same overall judging standards
+and requirements, but interviews are conducted online, and in-person meetings may not occur.
+Teams may also read the Judge and Judge Advisor Manuals to gain more insight into the complete judging
+process. Teams are also encouraged to review the Outreach Terms and Definitions Document to ensure all
+teams can clearly communicate with judges and our community the great things they do to grow FIRST.
+6.1 Team Judged Awards Overview and Schedule
+Most FIRST Tech Challenge awards fall into two broad categories: Machine, Creativity, and Innovation (MCI),
+and Team Attributes (TA). In addition to MCI and TA awards, there are also two other separate awards, the
+Think Award and the JudgesΓÇÖ Choice Award. The final award is the Inspire Award which is a special
+overarching award (Figure 6-1). The local Program Delivery Partner may elect to give additional awards to
+celebrate local sponsors or initiatives, but these awards are not considered Team Judged Awards for the
+purposes of advancement calculations as described in Section 4 Advancement.
+Section 6 Awards (A) V10 39 of 188
+
+=== PAGE 40 ===
+
+Figure 6-1: Award hierarchy
+ΓêÆ The Inspire Award recognizes teams who excel in MCI, TA, and Think award accomplishments. This
+team is an all-around inspiration for others.
+ΓêÆ MCI awards recognize the technical accomplishments of teams in the brainstorming, design,
+construction, operation, and control of their ROBOTS.
+ΓêÆ TA awards recognize teams who have expanded their skillset, created a plan to sustain their
+program and team, and spread the message of FIRST throughout their outreach.
+ΓêÆ The Think Award recognizes teams who masterfully document their teamΓÇÖs process and ROBOT
+using their PORTFOLIO.
+ΓêÆ JudgesΓÇÖ Choice Award recognizes a team whose unique efforts, performance, or dynamics merit
+recognition, but does not fit into any of the other award categories.
+The JUDGES will gather information from the teams through several different pathways (Figure 6-2). All teams
+will have the opportunity to submit a team PORTFOLIO which should document aspects of their team which
+directly support the judged award criteria or information which they wish the JUDGES to consider. Teams can
+participate in two different types of interviews: a structured interview and pit interview(s).
+All award winners chosen by the JUDGES are recognized as being positive examples of the award criteria, not
+necessarily the ΓÇ£bestΓÇ¥ team. JUDGES will only consider the published award criteria in section 6.3 Team
+Judged Award Descriptions.
+Teams may participate in judging regardless of the inspection status of their ROBOT and are eligible for
+awards even if they are attending the event without a ROBOT.
+6.1.1 Sources of Information Considered for Awards
+In addition to the information provided in a teamΓÇÖs PORTFOLIO (if submitted) and the interviews, JUDGE
+Advisors may also accept feedback about teams at the event from other volunteers to help inform their
+understanding of the team. All of the sources in Figure 6-2 help JUDGE Advisors facilitate discussions with
+JUDGES when award deliberations begin.
+Section 6 Awards (A) V10 40 of 188
+
+=== PAGE 41 ===
+
+Figure 6-2: Sources of Information for Team Judged Awards.
+In addition to the specific information sources JUDGES use to evaluate teams, there are also sources of
+information which are specifically disallowed. JUDGES are strictly instructed to only consider information from
+the current event and the current season and cannot consider information from outside what they have seen or
+heard at the current event.
+Per A201.E, progress, challenges, and accomplishments which have taken place
+since January 1, 2025, can be documented in the team PORTFOLIO and will be
+considered as part of the current season.
+This means that information like past performance (good or bad), personal knowledge of a team, and external
+sources like websites and social media are not considered. JUDGES also do not consider ROBOT performance
+(for example, how many scoring tasks are completed) in an award unless it is specifically listed as part of the
+required or encouraged evaluation criteria. A teamΓÇÖs ROBOT placement in a competition (winner or finalist,
+etc.) or qualification ranking is not considered when evaluating teams for a judged award.
+The awards are a method FIRST uses to inspire STUDENTS and open their eyes to building a better future
+together. The awards process should foster a positive STUDENT interaction with JUDGES who are independent
+caring adults and can recognize their achievements and encourage them to continue learning.
+Section 6 Awards (A) V10 41 of 188
+
+=== PAGE 42 ===
+
+6.1.2 Structured Interview
+All teams are encouraged to prepare for a structured interview session where the team can present a prepared
+oral presentation to a small panel of JUDGES, followed by a Q&A session. Typically, these interviews follow a
+standard timeline (Figure 6-3) and last at least 10 minutes long, per A205.
+Instead of the structured interview, interviews conducted at the FIRST
+Championship have a different format. Teams should refer to the interview
+format outlined in Section 15.1.2 for more details.
+Figure 6-3: Structured Interview Timeline
+1. Team arrives and JUDGES welcome the team.
+2. Teams may present to the JUDGES uninterrupted for up to 5 minutes.
+3. JUDGES will ask open ended questions to the team for the remaining of the scheduled structured
+interview time.
+4. Team departs from the interview space.
+5. JUDGES discuss the structured interview and complete the feedback form.
+6. JUDGES welcome the next team into the structured interview location and repeat the process.
+Teams are encouraged to review the Judge Interview Question Bank prior to their judging interviews to
+understand the type of questions that may be asked by the JUDGES. At each event, the JUDGE Advisor will
+select two questions from the question bank that all teams will be asked at the start of the structured
+interviewΓÇÖs question and answer session. One question will be focused on the MCI award category, and one
+question will be focused on the TA award category. After the first two questions are asked and answered,
+JUDGES may ask additional questions to help evaluate the teamΓÇÖs performance against the award criteria.
+Additional questions asked during interviews may come from the question bank
+but teams should be prepared to answer questions that are not listed within the
+document.
+6.1.3 Pit Interview(s)
+After all the judging panels have finished, the JUDGES compare notes and may elect to follow up with the
+teams in the pit area during the competition and conduct informal pit interviews. During pit interviews, teams
+have the opportunity to expand upon materials presented in the structured interview and share additional
+content with the JUDGES (for example, ROBOT prototypes, design artifacts, and photos or letters from
+outreach events). A team does not need to prepare another presentation for a pit interview but should be ready
+to answer questions from the JUDGES.
+Section 6 Awards (A) V10 42 of 188
+
+=== PAGE 43 ===
+
+JUDGES may read additional information during pit interviews but will not bring
+back additional printed content to be referenced as part of the JUDGE
+deliberations.
+Section 6 Awards (A) V10 43 of 188
+
+=== PAGE 44 ===
+
+6.1.4 Sustained Outreach and Demonstrating Impact by Numbers
+In general, JUDGES will consider ongoing, sustained outreach to be of higher quality than occasional or one-off
+outreach. JUDGES will seek to understand what is the impact of the outreach to the individuals being reached
+by the activity.
+Teams are encouraged to review the Outreach Terms and Definitions Document
+to understand the requirements behind specific terms (starting a FIRST team,
+running an event, reaching x number of people). JUDGES may ask specific
+questions when a specific term listed in this document is mentioned in a teamΓÇÖs
+PORTFOLIO or during an interview.
+6.2 Team Judged Award Rules
+This section outlines rules for in-person judging of Team Judged Awards. Modifications for the judging
+process at the FIRST Championship can be found in Section 15.1.
+A201 *Team PORTFOLIOS have limits. Teams have the opportunity to submit a team PORTFOLIO to be used
+as part of the judging process. No other printed or digital content not directly included in this document
+will be collected by the JUDGES to consider during deliberations. Team PORTFOLIOS must meet the
+following requirements:
+A. must consist of 1 cover page including the team number and optionally: team name,
+PORTFOLIO table of contents, team organizations, sponsors, logo, motto, and picture of the
+ROBOT and/or team,
+B. no more than 15 pages of content,
+C. use only US Letter (8.5ΓÇ¥ x 11ΓÇ¥) or A4 (210 x 297 mm) size pages,
+D. if submitted digitally, the complete submission must be less than 15MB in size, and
+E. must only include progress, challenges, and accomplishments which have taken place since
+January 1, 2025.
+None of the content of the cover page will be used by JUDGES to evaluate any
+awards criteria. Any content beyond the allowed 15 pages will not be reviewed by
+the JUDGES.
+Teams are encouraged to limit Personally Identifying Information (PII) in the
+PORTFOLIO. Best practices would be to use only first names and optionally last
+initials of STUDENTS. Photographs including images of STUDENT team
+members are acceptable. The JUDGES use the cover page to identify the team
+associated with the PORTFOLIO. Teams who forget to include a cover page may
+be disqualified from judging if the JUDGES cannot determine what team the
+PORTFOLIO is associated with.
+Teams should carefully consider font size, color, and graphic design when
+making their PORTFOLIO so that all JUDGES are able to read their submission.
+Teams whose design choices include small fonts (<10 pt) or low contrast text on
+images will not be excluded from consideration but understand that JUDGES will
+not be able to use anything they cannot read. Teams can use various free
+Section 6 Awards (A) V10 44 of 188
+
+=== PAGE 45 ===
+
+accessibility tools, like WebAIM Contrast Checker, to help them design with
+readability in mind.
+JUDGES will not open, view, or use any included links to other documents,
+websites, or videos referenced to linked to from the PORTFOLIO. JUDGES may
+read additional information during pit interviews but will not bring back additional
+printed content to be referenced as part of the JUDGE deliberations.
+Teams may use writing and research aids including Artificial Intelligence (AI) to
+help them compose their PORTFOLIOS. If AI or other resources are used, they
+must be credited via footnote or endnote, and respect intellectual property rights
+and licenses. Proper Credit can look like this: ΓÇ£PORTFOLIO created by Team
+XXXXX and ChatGPTΓÇ¥.
+A team may reference previous seasons (for example, in a team or organizational
+plan) to demonstrate growth, but the emphasis must be on the current season.
+A202 *PORTFOLIOS must be submitted on time and as requested. Teams must submit their PORTFOLIO as
+instructed by the Event Director and by the stated deadline if they wish to have it considered during the
+judging process. If no other instructions are provided, teams should submit 1 printed copy of their
+PORTFOLIO during the structured interview.
+Instructions about when and how teams should submit their PORTFOLIOS should
+be communicated by the Event Director before the event.
+If circumstances prevent a team from following the PORTFOLIO submission
+instructions, the Event Director should work with the JUDGE Advisor to make
+reasonable accommodations to accept all team PORTFOLIOS unless doing so
+poses an undue burden to the judging process.
+A203 *Teams must attend a structured interview session. To be considered for any judged awards the team
+must attend their assigned structured interview session.
+Teams should be informed of their assigned time by the Event Director or local
+Program Delivery Partner in advance of the event. If there is a schedule conflict
+or the team misses their structured interview slot due to unforeseen
+circumstances the team should work with the Event Director or local Program
+Delivery Partner to make reasonable alternate accommodations for a structured
+interview at the event if possible.
+A204 *Bring the right resources with you for your structured interview. Teams attending their structured
+interview time slot should come prepared with the following:
+A. no less than 2 STUDENT representatives for teams of 2 STUDENTS and larger,
+B. a printed copy of their team PORTFOLIO (optional, submit as instructed by the Event
+Director),
+C. ΓÇ£show and tellΓÇ¥ demonstration items which may include the teamΓÇÖs ROBOT (encouraged, but
+optional),
+D. 1 silent observer per A208 (optional), and
+Section 6 Awards (A) V10 45 of 188
+
+=== PAGE 46 ===
+
+E. 1 support person to fill accommodation needs per A209 (optional, as needed).
+Teams are encouraged to have as many STUDENTS as possible involved in the
+structured interview process.
+A team does not have to have a ROBOT to participate in judging or be eligible for
+judged awards.
+Teams may power on and demonstrate their ROBOT functions during the
+structured interview unless explicitly disallowed by the Event Director or Local
+Program Delivery Partner. All teams should have the same demonstration
+restrictions.
+A205 *Everyone gets equal structured interview time. All teams will be scheduled for the same length
+structured interview of at least 10 minutes with a minimum of 10 minutes reserved between structured
+interviews for JUDGES to confer.
+A206 *The structured interview timer starts when the team starts. The timer starts after the team has
+entered the room and when they begin their presentation. Teams who take an extended amount of time
+to begin will be warned by the JUDGES to begin promptly and then the structured interview timer will be
+started regardless of the readiness of the presenting team.
+Teams should enter the room and prepare to begin speaking in an expedited
+manner. This rule is aimed at letting large teams get lined up and oriented in the
+room and for the JUDGES to introduce themselves and provide reminders of the
+interview format.
+Do not attempt to abuse the delayed start timer to set up equipment or otherwise
+gain an advantage.
+A207 *Prepared structured presentation time should not be interrupted. The first 5 minutes of the structured
+interview are reserved for the team to present a prepared oral presentation uninterrupted, if they
+choose. The uninterrupted presentation time may be ended early by the team. Any remaining time
+should be a question and answer conversation with the STUDENTS and led by the JUDGES.
+A208 *One adult silent observer is welcome. One adult mentor may attend the judging session and be
+present for any interaction between the JUDGES and the STUDENT team members. Adult mentor(s)
+may be present for any interactions between the JUDGES and the STUDENT team members outside of
+the structured interview. The adult observer and mentor(s) may not interact or actively coach during
+any interaction between the JUDGES and the STUDENT team members.
+The purpose of the adult silent observer is to provide silent confidence to the
+STUDENT team members presenting in an unknown environment with new
+people.
+A209 *Translator and/or Sign Language Interpreter accommodations will be made for teams who need it.
+Teams who need to use a translator to communicate with the JUDGES may provide one if the teamΓÇÖs
+native language does not match that of the event host site provided JUDGES. This includes sign
+language or other adaptive technology. Teams who intend to interview with the assistance of a
+translator must work with the Event Director in advance to request additional interview time of between
+Section 6 Awards (A) V10 46 of 188
+
+=== PAGE 47 ===
+
+2 and 5 minutes, if needed. The translator may be an adult and can be in addition to the silent observer
+in A208.
+In most cases the translator will need to be provided by the team. If other
+accommodation is needed, the team should contact your local leadership to
+discuss options.
+A210 *No Photos, Video or Audio recording during structured interview. In addition to the restrictions of
+E117, no recording of video or audio, or photos may be taken during the structured interview.
+A211 *The number of awards given scales with event size. The total number of awards given is based on the
+number of teams checked in at the event. Not all awards are given at every competition. Only the
+awards specified in Table 6-1 based on the event size are points-eligible for advancement.
+Table 6-1: Total judged awards available based on all event participating teams
+Total Event Participating Teams
+Award 4-10 Teams 11-20 Teams 21-40 Teams 41-64 Teams
+1st Place 1st Place
+1st Place
+Inspire Award 1st Place 2nd Place 2nd Place
+2nd Place
+3rd Place 3rd Place
+1st Place
+1st Place
+Think Award 1st Place 1st Place 2nd Place
+2nd Place
+(3rd Place*)
+1st Place
+1st Place
+Connect Award 1st Place 2nd Place
+1st Place (2nd Place*)
+(3rd Place*)
+s (Only one of
+d 1st Place
+r a Connect, 1st Place
+w Reach Award 1st Place 2nd Place
+A Reach, or (2nd Place*)
+A
+(3rd Place*)
+T Sustain will be
+1st Place
+given) 1st Place
+Sustain Award 1st Place 2nd Place
+(2nd Place*)
+(3rd Place*)
+1st Place
+1st Place
+Design Award 1st Place 2nd Place
+1st Place (2nd Place*)
+s
+(3rd Place*)
+d (Only one of
+r 1st Place
+a w Innovate, 1st Place
+Innovate Award 1st Place 2nd Place
+A Control or (2nd Place*)
+I C (3rd Place*)
+M Design will be
+1st Place
+given) 1st Place
+Control Award 1st Place 2nd Place
+(2nd Place*)
+(3rd Place*)
+JudgesΓÇÖ Choice Award Optional* Optional* Optional* Optional*
+*Discretionary awards
+Check the Judge and Judge Advisor Manuals for exact details.
+Section 6 Awards (A) V10 47 of 188
+
+=== PAGE 48 ===
+
+See section 13.8 Dual Division Events for the modified dual division version
+of this rule.
+A212 *Judging feedback is provided to all teams. All teams will receive feedback from their structured
+interview session. The JUDGES complete a form immediately following the structured interview based
+on their initial impression of the team. This feedback form is not used during deliberations and does
+not include any updated feedback based on later interactions by the JUDGES with the team.
+The feedback form will either be returned with the PORTFOLIO for in-person
+judging near the end of the event, or the Lead Coach 1 will receive access to a
+digital version in FTC-Scoring following the event in the case of remote judging.
+A213 *Teams are only eligible to win the Inspire Award in their own region. Teams are only eligible to be
+considered for the Inspire Award (1st, 2nd or 3rd place) when competing at a tournament within their own
+region.
+A214 *Teams cannot win the Inspire Award at multiple Qualifying or League Tournaments. Teams are only
+eligible to win 1st place Inspire Award once per season from any Qualifying or League Tournament.
+Teams who have won 1st Place Inspire are eligible to win 2nd or 3rd place Inspire
+Award at subsequent Qualifying or League Tournaments.
+A215 *Teams can only get one judged award. Teams are only eligible to win or be a runner-up for a single
+judged award at the event.
+6.3 Team Judged Award Descriptions
+6.3.1 Inspire Award
+The team that receives this award is a strong ambassador for FIRST programs and a role model FIRST team.
+This team is a top contender for many other judged awards and is a gracious competitor.
+The Inspire Award winner is an inspiration to other teams, acting with Gracious Professionalism┬« both on and
+off the playing FIELD. This team shares their experiences, enthusiasm, and knowledge with other teams,
+sponsors, their community, and the JUDGES. Working as a unit, this team will have shown success in
+performing the task of designing and building a ROBOT.
+Table 6-2: Inspire Award Criteria
+Inspire Award Criteria
+Required 1 Team must submit a PORTFOLIO.
+The Inspire Award celebrates the strongest qualities of all the judged awards. A team
+must be a strong contender for at least one award in each of the following judged award
+categories:
+Required 2
+A. Machine, Creativity, and Innovation Awards,
+B. Team Attributes Awards, and
+C. Think Award.
+Section 6 Awards (A) V10 48 of 188
+
+=== PAGE 49 ===
+
+Inspire Award Criteria
+Team must be positive and inclusive, and each team member contribute to the success
+Required 3
+of the team.
+Team is able to describe, demonstrate, document, or display their experiences and
+Required 4
+knowledge to the JUDGES.
+Section 6 Awards (A) V10 49 of 188
+
+=== PAGE 50 ===
+
+6.3.2 Think Award
+This judged award is given to the team that best reflects the journey the team took as they experienced their
+season. The content within the PORTFOLIO is the key reference for JUDGES to help identify the most deserving
+team. The team could share or provide additional detailed information that is helpful for the JUDGES.
+Table 6-3: Think Award Criteria
+Think Award Criteria
+Team must submit a PORTFOLIO. The PORTFOLIO must include engineering content
+which includes at least one of the following:
+A. evidence of use of the engineering process,
+Required 1
+B. lessons learned and implemented related to the design of their ROBOT,
+C. trade off analysis /cost benefit analysis, and/or
+D. mathematical analysis used to make design decisions.
+Team PORTFOLIO may include information about resources which includes any number
+of the following examples:
+A. how the team learns from team mentors, and/or a development plan for team
+Encouraged 2 members to learn new skills,
+B. how the team recruited new people into FIRST, and/or
+C. how the team identified goals and tracked progress towards their goals
+throughout the season.
+Encouraged 3 PORTFOLIO information is organized in a clear and intuitive manner
+6.3.3 Connect Award
+This judged award is given to the team that connects with their local science, technology, engineering, and
+math (STEM) community to learn and adopt new tools through effort and persistence. This team has a team
+plan and has identified steps to achieve their goals. A PORTFOLIO is not required for this award.
+Table 6-4: Connect Award Criteria
+Connect Award Criteria
+Team must describe, display, or document a team plan that covers all of the following:
+Required 1 A. The teamΓÇÖs goals for the development of team member skills, and
+B. The steps the team has taken or will take to reach those goals
+Provide examples of developing in person or virtual connections with individuals in the
+Encouraged 2
+engineering, science, or technology community.
+Encouraged 3 Provide examples of how it actively engages with the engineering community.
+Section 6 Awards (A) V10 50 of 188
+
+=== PAGE 51 ===
+
+6.3.4 Reach Award
+This award celebrates a team that has introduced and recruited new people into FIRST. Through their efforts,
+they have sparked others to embrace the FIRST culture. A PORTFOLIO is not required for this award.
+Table 6-5 Reach Award Criteria
+Reach Award Criteria
+Team must discuss, describe, display, or document their outreach objectives and how
+Required 1
+their outreach activities support the FIRST community.
+Team must discuss, describe, display, or document their successful recruitment of
+Required 2 new teams, or coaches, or mentors and/or volunteers who are not otherwise active
+within the FIRST community.
+Encouraged 3 Is an ambassador for FIRST programs in a way that makes FIRST loud.
+Has a creative and evolving approach to outreach materials that market their team and
+Encouraged 4
+FIRST.
+6.3.5 Sustain Award
+Sustainability and planning are essential for a FIRST team, because they ensure the programΓÇÖs long-term
+success. This award celebrates the team that has considered their future team members and has worked to
+ensure that their team or program will continue to exist long after they have gone on to develop their careers. A
+PORTFOLIO is not required for this award.
+Table 6-6 Sustain Award Criteria
+Sustain Award Criteria
+Team must discuss, describe, display, or document their plan(s) which includes at
+least one of the following:
+Required 1
+A. finances and financial sustainability plan,
+B. season project planning, and/or
+C. team sustainability plans and/or objectives.
+Team must discuss, describe, display or document how a team tracks their progress
+Required 2
+towards their plan(s) listed above.
+Team has clear team roles for all members of the team and a process for developing
+Encouraged 3
+leadership.
+Team can discuss, describe, display, or document how they manage the teamΓÇÖs
+Encouraged 4
+constraints and/or risks.
+Section 6 Awards (A) V10 51 of 188
+
+=== PAGE 52 ===
+
+6.3.6 Innovate Award sponsored by RTX
+The Innovate Award celebrates a team that thinks imaginatively and has the ingenuity, creativity, and
+inventiveness to make their designs come to life. This judged award is given to the team that has an innovative
+and creative ROBOT design solution to any specific components in the FIRST Tech Challenge game. Elements
+of this award include design, robustness, and creative thinking related to design. This award may address the
+design of the whole ROBOT or of a MECHANISM attached to the ROBOT and should work consistently during
+MATCHES, but does not have to work all the time to be considered for this award. A PORTFOLIO is not required
+for this award.
+Table 6-7: Innovate Award Criteria
+Innovate Award Criteria
+Team must describe, display, or document examples of the teamΓÇÖs engineering content
+Required 1
+that illustrate how the team arrived at their design solution.
+Required 2 ROBOT or ROBOT MECHANISM is creative and/or unique in its design.
+The innovative element must be stable, robust, and contribute positively to the teamΓÇÖs
+Required 3
+game objectives most of the time.
+Designs often come with risks, the team should discuss, describe, display or document
+Encouraged 4
+how they mitigated that risk.
+6.3.7 Control Award
+The Control Award celebrates a team that uses sensors and software to increase the ROBOTΓÇÖS functionality
+during gameplay. This award is given to the team that demonstrates innovative thinking and solutions to solve
+game challenges such as autonomous operation, improving mechanical systems with intelligent control, or
+using sensors to achieve better results. The solution(s) should work consistently during MATCHES but does
+not have to work all the time. Solutions considered for this award are not solely limited to the AUTO period of
+the MATCH and may also be used during TELEOP. The teamΓÇÖs PORTFOLIO must contain a summary of the
+software, sensors, and mechanical control but would not include copies of the code itself.
+Section 6 Awards (A) V10 52 of 188
+
+=== PAGE 53 ===
+
+Table 6-8: Control Award Criteria
+Control Award Criteria
+Team must submit a PORTFOLIO. The PORTFOLIO must include all of the following:
+A. hardware and/or software control COMPONENTS on the ROBOT,
+Required 1
+B. which challenges each COMPONENT or system is intended to solve, and
+C. how does each COMPONENT or system work.
+Team must use one or more hardware or software solutions to improve ROBOT
+Required 2
+functionality by using external feedback and control.
+Encouraged 3 The control solution(s) should work consistently during most MATCHES.
+Team could discuss, describe, display, or document how the solution may consider
+Encouraged 4 reliability either through demonstrated effectiveness or identification of how the solution
+could be improved
+Use of the engineering process to develop the control solutions (sensors, hardware
+Encouraged 5
+and/or algorithms) used on the ROBOT includes lessons learned.
+6.3.8 Design Award
+The Design Award celebrates the team that demonstrates an understanding of industrial design principles by
+striking a balance between form, function, and aesthetics while meeting the needs of this seasonΓÇÖs challenge.
+The design process used should result in a ROBOT which is efficiently designed and effectively addresses the
+game challenge. A PORTFOLIO is not required for this award.
+Table 6-9: Design Award Criteria
+Design Award Criteria
+A team must be able to describe or demonstrate how their ROBOT is elegant, efficient
+Required 1
+(simple/executable), and practical to maintain.
+The entire machine design, or the detailed process used to develop the design, is worthy
+Required 2
+of this recognition, and not just a single COMPONENT.
+Encouraged 3 The ROBOT distinguishes itself from others by its aesthetic and functional design.
+Encouraged 4 The basis for the design is well considered (that is inspiration, function, etc.).
+Encouraged 5 Design is effective and consistent with the teamΓÇÖs game plan and/or strategy.
+6.3.9 JudgesΓÇÖ Choice Award
+This award is optional and not given at all FIRST Tech Challenge events.
+During the competition, the judging panel may meet a team whose unique efforts, performance, or dynamics
+merit recognition, but does not fit into any of the other award categories. To recognize these unique teams,
+FIRST offers a JudgesΓÇÖ Choice Award.
+Section 6 Awards (A) V10 53 of 188
+
+=== PAGE 54 ===
+
+6.4 Tournament ALLIANCE Awards
+6.4.1 Winning Alliance Award
+This award will be given to the winning ALLIANCE represented in the final MATCH of the Playoffs of a single-
+division Tournament or Championship event. If the event is a dual-division or multi-division event, there will be
+Winning Alliance Awards awarded to both the division playoff winners and the event finals playoff winner.
+6.4.2 Finalist Alliance Award
+This award will be given to the finalist ALLIANCE represented in the final MATCH of the Playoffs of a single-
+division Tournament or Championship event. If the event is a dual-division or multi-division event this will be
+awarded to the division playoff finalists and the event finals playoff finalist.
+6.5 Individual Awards
+6.5.1 FIRST Leadership Award
+The STUDENTS who earn FIRST Leadership Award status as a semi-finalist, finalist or winner, are great
+examples of current STUDENT leaders who have led their teams and communities to increased awareness for
+FIRST and its mission, champion FIRST Core Values such as Inclusion, and embody Gracious
+Professionalism┬«. It is the goal of FIRST that these individuals will continue, post-award, as great leaders,
+STUDENT alumni, and advocates of FIRST.
+Please visit the FIRST Leadership Award Website to see complete award submission details and to see past
+FIRST Tech Challenge winners.
+For regions of the world that do not use grade levels such as this to identify years
+of schooling: This award is intended for STUDENTS who are two (2) to three (3)
+years away from entering college or university. STUDENTS that would be
+attending college or university in the next academic year are not eligible. Mentors
+will be asked for the year of graduation during the nomination process.
+6.5.2 Compass Award
+This is an optional award and is only offered at the Regional Championship tournament level of competition.
+All teams attending FIRST Championship will have an opportunity to submit for this award.
+The Compass Award recognizes an adult coach or mentor who has given outstanding guidance and support to
+a team throughout the year and demonstrates to the team what it means to be a Gracious Professional. The
+winner of the Compass Award will be chosen from candidates nominated by FIRST Tech Challenge STUDENT
+team members, via a 40-60 second video submission. The video must highlight how their mentor has helped
+them become an inspirational team. The video should emphasize what sets the mentor apart.
+Table 6-10: Compass Award Criteria
+Compass Award Criteria
+Team must be able to clearly articulate this mentorΓÇÖs contribution to the team and
+Required 1
+explain what sets this mentor apart.
+Section 6 Awards (A) V10 54 of 188
+
+=== PAGE 55 ===
+
+Compass Award Criteria
+Submission must be in video format and meet the following requirements:
+A. submitted by the deadline established by the Event Director or local Program
+Delivery Partner instructions,
+B. be in one of the following formats: .mp4, .mov, .avi, or .wmv (no links to streaming
+Required 2 services will be accepted),
+C. one video submission per team per event (videos can be updated or changed
+between events),
+D. all music must be used with permission from the copywrite owners and be
+indicated in the video credits, and
+E. videos cannot be longer than 60 seconds, including credits.
+Teams are encouraged to review the FIRST Branding and Style Guidelines before
+creating their video.
+6.6 Project-Based Global Awards
+Project-based global awards are awards that are only judged and awarded once per season and are open to all
+registered FIRST Tech Challenge teams. Each award has its own independent requirements and deadlines.
+These awards do not contribute towards team advancement.
+6.6.1 Digital Animation Award sponsored by Worcester Polytechnic Institute (WPI)
+This award, sponsored by Worcester Polytechnic Institute (WPI), celebrates STEAM (Science, Technology,
+Engineering, Art, and Mathematics) and emphasizes the ability to tell a story through animation that integrates
+technological, social, and humanistic concepts.
+The 2026 Digital Animation Award is offered to help encourage students to cultivate skills in design and
+creation of animation while telling a story about the impact of technology on society. This award is open to all
+FIRST Robotics Competition teams and FIRST Tech Challenge teams and is optional. More information can be
+found on the Digital Animation Award webpage.
+6.6.2 Safety Animation Award sponsored by UL Solutions
+The 2025-26 theme for the Safety Animation Award, sponsored by UL Solutions, is: Unearth Safety! For this
+animation teams are invited to dig deep to uncover impactful ways to implement safe and sustainable
+practices. Use bold storytelling and imaginative artistry to create a memorable message that inspires
+responsible exploration and careful stewardship of our resources. More information can be found on the
+Safety webpage.
+Section 6 Awards (A) V10 55 of 188
+
+=== PAGE 57 ===
+
+7 Game Sponsor Recognition
+Thank you to the 2025-26 FIRST┬« Tech Challenge season presenting sponsor, RTX.
+Section 7 Game Sponsor Recognition V1 57 of 188
+
+=== PAGE 58 ===
+
+8 Game Overview
+In DECODEΓäó presented by RTX 2 competing ALLIANCES of 2 teams each score purple and green ARTIFACTS in
+their GOAL, build PATTERNS, and race back to their BASE before time runs out.
+Just before the match starts, the OBELISK is randomized to show one of 3 MOTIFS. The MOTIF for the MATCH
+defines what color PATTERN robots try to create on their RAMPS.
+During the first 30 seconds of the MATCH, the ROBOTS operate autonomously. ROBOTS can use sensors to
+decode the randomized MATCH MOTIF. ROBOTS can earn points by scoring ARTIFACTS in their GOAL and
+building a PATTERN on their RAMP based on the MOTIF. ROBOTS also earn points for moving off the LAUNCH
+LINE.
+During the remaining 2 minutes of the MATCH, human DRIVERS take control of their ROBOT. ROBOTS collect
+and continue to score ARTIFACTS in their GOAL to earn points. DRIVE TEAM members can retrieve ARTIFACTS
+from the ALLIANCEΓÇÖS LOADING ZONE and help their ROBOTS by loading them with ARTIFACTS.
+As time runs out, ALLIANCES can work together to return both of their ROBOTS to the BASE. ALLIANCES that
+build PATTERNS based on the MOTIF at the end of the MATCH earn additional points.
+The ALLIANCE that earns the most points wins the MATCH and additional RANKING POINTS can be earned
+though completing other scoring achievements.
+Section 8 Game Overview V1 58 of 188
+
+=== PAGE 59 ===
+
+9 ARENA
+The ARENA includes all elements of the game infrastructure that are required to play DECODE: the FIELD,
+SCORING ELEMENTS, queue area, team media area, and all equipment needed for event management.
+Figure 9-1 DECODE (queue area, FIELD display, and optional media area not pictured)
+9.1 Dimensions and Accuracy
+The specifications for the DECODE FIELD can be retrieved from a few locations:
+ΓêÆ The 3D CAD model is the official representation of the DECODE FIELD and how it is constructed.
+Measurements may be taken from this model with a general tolerance of +/- 1 in. (+/- 2.5 cm).
+ΓêÆ Illustrations included in the Competition Manual are for a general visual understanding of the
+DECODE ARENA, and any dimensions included are nominal. Unless specifically noted, all these
+dimensions carry a tolerance of +/- 1 in. (+/- 2.5 cm).
+ΓêÆ The Event FIELD Setup Guide includes instructions on how to build the FIELD, and along with
+showing the ways construction type will influence the field tolerances, it also includes many of the
+key dimensions which are listed in the Official FIELD Drawings.
+ΓêÆ The FIELD Acceptance Checklist includes the controlled dimensions (with relevant tolerances)
+which will be regularly inspected by event staff.
+Section 9 ARENA V8 59 of 188
+
+=== PAGE 60 ===
+
+ΓêÆ The FIELD Mitigation Guide provides FIELD STAFF recommended mitigation measures for issues
+with the field during an event.
+The complete list of DECODE FIELD resources are posted on the Playing FIELD Resources page on the FIRST
+website.
+The ARENA is modular and is assembled, used, disassembled, and transported
+many times during the competition season. It undergoes wear and tear. The
+ARENA is designed to withstand rigorous play and frequent reassembly. Every
+effort is made to ensure that ARENAS are consistent from event to event.
+However, ARENAS are assembled in different venues by different event staff and
+volunteers, and some small variations occur. In addition, every region faces
+unique challenges which may impact the exact implementation of the ARENA,
+and as such the ARENA specifications are designed to accurately reflect the
+variations which may be present in official play, while still ensuring consistency
+of critical items. Contact your local support to request more information.
+Successful teams will design ROBOTS that are insensitive to these variations.
+9.2 FIELD
+Each FIELD for DECODE is an approximately 144 in. by 144 in. (365.75 cm by 365.75 cm) area bounded by the
+inside surface of the walls of the FIELD perimeter. The flooring surface of the FIELD is made of 36 interlocking
+soft foam TILES which are each approximately 24 in. by 24 in. by 0.59 in. (60.95 cm by 60.95 cm by 1.50 cm)
+nominally sized.
+The FIELD is populated with and surrounded by the following FIELD elements:
+ΓêÆ 1 CLASSIFIER per ALLIANCE which consists of a SQUARE, a RAMP, and a GATE
+ΓêÆ 1 GOAL per ALLIANCE
+ΓêÆ 1 OBELISK
+Official events use the full DECODE FIELD manufactured and sold by AndyMark (am-5400_Full) or officially
+licensed equivalent.
+The surface of the FIELD is FIRST Tech Challenge Field Soft Tiles (am-2499) or equivalent.
+The primary version of the FIELD perimeter is the FIRST Tech Challenge Perimeter Kit (am-0481) sold by
+AndyMark. All illustrations in this manual show the am-0481 version of the FIELD design. Other versions of the
+FIELD perimeter of similar functionality may also be used in competitions.
+Some events including the FIRST Championship (see section 15.2 Game Modification) will place the FIELDS
+on platforms or risers such that the FIELD is raised while the ALLIANCE AREAS remain at ground level.
+The FIELD variant used at an event will be determined by the local Program Delivery Partner and all
+competition FIELDS at the same event must comply with Section 9.1 Dimensions and Accuracy and be
+consistent with each other per T204.
+Section 9 ARENA V8 60 of 188
+

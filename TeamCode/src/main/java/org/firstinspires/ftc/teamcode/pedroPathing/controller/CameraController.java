@@ -79,6 +79,8 @@ public class CameraController {
     private LLResult pose_result = null;
     private long last_updatedtime = 0;
     private Pose lastValidPose = null;
+    /** Latest raw result from getLatestResult(), valid or not. Used for tag queries. */
+    private LLResult lastRawResult = null;
 
     public CameraController() {
         pipeline0Tags.add(DECODE_RED_GOAL_TAG_ID);
@@ -120,6 +122,7 @@ public class CameraController {
         limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
 
         LLResult result = limelight.getLatestResult();
+        lastRawResult = result;
         if (result != null && result.isValid()) {
             pose_result = result;
             last_botpose = result.getBotpose();
@@ -166,20 +169,10 @@ public class CameraController {
      * Returns null when no valid pose is available.
      */
     public Pose getRobotPose() {
-        if (!isInitialized) return null;
-
-        if (last_botpose == null) {
-            LLResult result = limelight.getLatestResult();
-            if (result == null || !result.isValid()) return null;
-
-            List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
-            if (fiducials == null || fiducials.isEmpty()) return null;
-            if (!containsAnyTag(fiducials, getActivePipelineTags())) return null;
-
-            last_botpose = result.getBotpose();
+        if (!isInitialized || last_botpose == null) return null;
+        if (System.currentTimeMillis() - last_updatedtime > ControllerParams.CAMERA_POSE_STALENESS_MS) {
+            return null;
         }
-
-        if (last_botpose == null) return null;
 
         // Convert Limelight meters to inches
         double limelightX_in = METRE_INCH_MULTIPLIER * last_botpose.getPosition().y;
@@ -261,10 +254,8 @@ public class CameraController {
 
     /** Returns the number of AprilTags detected in the latest frame. */
     public int getTagCount() {
-        if (!isInitialized) return 0;
-        LLResult result = limelight.getLatestResult();
-        if (result == null || !result.isValid()) return 0;
-        List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
+        if (!isInitialized || lastRawResult == null || !lastRawResult.isValid()) return 0;
+        List<LLResultTypes.FiducialResult> fiducials = lastRawResult.getFiducialResults();
         return (fiducials == null) ? 0 : fiducials.size();
     }
 
@@ -273,10 +264,8 @@ public class CameraController {
      * Returns null if no result is available.
      */
     public List<LLResultTypes.FiducialResult> getFiducialResults() {
-        if (!isInitialized) return null;
-        LLResult result = limelight.getLatestResult();
-        if (result == null || !result.isValid()) return null;
-        return result.getFiducialResults();
+        if (!isInitialized || lastRawResult == null || !lastRawResult.isValid()) return null;
+        return lastRawResult.getFiducialResults();
     }
 
     /** Returns true if the tag with the given ID is currently visible. */
