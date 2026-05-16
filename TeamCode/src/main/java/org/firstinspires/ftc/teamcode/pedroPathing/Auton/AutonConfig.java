@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.pedroPathing.Auton;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
+
 import java.util.List;
 
 /**
@@ -53,13 +55,6 @@ import java.util.List;
  */
 public final class AutonConfig {
 
-    // ── Shoot parameter defaults ──────────────────────────────────────────────
-    public static final int    DEFAULT_SHOOT_DURATION_MS        = 900;
-    public static final double DEFAULT_SHOOT_TARGET_VELOCITY    = 3000.0;
-    public static final double DEFAULT_SHOOT_VELOCITY_THRESHOLD = 50.0;
-    public static final long   DEFAULT_SHOOT_SEQUENCE_WAIT_MS   = 4500L;
-    public static final double DEFAULT_SHOOT_HOOD_POSITION      = 0.35;
-
     // ── StepsFactory ──────────────────────────────────────────────────────────
 
     /**
@@ -79,6 +74,9 @@ public final class AutonConfig {
     /** Starting pose passed to {@link Follower#setStartingPose(Pose)}. */
     public final Pose         startPose;
 
+    /** Shared pose catalog for the selected routine/alliance, when provided. */
+    public final AutonPoseConfig.PoseSet poseConfig;
+
     /** Builds the step sequence; called once during {@code AutonBase.init()}. */
     public final StepsFactory stepsFactory;
 
@@ -93,6 +91,7 @@ public final class AutonConfig {
 
     public AutonConfig(
             Pose         startPose,
+            AutonPoseConfig.PoseSet poseConfig,
             StepsFactory stepsFactory,
             int          shootDurationMs,
             double       shootTargetVelocity,
@@ -101,6 +100,7 @@ public final class AutonConfig {
             double       shootHoodPosition) {
 
         this.startPose              = startPose;
+        this.poseConfig             = poseConfig;
         this.stepsFactory           = stepsFactory;
         this.shootDurationMs        = shootDurationMs;
         this.shootTargetVelocity    = shootTargetVelocity;
@@ -112,17 +112,50 @@ public final class AutonConfig {
     // ── Convenience factory ───────────────────────────────────────────────────
 
     /**
-     * Creates an {@code AutonConfig} using all default shoot parameters.
-     * Use when tuning is not required.
+     * Creates an {@code AutonConfig} using far-side (long-side) shoot defaults.
+     * Use when tuning is not required and per-step overrides handle the rest.
      */
     public static AutonConfig withDefaults(Pose startPose, StepsFactory stepsFactory) {
         return new AutonConfig(
                 startPose,
+                null,
                 stepsFactory,
-                DEFAULT_SHOOT_DURATION_MS,
-                DEFAULT_SHOOT_TARGET_VELOCITY,
-                DEFAULT_SHOOT_VELOCITY_THRESHOLD,
-                DEFAULT_SHOOT_SEQUENCE_WAIT_MS,
-                DEFAULT_SHOOT_HOOD_POSITION);
+                ParamsConfig.AUTON_SHOOT_DURATION_MS,
+                ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_FAR,
+                ParamsConfig.AUTON_SHOOT_VELOCITY_THRESHOLD_FAR,
+                ParamsConfig.AUTON_SHOOT_SEQUENCE_WAIT_MS,
+                ParamsConfig.AUTON_SHOOT_HOOD_POSITION_FAR);
+    }
+
+    /**
+     * Creates an {@code AutonConfig} using far-side (long-side) shoot defaults
+     * and a shared pose catalog.
+     */
+    public static AutonConfig withDefaults(AutonPoseConfig.PoseSet poseConfig, StepsFactory stepsFactory) {
+        return new AutonConfig(
+                poseConfig.startPose,
+                poseConfig,
+                stepsFactory,
+                ParamsConfig.AUTON_SHOOT_DURATION_MS,
+                ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_FAR,
+                ParamsConfig.AUTON_SHOOT_VELOCITY_THRESHOLD_FAR,
+                ParamsConfig.AUTON_SHOOT_SEQUENCE_WAIT_MS,
+                ParamsConfig.AUTON_SHOOT_HOOD_POSITION_FAR);
+    }
+
+    /**
+     * Creates an {@code AutonConfig} using close-side shoot defaults
+     * and a shared pose catalog.
+     */
+    public static AutonConfig withCloseDefaults(AutonPoseConfig.PoseSet poseConfig, StepsFactory stepsFactory) {
+        return new AutonConfig(
+                poseConfig.startPose,
+                poseConfig,
+                stepsFactory,
+                ParamsConfig.AUTON_SHOOT_DURATION_MS,
+                ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_CLOSE,
+                ParamsConfig.AUTON_SHOOT_VELOCITY_THRESHOLD_CLOSE,
+                ParamsConfig.AUTON_SHOOT_SEQUENCE_WAIT_MS,
+                ParamsConfig.AUTON_SHOOT_HOOD_POSITION_CLOSE);
     }
 }
