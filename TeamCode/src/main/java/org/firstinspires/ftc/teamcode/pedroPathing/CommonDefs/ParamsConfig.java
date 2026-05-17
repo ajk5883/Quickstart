@@ -30,9 +30,10 @@ public final class ParamsConfig {
     public static final double ROBOT_WHEELBASE_HALFWIDTH = ROBOT_WHEELBASE_WIDTH_IN / 2; // Used for path offsetting to prevent collisions with field elements
     public static final double ROBOT_WHEELBASE_HALFHEIGHT = ROBOT_WHEELBASEHEIGHT_IN / 2; // Used for path offsetting to prevent collisions with field elements
 
-    public static double BLUE_ROW1_Y = 35.0;
-    public static double BLUE_ROW_X_Start = 41.0;
-    public static double BLUE_ROW_X_End = 24.0;
+    public static final double Adjustment_Long_Y=8.0; // Used to adjust the Y values of the long paths to better align with the field elements
+    public static double BLUE_ROW1_Y = 35.0 - Adjustment_Long_Y;
+    public static double BLUE_ROW_X_Start = 44.0;
+    public static double BLUE_ROW_X_End = 22.0;
 
     // Ball-row poses first (blue source-of-truth).
     public static final Pose POSE_BALLS_ROW1_START_BLUE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y, Math.toRadians(180));
@@ -55,7 +56,7 @@ public final class ParamsConfig {
     public static final Pose POSE_BALLS_ROW3_END_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+48, Math.toRadians(0));
 
     // Blue long-side source-of-truth poses.
-    public static final Pose POSE_START_BLUE_LONG = new Pose(48+ROBOT_WHEELBASE_HALFWIDTH, 0+ROBOT_WHEELBASE_HALFHEIGHT, Math.toRadians(270));
+    public static final Pose POSE_START_BLUE_LONG = new Pose(48+ROBOT_WHEELBASE_HALFWIDTH, 11, Math.toRadians(270));
     public static final Pose POSE_SCORE_BLUE_LONG = new Pose(58, 12, Math.toRadians(298));
     public static final Pose POSE_PARK_BLUE_LONG = new Pose(54, 54, Math.toRadians(180));
 
@@ -111,7 +112,7 @@ public final class ParamsConfig {
     public static final int    AUTON_SHOOT_DURATION_MS              = 1000;
 
     /** Shooter target velocity (RPM) for far scoring positions (long-side). */
-    public static final double AUTON_SHOOT_TARGET_VELOCITY_FAR      = 5000.0;
+    public static final double AUTON_SHOOT_TARGET_VELOCITY_FAR      = 4800.0;
     /** Shooter target velocity (RPM) for close scoring positions (close-side). */
     public static final double AUTON_SHOOT_TARGET_VELOCITY_CLOSE    = 3500.0;
 
@@ -124,9 +125,15 @@ public final class ParamsConfig {
     public static final long   AUTON_SHOOT_SEQUENCE_WAIT_MS         = 4500L;
 
     /** Hood servo position (0.0–1.0) for far scoring positions (long-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.65;
+    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.5;
     /** Hood servo position (0.0–1.0) for close scoring positions (close-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.7;
+    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.8;
+
+    /** Auton-only aggressive shooter PIDF values used to spin up faster at the start of a run. */
+    public static final double AUTON_SHOOT_PIDF_P_AGGRESSIVE        = 16.0;
+    public static final double AUTON_SHOOT_PIDF_I_AGGRESSIVE        = 0.0;
+    public static final double AUTON_SHOOT_PIDF_D_AGGRESSIVE        = 0.45;
+    public static final double AUTON_SHOOT_PIDF_F_AGGRESSIVE        = 14.5;
 
     /** Teleop long-shot shooter target velocity (RPM). */
     public static final double TELEOP_SHOOT_TARGET_VELOCITY_LONG    = AUTON_SHOOT_TARGET_VELOCITY_FAR;

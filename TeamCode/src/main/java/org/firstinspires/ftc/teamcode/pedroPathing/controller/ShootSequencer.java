@@ -110,6 +110,9 @@ public class ShootSequencer {
     // Shooter (direct, bypasses the sequencer state machine – for testing / tuning)
     public void startShooterDirectly(double rpm) { shooter.startShooter(rpm); }
     public void stopShooterDirectly() { shooter.stopShooter(); }
+    public void setShooterVelocityPIDF(double p, double i, double d, double f) {
+        shooter.setVelocityPIDF(p, i, d, f);
+    }
     public void primeShooter(double rpm) {
         setShooterTargetVelocity(rpm);
         shooter.startShooter(rpm);

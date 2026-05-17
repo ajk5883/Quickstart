@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
 import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 
 import java.util.Collections;
@@ -186,6 +187,11 @@ public abstract class AutonBase extends OpMode {
 
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
+        shootSequencer.setShooterVelocityPIDF(
+                ParamsConfig.AUTON_SHOOT_PIDF_P_AGGRESSIVE,
+                ParamsConfig.AUTON_SHOOT_PIDF_I_AGGRESSIVE,
+                ParamsConfig.AUTON_SHOOT_PIDF_D_AGGRESSIVE,
+                ParamsConfig.AUTON_SHOOT_PIDF_F_AGGRESSIVE);
 
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(config.startPose);
