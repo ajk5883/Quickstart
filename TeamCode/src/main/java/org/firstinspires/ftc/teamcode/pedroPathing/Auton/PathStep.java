@@ -52,7 +52,14 @@ public final class PathStep {
         this.path                = path;
         this.shootTargetVelocity = Double.NaN;
         this.shootHoodPosition   = Double.NaN;
+        this.transitSpeed        = Double.NaN;
     }
+
+    /**
+     * Optional transit speed for driving this step's path. Value in range 0.0-1.0
+     * maps to follower max power. {@link Double#NaN} means use follower default.
+     */
+    public final double transitSpeed;
 
     /** Full constructor. Use {@link #scoring} for a more readable call site. */
     public PathStep(PoseType poseType, PathChain path,
@@ -61,6 +68,27 @@ public final class PathStep {
         this.path                = path;
         this.shootTargetVelocity = shootTargetVelocity;
         this.shootHoodPosition   = shootHoodPosition;
+        this.transitSpeed        = Double.NaN;
+    }
+
+    /** Full constructor including transit speed for scoring steps. */
+    public PathStep(PoseType poseType, PathChain path,
+                    double shootTargetVelocity, double shootHoodPosition,
+                    double transitSpeed) {
+        this.poseType            = poseType;
+        this.path                = path;
+        this.shootTargetVelocity = shootTargetVelocity;
+        this.shootHoodPosition   = shootHoodPosition;
+        this.transitSpeed        = transitSpeed;
+    }
+
+    /** Constructor with explicit transit speed for non-scoring steps. */
+    public PathStep(PoseType poseType, PathChain path, double transitSpeed) {
+        this.poseType            = poseType;
+        this.path                = path;
+        this.shootTargetVelocity = Double.NaN;
+        this.shootHoodPosition   = Double.NaN;
+        this.transitSpeed        = transitSpeed;
     }
 
     /**
@@ -74,5 +102,13 @@ public final class PathStep {
                                    double shootTargetVelocity,
                                    double shootHoodPosition) {
         return new PathStep(PoseType.SCORING, path, shootTargetVelocity, shootHoodPosition);
+    }
+
+    /** Scoring factory with transit speed override. */
+    public static PathStep scoring(PathChain path,
+                                   double shootTargetVelocity,
+                                   double shootHoodPosition,
+                                   double transitSpeed) {
+        return new PathStep(PoseType.SCORING, path, shootTargetVelocity, shootHoodPosition, transitSpeed);
     }
 }

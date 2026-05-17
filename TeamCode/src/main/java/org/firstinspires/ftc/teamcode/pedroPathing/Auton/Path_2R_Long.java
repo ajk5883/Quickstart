@@ -41,7 +41,7 @@ public class Path_2R_Long {
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(startPose, preloadScorePose))
                     .setLinearHeadingInterpolation(startPose.getHeading(), preloadScorePose.getHeading())
-                    .build(), preloadRpm, preloadHood));
+                    .build(), preloadRpm, preloadHood, 1.0));
 
             // ── Row pickup sweep ──────────────────────────────────────────────
             steps.add(new PathStep(PoseType.PICKUP_START, follower.pathBuilder()
@@ -50,17 +50,20 @@ public class Path_2R_Long {
                             preloadScorePose.getHeading(),
                             row1PickupStartPose.getHeading())
                     .build()));
+            // default transit speed 1.0
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_START, steps.get(steps.size()-1).path, 1.0));
 
             steps.add(new PathStep(PoseType.PICKUP_END, follower.pathBuilder()
                     .addPath(new BezierLine(row1PickupStartPose, row1PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.25));
 
             // ── Row score ─────────────────────────────────────────────────────
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(row1PickupEndPose, rowScorePose))
                     .setLinearHeadingInterpolation(row1PickupEndPose.getHeading(), rowScorePose.getHeading())
-                    .build(), rowRpm, rowHood));
+                    .build(), rowRpm, rowHood, 1.0));
 
             // ── Row 2 pickup + score ────────────────────────────────────────
             steps.add(new PathStep(PoseType.PICKUP_START, follower.pathBuilder()
@@ -69,16 +72,18 @@ public class Path_2R_Long {
                             rowScorePose.getHeading(),
                             row2PickupStartPose.getHeading())
                     .build()));
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_START, steps.get(steps.size()-1).path, 1.0));
 
             steps.add(new PathStep(PoseType.PICKUP_END, follower.pathBuilder()
                     .addPath(new BezierLine(row2PickupStartPose, row2PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.25));
 
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(row2PickupEndPose, rowScorePose))
                     .setLinearHeadingInterpolation(row2PickupEndPose.getHeading(), rowScorePose.getHeading())
-                    .build(), rowRpm, rowHood));
+                    .build(), rowRpm, rowHood, 1.0));
 
             // ── Corner cycles ─────────────────────────────────────────────────
             Pose prevScore = rowScorePose;
@@ -88,16 +93,18 @@ public class Path_2R_Long {
                         .addPath(new BezierLine(prevScore, cornerPickupStartPose))
                         .setTangentHeadingInterpolation()
                         .build()));
+                steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_START, steps.get(steps.size()-1).path, 1.0));
 
                 steps.add(new PathStep(PoseType.PICKUP_END, follower.pathBuilder()
                         .addPath(new BezierLine(cornerPickupStartPose, cornerPickupEndPose))
                         .setTangentHeadingInterpolation()
                         .build()));
+                steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 1.0));
 
                 steps.add(PathStep.scoring(follower.pathBuilder()
                         .addPath(new BezierLine(cornerPickupEndPose, cornerScorePose))
                         .setTangentHeadingInterpolation()
-                        .build(), cornerRpm, cornerHood));
+                        .build(), cornerRpm, cornerHood, 1.0));
 
                 prevScore = cornerScorePose;
             }
@@ -106,7 +113,7 @@ public class Path_2R_Long {
             steps.add(new PathStep(PoseType.PARKING, follower.pathBuilder()
                     .addPath(new BezierLine(prevScore, parkPose))
                     .setTangentHeadingInterpolation()
-                    .build()));
+                    .build(), 1.0));
 
             return steps;
         });

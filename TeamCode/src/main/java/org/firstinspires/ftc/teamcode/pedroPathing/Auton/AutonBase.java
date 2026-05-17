@@ -63,6 +63,7 @@ public abstract class AutonBase extends OpMode {
     private int            stepIndex;
     private RunState       runState         = RunState.DONE;
     private long           shootSequenceEndMs;
+    private boolean        speedOverrideActive = false;
 
     // ── Abstract contract ─────────────────────────────────────────────────────
 
@@ -140,6 +141,11 @@ public abstract class AutonBase extends OpMode {
         }
         PathStep next = steps.get(stepIndex);
         if (next.path != null) {
+            // Apply per-step transit speed override if provided (0.0-1.0 mapped to follower max power).
+            if (!Double.isNaN(next.transitSpeed)) {
+                follower.setMaxPower(next.transitSpeed);
+                speedOverrideActive = true;
+            }
             follower.followPath(next.path, true);
             runState = RunState.FOLLOWING_PATH;
         } else {
@@ -162,12 +168,23 @@ public abstract class AutonBase extends OpMode {
 
             case FOLLOWING_PATH:
                 if (!follower.isBusy()) {
+                    // restore follower max power if we previously overrode it for a transit
+                    if (speedOverrideActive) {
+                        follower.setMaxPower(1.0);
+                        speedOverrideActive = false;
+                    }
                     runState = RunState.INIT_STEP;
                 }
                 break;
 
             case SHOOTING:
-                if (System.currentTimeMillis() >= shootSequenceEndMs) {
+                // Advance as soon as the sequencer reports the shooting sequence is
+                // no longer active. Keep the existing time-based fallback to avoid
+                // a stuck state in case the sequencer fails to clear the flag.
+                if (!shootSequencer.isShootingSequenceActive()
+                        || System.currentTimeMillis() >= shootSequenceEndMs) {
+                    // Start intake immediately when shooting finishes.
+                    shootSequencer.startIntake();
                     nextStep();
                 }
                 break;
