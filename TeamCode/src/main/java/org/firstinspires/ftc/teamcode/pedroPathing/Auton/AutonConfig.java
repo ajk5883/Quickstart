@@ -74,9 +74,6 @@ public final class AutonConfig {
     /** Starting pose passed to {@link Follower#setStartingPose(Pose)}. */
     public final Pose         startPose;
 
-    /** Shared pose catalog for the selected routine/alliance, when provided. */
-    public final AutonPoseConfig.PoseSet poseConfig;
-
     /** Builds the step sequence; called once during {@code AutonBase.init()}. */
     public final StepsFactory stepsFactory;
 
@@ -91,7 +88,6 @@ public final class AutonConfig {
 
     public AutonConfig(
             Pose         startPose,
-            AutonPoseConfig.PoseSet poseConfig,
             StepsFactory stepsFactory,
             int          shootDurationMs,
             double       shootTargetVelocity,
@@ -100,7 +96,6 @@ public final class AutonConfig {
             double       shootHoodPosition) {
 
         this.startPose              = startPose;
-        this.poseConfig             = poseConfig;
         this.stepsFactory           = stepsFactory;
         this.shootDurationMs        = shootDurationMs;
         this.shootTargetVelocity    = shootTargetVelocity;
@@ -115,10 +110,24 @@ public final class AutonConfig {
      * Creates an {@code AutonConfig} using far-side (long-side) shoot defaults.
      * Use when tuning is not required and per-step overrides handle the rest.
      */
-    public static AutonConfig withDefaults(Pose startPose, StepsFactory stepsFactory) {
+    // public static AutonConfig withDefaults(Pose startPose, StepsFactory stepsFactory) {
+    //     return new AutonConfig(
+    //             startPose,
+    //             null,
+    //             stepsFactory,
+    //             ParamsConfig.AUTON_SHOOT_DURATION_MS,
+    //             ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_FAR,
+    //             ParamsConfig.AUTON_SHOOT_VELOCITY_THRESHOLD_FAR,
+    //             ParamsConfig.AUTON_SHOOT_SEQUENCE_WAIT_MS,
+    //             ParamsConfig.AUTON_SHOOT_HOOD_POSITION_FAR);
+    // }
+
+    /**
+     * Creates an {@code AutonConfig} using far-side (long-side) shoot defaults.
+     */
+    public static AutonConfig withFarDefaults(Pose startPose, StepsFactory stepsFactory) {
         return new AutonConfig(
                 startPose,
-                null,
                 stepsFactory,
                 ParamsConfig.AUTON_SHOOT_DURATION_MS,
                 ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_FAR,
@@ -128,29 +137,11 @@ public final class AutonConfig {
     }
 
     /**
-     * Creates an {@code AutonConfig} using far-side (long-side) shoot defaults
-     * and a shared pose catalog.
+     * Creates an {@code AutonConfig} using close-side shoot defaults.
      */
-    public static AutonConfig withDefaults(AutonPoseConfig.PoseSet poseConfig, StepsFactory stepsFactory) {
+    public static AutonConfig withCloseDefaults(Pose startPose, StepsFactory stepsFactory) {
         return new AutonConfig(
-                poseConfig.startPose,
-                poseConfig,
-                stepsFactory,
-                ParamsConfig.AUTON_SHOOT_DURATION_MS,
-                ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_FAR,
-                ParamsConfig.AUTON_SHOOT_VELOCITY_THRESHOLD_FAR,
-                ParamsConfig.AUTON_SHOOT_SEQUENCE_WAIT_MS,
-                ParamsConfig.AUTON_SHOOT_HOOD_POSITION_FAR);
-    }
-
-    /**
-     * Creates an {@code AutonConfig} using close-side shoot defaults
-     * and a shared pose catalog.
-     */
-    public static AutonConfig withCloseDefaults(AutonPoseConfig.PoseSet poseConfig, StepsFactory stepsFactory) {
-        return new AutonConfig(
-                poseConfig.startPose,
-                poseConfig,
+                startPose,
                 stepsFactory,
                 ParamsConfig.AUTON_SHOOT_DURATION_MS,
                 ParamsConfig.AUTON_SHOOT_TARGET_VELOCITY_CLOSE,

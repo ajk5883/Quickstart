@@ -176,6 +176,8 @@ public abstract class AutonBase extends OpMode {
         }
     }
 
+
+
     // ── OpMode lifecycle (final to prevent accidental override) ───────────────
 
     @Override
@@ -203,6 +205,11 @@ public abstract class AutonBase extends OpMode {
     public final void start() {
         stepIndex          = 0;
         shootSequenceEndMs = 0;
+        shootSequencer.setShooterRunningAfterShoot(true);
+        double initialShooterTargetVelocity = config.shootTargetVelocity;
+        if (!Double.isNaN(initialShooterTargetVelocity)) {
+            shootSequencer.primeShooter(initialShooterTargetVelocity);
+        }
         runState           = RunState.INIT_STEP;
     }
 
@@ -216,6 +223,15 @@ public abstract class AutonBase extends OpMode {
         telemetry.addData("step",
                 stepIndex + "/" + (steps.isEmpty() ? 0 : steps.size() - 1));
         telemetry.addData("state",     runState);
+        telemetry.addData("hood pos", shootSequencer.getHoodPosition());
+        telemetry.addData("target rpm", shootSequencer.getShooterTargetVelocity());
+        telemetry.addData("current rpm", shootSequencer.getShooterVelocityRpm());
+        telemetry.addData("shooter state", shootSequencer.getShootState());
+        telemetry.addData("sequencer state", shootSequencer.getShootMode());
+        telemetry.addData("spinup reason", shootSequencer.getSpinupEndReason());
+        telemetry.addData("gate state", shootSequencer.isGateOpen() ? "OPEN" : "CLOSED");
+        telemetry.addData("spinner state", shootSequencer.getSpinnerState());
+        telemetry.addData("intake state", shootSequencer.getIntakeState());
         if (!steps.isEmpty() && stepIndex < steps.size()) {
             telemetry.addData("pose type", steps.get(stepIndex).poseType);
         }

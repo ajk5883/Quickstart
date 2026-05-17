@@ -26,7 +26,7 @@ public class Path_2R_Long {
         final Pose parkPose              = alliance == Alliance.RED ? ParamsConfig.POSE_PARK_RED_LONG : ParamsConfig.POSE_PARK_BLUE_LONG;
         final int  cornerCycles          = 2;
 
-        return AutonConfig.withDefaults(startPose, follower -> {
+        return AutonConfig.withFarDefaults(startPose, follower -> {
             List<PathStep> steps = new ArrayList<>();
 
             // ── STARTING ──────────────────────────────────────────────────────

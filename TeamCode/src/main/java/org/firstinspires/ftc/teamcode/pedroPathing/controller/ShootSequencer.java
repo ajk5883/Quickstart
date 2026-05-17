@@ -10,6 +10,12 @@ import org.firstinspires.ftc.teamcode.pedroPathing.CommonDefs.ParamsConfig;
  * minimal so callers can implement timing/state machines in their OpModes.
  */
 public class ShootSequencer {
+    public enum SpinupEndReason {
+        UNKNOWN,
+        VELOCITY_REACHED,
+        TIMEOUT_REACHED
+    }
+
     public enum ShootState {
         IDLE,
         SPINUP,
@@ -104,6 +110,10 @@ public class ShootSequencer {
     // Shooter (direct, bypasses the sequencer state machine – for testing / tuning)
     public void startShooterDirectly(double rpm) { shooter.startShooter(rpm); }
     public void stopShooterDirectly() { shooter.stopShooter(); }
+    public void primeShooter(double rpm) {
+        setShooterTargetVelocity(rpm);
+        shooter.startShooter(rpm);
+    }
     public double getShooterVelocityRpm() { return shooter.getAverageVelocityRpm(); }
     public double getShooterTargetVelocity() { return shooterTargetVelocity; }
     public boolean isShooterVelocityWithinThreshold() { return shooter.isVelocityWithinThreshold(); }
@@ -115,6 +125,7 @@ public class ShootSequencer {
     public IntakeState getIntakeState() { return intakeState; }
     public ShootState getShootState() { return shootState; }
     public ShootMode getShootMode() { return shootMode; }
+    public SpinupEndReason getSpinupEndReason() { return spinupEndReason; }
     public boolean isTimedMode() { return shootMode == ShootMode.TIMED; }
     public boolean isGateOpen() {
         double position = gate.getPosition();
@@ -129,6 +140,7 @@ public class ShootSequencer {
     private boolean intakeActive = false;
     private boolean stopRequested = false;
     private boolean keepShooterRunningAfterShoot = false;
+    private SpinupEndReason spinupEndReason = SpinupEndReason.UNKNOWN;
     private long shootStateStartMs = 0;
     private long shootingDurationMs = 0;
 
@@ -158,7 +170,13 @@ public class ShootSequencer {
                 hood.setPosition(targetHoodPosition);
                 shooter.startShooter(shooterTargetVelocity);
                 
-                if (shooter.isVelocityWithinThreshold() || now - shootStateStartMs >= spinupTimeoutMs) {
+                if (shooter.isVelocityWithinThreshold()) {
+                    spinupEndReason = SpinupEndReason.VELOCITY_REACHED;
+                    gate.openGate();
+                    shootState = ShootState.SHOOTING;
+                    shootStateStartMs = now;
+                } else if (now - shootStateStartMs >= spinupTimeoutMs) {
+                    spinupEndReason = SpinupEndReason.TIMEOUT_REACHED;
                     gate.openGate();
                     shootState = ShootState.SHOOTING;
                     shootStateStartMs = now;
@@ -211,6 +229,7 @@ public class ShootSequencer {
         this.shooter.setVelocityThreshold(velocityThreshold);
         this.shootingSequenceActive = true;
         this.shootState = ShootState.SPINUP;
+        this.spinupEndReason = SpinupEndReason.UNKNOWN;
         this.stopRequested = false;
         this.shootStateStartMs = System.currentTimeMillis();
         
@@ -231,6 +250,7 @@ public class ShootSequencer {
         this.shooter.setVelocityThreshold(velocityThreshold);
         this.shootingSequenceActive = true;
         this.shootState = ShootState.SPINUP;
+        this.spinupEndReason = SpinupEndReason.UNKNOWN;
         this.stopRequested = false;
         this.shootStateStartMs = System.currentTimeMillis();
         
