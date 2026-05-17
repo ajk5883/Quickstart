@@ -22,9 +22,10 @@ public class Path_2R_Long {
         final Pose rowScorePose          = alliance == Alliance.RED ? ParamsConfig.POSE_SCORE_RED_LONG : ParamsConfig.POSE_SCORE_BLUE_LONG;
         final Pose cornerPickupStartPose = alliance == Alliance.RED ? ParamsConfig.POSE_CORNER_PICKUP_START_RED_LONG : ParamsConfig.POSE_CORNER_PICKUP_START_BLUE_LONG;
         final Pose cornerPickupEndPose   = alliance == Alliance.RED ? ParamsConfig.POSE_CORNER_PICKUP_RED_LONG : ParamsConfig.POSE_CORNER_PICKUP_BLUE_LONG;
+        final Pose cornerReturnPose      =  alliance == Alliance.RED ? ParamsConfig.POSE_CORNER_PICKUP_RED_RETURN : ParamsConfig.POSE_CORNER_PICKUP_BLUE_RETURN;
         final Pose cornerScorePose       = alliance == Alliance.RED ? ParamsConfig.POSE_SCORE_RED_LONG : ParamsConfig.POSE_SCORE_BLUE_LONG;
         final Pose parkPose              = alliance == Alliance.RED ? ParamsConfig.POSE_PARK_RED_LONG : ParamsConfig.POSE_PARK_BLUE_LONG;
-        final int  cornerCycles          = 2;
+        final int  cornerCycles          = 1;
 
         return AutonConfig.withFarDefaults(startPose, follower -> {
             List<PathStep> steps = new ArrayList<>();
@@ -46,9 +47,7 @@ public class Path_2R_Long {
             // ── Row pickup sweep ──────────────────────────────────────────────
             steps.add(new PathStep(PoseType.PICKUP_START, follower.pathBuilder()
                     .addPath(new BezierLine(preloadScorePose, row1PickupStartPose))
-                    .setLinearHeadingInterpolation(
-                            preloadScorePose.getHeading(),
-                            row1PickupStartPose.getHeading())
+                    .setLinearHeadingInterpolation(preloadScorePose.getHeading(), row1PickupStartPose.getHeading(), 0.5)
                     .build()));
             // default transit speed 1.0
             steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_START, steps.get(steps.size()-1).path, 1.0));
@@ -57,7 +56,7 @@ public class Path_2R_Long {
                     .addPath(new BezierLine(row1PickupStartPose, row1PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
-            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.25));
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.5));
 
             // ── Row score ─────────────────────────────────────────────────────
             steps.add(PathStep.scoring(follower.pathBuilder()
@@ -78,7 +77,7 @@ public class Path_2R_Long {
                     .addPath(new BezierLine(row2PickupStartPose, row2PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
-            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.25));
+            steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 0.5));
 
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(row2PickupEndPose, rowScorePose))
@@ -101,9 +100,10 @@ public class Path_2R_Long {
                         .build()));
                 steps.set(steps.size()-1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size()-1).path, 1.0));
 
+                
                 steps.add(PathStep.scoring(follower.pathBuilder()
                         .addPath(new BezierLine(cornerPickupEndPose, cornerScorePose))
-                        .setTangentHeadingInterpolation()
+                        .setLinearHeadingInterpolation(cornerPickupEndPose.getHeading(), cornerScorePose.getHeading())
                         .build(), cornerRpm, cornerHood, 1.0));
 
                 prevScore = cornerScorePose;

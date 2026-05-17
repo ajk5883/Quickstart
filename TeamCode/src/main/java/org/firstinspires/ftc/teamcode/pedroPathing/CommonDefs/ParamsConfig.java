@@ -32,8 +32,8 @@ public final class ParamsConfig {
 
     public static final double Adjustment_Long_Y=8.0; // Used to adjust the Y values of the long paths to better align with the field elements
     public static double BLUE_ROW1_Y = 35.0 - Adjustment_Long_Y;
-    public static double BLUE_ROW_X_Start = 44.0;
-    public static double BLUE_ROW_X_End = 22.0;
+    public static double BLUE_ROW_X_Start = 35;
+    public static double BLUE_ROW_X_End = 20.0;
 
     // Ball-row poses first (blue source-of-truth).
     public static final Pose POSE_BALLS_ROW1_START_BLUE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y, Math.toRadians(180));
@@ -57,11 +57,13 @@ public final class ParamsConfig {
 
     // Blue long-side source-of-truth poses.
     public static final Pose POSE_START_BLUE_LONG = new Pose(48+ROBOT_WHEELBASE_HALFWIDTH, 11, Math.toRadians(270));
-    public static final Pose POSE_SCORE_BLUE_LONG = new Pose(58, 12, Math.toRadians(298));
-    public static final Pose POSE_PARK_BLUE_LONG = new Pose(54, 54, Math.toRadians(180));
+    public static final Pose POSE_SCORE_BLUE_LONG = new Pose(58, 20, Math.toRadians(298));
+    public static final Pose POSE_PARK_BLUE_LONG = new Pose(72, 72, Math.toRadians(270));
 
-    public static final Pose POSE_CORNER_PICKUP_START_BLUE_LONG = new Pose(10+ ROBOT_WHEELBASE_HALFWIDTH,0 + ROBOT_WHEELBASE_HALFHEIGHT, Math.toRadians(180));
-    public static final Pose POSE_CORNER_PICKUP_BLUE_LONG = new Pose(5+ ROBOT_WHEELBASE_HALFWIDTH,0 + ROBOT_WHEELBASE_HALFHEIGHT,Math.toRadians(180));
+    public static final Pose POSE_CORNER_PICKUP_START_BLUE_LONG = new Pose(24,10, Math.toRadians(180));
+    public static final Pose POSE_CORNER_PICKUP_BLUE_LONG = new Pose(12,10,Math.toRadians(180));
+
+    public static final Pose POSE_CORNER_PICKUP_BLUE_RETURN = new Pose(POSE_SCORE_BLUE_LONG.getX(),POSE_SCORE_BLUE_LONG.getY(),Math.toRadians(180));
 
     public static final Pose POSE_GATE_OPEN_PICKUP_BLUE_LONG = new Pose(42.574, 109.417, Math.toRadians(180));
     public static final Pose POSE_GATE_FEED_BLUE_LONG = new Pose(60.147, 129.491, Math.toRadians(62));
@@ -74,6 +76,7 @@ public final class ParamsConfig {
     public static final Pose POSE_CORNER_PICKUP_START_RED_LONG = mirrorAcrossVerticalMidline(POSE_CORNER_PICKUP_START_BLUE_LONG);
     public static final Pose POSE_CORNER_PICKUP_RED_LONG = mirrorAcrossVerticalMidline(POSE_CORNER_PICKUP_BLUE_LONG);
 
+    public static final Pose POSE_CORNER_PICKUP_RED_RETURN =mirrorAcrossVerticalMidline(POSE_CORNER_PICKUP_BLUE_RETURN);
     public static final Pose POSE_GATE_OPEN_PICKUP_RED_LONG = mirrorAcrossVerticalMidline(POSE_GATE_OPEN_PICKUP_BLUE_LONG);
     public static final Pose POSE_GATE_FEED_RED_LONG = mirrorAcrossVerticalMidline(POSE_GATE_FEED_BLUE_LONG);
 
@@ -125,9 +128,9 @@ public final class ParamsConfig {
     public static final long   AUTON_SHOOT_SEQUENCE_WAIT_MS         = 4500L;
 
     /** Hood servo position (0.0–1.0) for far scoring positions (long-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.5;
+    public static final double AUTON_SHOOT_HOOD_POSITION_FAR        = 0.7;
     /** Hood servo position (0.0–1.0) for close scoring positions (close-side). */
-    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.8;
+    public static final double AUTON_SHOOT_HOOD_POSITION_CLOSE      = 0.3;
 
     /** Auton-only aggressive shooter PIDF values used to spin up faster at the start of a run. */
     public static final double AUTON_SHOOT_PIDF_P_AGGRESSIVE        = 16.0;
@@ -151,7 +154,7 @@ public final class ParamsConfig {
      * Maximum time (ms) allowed for the shooter to spin up before the gate opens
      * regardless of whether the target velocity has been reached.
      */
-    public static final int    SHOOTER_SPINUP_TIMEOUT_MS          = 2000;
+    public static final int    SHOOTER_SPINUP_TIMEOUT_MS          = 3000;
 
     /**
      * Default shooter target RPM used by ShootSequencer when no explicit velocity is
