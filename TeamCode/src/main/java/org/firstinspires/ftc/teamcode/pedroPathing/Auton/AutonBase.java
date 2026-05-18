@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.controller.ShootSequencer;
 
 import java.util.Collections;
 import java.util.List;
+import com.bylazar.telemetry.TelemetryManager;
+import com.bylazar.telemetry.PanelsTelemetry;
 
 /**
  * AutonBase – abstract autonomous OpMode that executes an ordered sequence of
@@ -55,6 +57,7 @@ public abstract class AutonBase extends OpMode {
 
     private Follower       follower;
     private ShootSequencer shootSequencer;
+    private TelemetryManager telemetryM;
 
     // ── Runtime state ─────────────────────────────────────────────────────────
 
@@ -201,7 +204,8 @@ public abstract class AutonBase extends OpMode {
     @Override
     public final void init() {
         config = getConfig();
-
+        telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+        
         shootSequencer = new ShootSequencer();
         shootSequencer.init(hardwareMap);
         shootSequencer.setShooterVelocityPIDF(
@@ -241,8 +245,21 @@ public abstract class AutonBase extends OpMode {
         follower.update();
         updateStateMachine();
         shootSequencer.loop(false);
+        publishTelemetry();
+    }
 
-        // ── Telemetry ──────────────────────────────────────────────────────────
+    @Override
+    public final void stop() {
+        shootSequencer.setShooterRunningAfterShoot(false);
+        shootSequencer.stopIntake();
+        shootSequencer.stopShootingSequence();
+    }
+
+    /**
+     * Centralized telemetry publishing. Keeps the loop() method small and
+     * optionally forwards the telemetry to `Tuning.telemetryM` if available.
+     */
+    private void publishTelemetry() {
         telemetry.addData("step",
                 stepIndex + "/" + (steps.isEmpty() ? 0 : steps.size() - 1));
         telemetry.addData("state",     runState);
@@ -266,12 +283,31 @@ public abstract class AutonBase extends OpMode {
         telemetry.addData("y",       follower.getPose().getY());
         telemetry.addData("heading", Math.toDegrees(follower.getPose().getHeading()));
         telemetry.update();
-    }
 
-    @Override
-    public final void stop() {
-        shootSequencer.setShooterRunningAfterShoot(false);
-        shootSequencer.stopIntake();
-        shootSequencer.stopShootingSequence();
+
+        telemetryM.debug("step",
+                stepIndex + "/" + (steps.isEmpty() ? 0 : steps.size() - 1));
+        telemetryM.debug("state",     runState);
+        telemetryM.debug("hood pos", shootSequencer.getHoodPosition());
+        telemetryM.debug("target rpm", shootSequencer.getShooterTargetVelocity());
+        telemetryM.debug("current rpm", shootSequencer.getShooterVelocityRpm());
+        telemetryM.debug("shooter state", shootSequencer.getShootState());
+        telemetryM.debug("sequencer state", shootSequencer.getShootMode());
+        telemetryM.debug("spinup reason", shootSequencer.getSpinupEndReason());
+        telemetryM.debug("gate state", shootSequencer.isGateOpen() ? "OPEN" : "CLOSED");
+        telemetryM.debug("spinner state", shootSequencer.getSpinnerState());
+        telemetryM.debug("intake state", shootSequencer.getIntakeState());
+        if (!steps.isEmpty() && stepIndex < steps.size()) {
+            telemetryM.debug("pose type", steps.get(stepIndex).poseType);
+        }
+        if (runState == RunState.SHOOTING) {
+            long remaining = Math.max(0, shootSequenceEndMs - System.currentTimeMillis());
+            telemetryM.debug("shoot remain ms", remaining);
+        }
+        telemetryM.debug("x",       follower.getPose().getX());
+        telemetryM.debug("y",       follower.getPose().getY());
+        telemetryM.debug("heading", Math.toDegrees(follower.getPose().getHeading()));
+        telemetryM.update();
+
     }
 }

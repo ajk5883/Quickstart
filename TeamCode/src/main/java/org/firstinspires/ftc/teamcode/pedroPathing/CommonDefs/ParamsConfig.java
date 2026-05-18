@@ -31,16 +31,21 @@ public final class ParamsConfig {
     public static final double ROBOT_WHEELBASE_HALFHEIGHT = ROBOT_WHEELBASEHEIGHT_IN / 2; // Used for path offsetting to prevent collisions with field elements
 
     public static final double Adjustment_Long_Y=8.0; // Used to adjust the Y values of the long paths to better align with the field elements
+    public static final double Adjustment_Close_Y=12.0; // Used to adjust the Y values of the close paths to better align with the field elements
+
     public static double BLUE_ROW1_Y = 35.0 - Adjustment_Long_Y;
-    public static double BLUE_ROW_X_Start = 35;
+    public static double BLUE_ROW_X_Start = 40;
     public static double BLUE_ROW_X_End = 20.0;
+
 
     // Ball-row poses first (blue source-of-truth).
     public static final Pose POSE_BALLS_ROW1_START_BLUE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y, Math.toRadians(180));
     public static final Pose POSE_BALLS_ROW1_END_BLUE = new Pose(BLUE_ROW_X_End, BLUE_ROW1_Y, Math.toRadians(180));
 
-    public static final Pose POSE_BALLS_ROW2_START_BLUE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y+24, Math.toRadians(180));
-    public static final Pose POSE_BALLS_ROW2_END_BLUE = new Pose(BLUE_ROW_X_End, BLUE_ROW1_Y+24, Math.toRadians(180));
+    public static final Pose POSE_BALLS_ROW2_START_BLUE_CLOSE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y+24-Adjustment_Close_Y, Math.toRadians(180));
+    public static final Pose POSE_BALLS_ROW2_END_BLUE_CLOSE = new Pose(BLUE_ROW_X_End, BLUE_ROW1_Y+24-Adjustment_Close_Y, Math.toRadians(180));
+    public static final Pose POSE_BALLS_ROW2_START_BLUE_LONG = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y+24, Math.toRadians(180));
+    public static final Pose POSE_BALLS_ROW2_END_BLUE_LONG = new Pose(BLUE_ROW_X_End, BLUE_ROW1_Y+24, Math.toRadians(180));
 
     public static final Pose POSE_BALLS_ROW3_START_BLUE = new Pose(BLUE_ROW_X_Start, BLUE_ROW1_Y+48, Math.toRadians(180));
     public static final Pose POSE_BALLS_ROW3_END_BLUE = new Pose(BLUE_ROW_X_End, BLUE_ROW1_Y+48, Math.toRadians(180));
@@ -49,11 +54,13 @@ public final class ParamsConfig {
     public static final Pose POSE_BALLS_ROW1_START_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y, Math.toRadians(0));
     public static final Pose POSE_BALLS_ROW1_END_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y, Math.toRadians(0));
 
-    public static final Pose POSE_BALLS_ROW2_START_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y+24, Math.toRadians(0));
-    public static final Pose POSE_BALLS_ROW2_END_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+24, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW2_START_RED_CLOSE = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y+24-Adjustment_Close_Y, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW2_END_RED_CLOSE = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+24-Adjustment_Close_Y, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW2_START_RED_LONG = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y+24, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW2_END_RED_LONG = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+24, Math.toRadians(0));
 
-    public static final Pose POSE_BALLS_ROW3_START_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y+48, Math.toRadians(0));
-    public static final Pose POSE_BALLS_ROW3_END_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+48, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW3_START_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_Start, BLUE_ROW1_Y+48-Adjustment_Close_Y, Math.toRadians(0));
+    public static final Pose POSE_BALLS_ROW3_END_RED = new Pose(FIELD_SIZE_IN - BLUE_ROW_X_End, BLUE_ROW1_Y+48-Adjustment_Close_Y, Math.toRadians(0));
 
     // Blue long-side source-of-truth poses.
     public static final Pose POSE_START_BLUE_LONG = new Pose(48+ROBOT_WHEELBASE_HALFWIDTH, 11, Math.toRadians(270));
@@ -81,14 +88,12 @@ public final class ParamsConfig {
     public static final Pose POSE_GATE_FEED_RED_LONG = mirrorAcrossVerticalMidline(POSE_GATE_FEED_BLUE_LONG);
 
     // Blue close-side poses are explicit (not derived from long).
-    public static final Pose POSE_START_BLUE_CLOSE = new Pose(58.256, 7.484, Math.toRadians(270));
-    public static final Pose POSE_SCORE_BLUE_CLOSE = new Pose(60.301, 14.609, Math.toRadians(298));
-    public static final Pose POSE_PARK_BLUE_CLOSE = new Pose(33.620, 14.098);
+    public static final Pose POSE_START_BLUE_CLOSE = new Pose(20, 119, Math.toRadians(315));
+    public static final Pose POSE_SCORE_BLUE_CLOSE = new Pose(54, 76, Math.toRadians(315));
+    public static final Pose POSE_PARK_BLUE_CLOSE = new Pose(48, 72, Math.toRadians(315));
 
-    public static final Pose POSE_CORNER_PICKUP_START_BLUE_CLOSE = new Pose(17.109, 8.423);
-    public static final Pose POSE_CORNER_PICKUP_BLUE_CLOSE = new Pose(6.399, 8.258);
 
-    public static final Pose POSE_GATE_OPEN_PICKUP_BLUE_CLOSE = new Pose(42.574, 34.583, Math.toRadians(180));
+    public static final Pose POSE_GATE_OPEN_PICKUP_BLUE_CLOSE = new Pose(14, 72, Math.toRadians(180));
     public static final Pose POSE_GATE_FEED_BLUE_CLOSE = new Pose(60.147, 14.509, Math.toRadians(-62));
 
     // Red close-side poses mirrored from blue.
@@ -96,8 +101,6 @@ public final class ParamsConfig {
     public static final Pose POSE_SCORE_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_SCORE_BLUE_CLOSE);
     public static final Pose POSE_PARK_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_PARK_BLUE_CLOSE);
 
-    public static final Pose POSE_CORNER_PICKUP_START_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_CORNER_PICKUP_START_BLUE_CLOSE);
-    public static final Pose POSE_CORNER_PICKUP_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_CORNER_PICKUP_BLUE_CLOSE);
 
     public static final Pose POSE_GATE_OPEN_PICKUP_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_GATE_OPEN_PICKUP_BLUE_CLOSE);
     public static final Pose POSE_GATE_FEED_RED_CLOSE = mirrorAcrossVerticalMidline(POSE_GATE_FEED_BLUE_CLOSE);

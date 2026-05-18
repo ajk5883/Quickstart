@@ -17,8 +17,8 @@ public class Path_2R_Long {
         final Pose preloadScorePose      = alliance == Alliance.RED ? ParamsConfig.POSE_SCORE_RED_LONG : ParamsConfig.POSE_SCORE_BLUE_LONG;
         final Pose row1PickupStartPose   = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW1_START_RED : ParamsConfig.POSE_BALLS_ROW1_START_BLUE;
         final Pose row1PickupEndPose     = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW1_END_RED : ParamsConfig.POSE_BALLS_ROW1_END_BLUE;
-        final Pose row2PickupStartPose   = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW2_START_RED : ParamsConfig.POSE_BALLS_ROW2_START_BLUE;
-        final Pose row2PickupEndPose     = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW2_END_RED : ParamsConfig.POSE_BALLS_ROW2_END_BLUE;
+        final Pose row2PickupStartPose   = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW2_START_RED_LONG : ParamsConfig.POSE_BALLS_ROW2_START_BLUE_LONG;
+        final Pose row2PickupEndPose     = alliance == Alliance.RED ? ParamsConfig.POSE_BALLS_ROW2_END_RED_LONG : ParamsConfig.POSE_BALLS_ROW2_END_BLUE_LONG;
         final Pose rowScorePose          = alliance == Alliance.RED ? ParamsConfig.POSE_SCORE_RED_LONG : ParamsConfig.POSE_SCORE_BLUE_LONG;
         final Pose cornerPickupStartPose = alliance == Alliance.RED ? ParamsConfig.POSE_CORNER_PICKUP_START_RED_LONG : ParamsConfig.POSE_CORNER_PICKUP_START_BLUE_LONG;
         final Pose cornerPickupEndPose   = alliance == Alliance.RED ? ParamsConfig.POSE_CORNER_PICKUP_RED_LONG : ParamsConfig.POSE_CORNER_PICKUP_BLUE_LONG;
