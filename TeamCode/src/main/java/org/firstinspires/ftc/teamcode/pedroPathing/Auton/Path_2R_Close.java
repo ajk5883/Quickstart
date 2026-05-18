@@ -47,7 +47,7 @@ public class Path_2R_Close {
                     .addPath(new BezierLine(row3PickupStartPose, row3PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
-            steps.set(steps.size() - 1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size() - 1).path, 0.5));
+            steps.set(steps.size() - 1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size() - 1).path, 0.35));
 
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(row3PickupEndPose, scorePose))
@@ -64,7 +64,7 @@ public class Path_2R_Close {
                     .addPath(new BezierLine(row2PickupStartPose, row2PickupEndPose))
                     .setTangentHeadingInterpolation()
                     .build()));
-            steps.set(steps.size() - 1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size() - 1).path, 0.5));
+            steps.set(steps.size() - 1, new PathStep(PoseType.PICKUP_END, steps.get(steps.size() - 1).path, 0.35));
 
             steps.add(PathStep.scoring(follower.pathBuilder()
                     .addPath(new BezierLine(row2PickupEndPose, scorePose))
